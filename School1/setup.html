@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Setup — Peace Mentorary International Academy</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">
+      <span class="crest">P</span>
+      <span class="brand-name">Peace Mentorary<span>One-Time Admin Setup</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">&larr; Back to Website</a>
+    </nav>
+  </div>
+</header>
+
+<div class="admin-shell" style="max-width:480px;">
+  <div class="card" style="border-top:4px solid var(--danger);margin-bottom:20px;">
+    <span class="eyebrow" style="color:var(--danger);">Run once, then remove this page</span>
+    <p style="margin:8px 0 0;color:var(--ink-soft);font-size:.9rem;">
+      This page creates a real login for <code>admin.html</code>. Anyone who
+      finds this URL can create an account with it, so use it now to create
+      the school's admin login, then delete <code>setup.html</code> and
+      <code>js/setup.js</code> from your hosting (or at least make sure the
+      page isn't linked from anywhere).
+    </p>
+  </div>
+
+  <div class="card">
+    <span class="eyebrow">Step 1 of 1</span>
+    <h2 style="margin-bottom:18px;">Create the Admin Account</h2>
+
+    <form id="setup-form" class="stack">
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8" autocomplete="new-password">
+      </div>
+      <div id="setup-msg" class="form-msg"></div>
+      <button type="submit" id="setup-submit" class="btn btn-primary">Create Admin Account</button>
+    </form>
+
+    <div id="setup-success" style="display:none;">
+      <div class="form-msg ok" style="display:block;margin-bottom:16px;">
+        Admin account created for <strong data-name></strong> (<span data-email></span>).
+      </div>
+      <p style="color:var(--ink-soft);font-size:.9rem;">
+        You can now sign in at <a href="admin.html">admin.html</a> with this
+        email and password. Please delete <code>setup.html</code> and
+        <code>js/setup.js</code> from your hosting now.
+      </p>
+      <a href="admin.html" class="btn btn-dark" style="margin-top:12px;">Go to Admin Login</a>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/setup.js"></script>
+</body>
+</html>

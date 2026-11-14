@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admissions — Peace Mentorary International Academy</title>
+<meta name="description" content="Admission requirements, age brackets, fees, and our online admission inquiry form.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="index.html" class="brand">
+      <span class="crest">P</span>
+      <span class="brand-name">Peace Mentorary<span>International Academy</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="academics.html">Academics</a>
+      <a href="admissions.html">Admissions</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="news.html">News &amp; Events</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="admissions.html" class="btn btn-primary">Apply for Admission</a>
+      <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+    </div>
+  </div>
+</header>
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Admissions &middot; 2026/27 Session</span>
+    <h1>Start Your Child's Admission Inquiry</h1>
+    <p>Fill the form below &mdash; it takes about two minutes. Our admissions officer will call or WhatsApp you within 24 hours.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container grid-2" style="align-items:start;">
+    <div>
+      <span class="eyebrow">Requirements</span>
+      <h2>What you'll need</h2>
+      <ul style="color:var(--ink-soft);padding-left:20px;line-height:2;">
+        <li>Completed inquiry / application form (this page)</li>
+        <li>Child's birth certificate or age declaration</li>
+        <li>2 recent passport photographs</li>
+        <li>Immunization record</li>
+        <li>Previous school report (for transfer pupils)</li>
+      </ul>
+
+      <span class="eyebrow">Age Brackets</span>
+      <h2>Which class fits your child</h2>
+      <table class="data-table" style="margin-bottom:24px;">
+        <tr><th>Class</th><th>Age</th></tr>
+        <tr><td>Creche</td><td>6 months &ndash; 2 years</td></tr>
+        <tr><td>Pre-Nursery / Nursery 1&ndash;2</td><td>2 &ndash; 5 years</td></tr>
+        <tr><td>Primary 1&ndash;3</td><td>6 &ndash; 8 years</td></tr>
+        <tr><td>Primary 4&ndash;6</td><td>9 &ndash; 11 years</td></tr>
+      </table>
+
+      <span class="eyebrow">Fees</span>
+      <h2>Fee Structure</h2>
+      <p style="color:var(--ink-soft);">Download the full fees breakdown per class and term.</p>
+      <a href="assets/fees-structure.pdf" class="btn btn-outline" style="border-color:var(--primary);color:var(--primary);" download>Download Fees Structure (PDF)</a>
+      <p style="font-size:.8rem;color:var(--ink-soft);margin-top:10px;">Note to school: upload the actual PDF to <code>assets/fees-structure.pdf</code>.</p>
+    </div>
+
+    <div class="card">
+      <span class="eyebrow">Online Inquiry Form</span>
+      <h2 style="margin-bottom:18px;">Tell us about your child</h2>
+      <form id="admission-form" class="stack">
+        <div class="field-row">
+          <div class="field">
+            <label for="parentName">Parent / Guardian Name</label>
+            <input type="text" id="parentName" name="parentName" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="childName">Child's Name</label>
+            <input type="text" id="childName" name="childName" required>
+          </div>
+          <div class="field">
+            <label for="childAge">Child's Age</label>
+            <input type="text" id="childAge" name="childAge" placeholder="e.g. 4 years" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="classApplying">Class Applying For</label>
+          <select id="classApplying" name="classApplying" required>
+            <option value="">Select a class</option>
+            <option>Creche</option>
+            <option>Pre-Nursery</option>
+            <option>Nursery 1</option>
+            <option>Nursery 2</option>
+            <option>Primary 1</option>
+            <option>Primary 2</option>
+            <option>Primary 3</option>
+            <option>Primary 4</option>
+            <option>Primary 5</option>
+            <option>Primary 6</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email">
+        </div>
+        <div class="field">
+          <label for="message">Message (optional)</label>
+          <textarea id="message" name="message" rows="3" placeholder="Any questions or details you'd like to share"></textarea>
+        </div>
+        <div id="admission-form-msg" class="form-msg"></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <button type="submit" id="admission-submit" class="btn btn-primary">Submit Inquiry</button>
+          <a id="admission-whatsapp-followup" href="#" target="_blank" rel="noopener" class="btn btn-outline" style="display:none;border-color:var(--primary);color:var(--primary);">Also Send via WhatsApp &#128172;</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px;">
+          <span class="crest">P</span>
+          <span class="brand-name" style="color:#fff;">Peace Mentorary<span style="color:#8A968F;">International Academy</span></span>
+        </div>
+        <p style="max-width:34ch;color:#9AA69E;font-size:.9rem;">Creche through Primary 6. A disciplined, caring foundation for life.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Info</h4>
+        <ul>
+          <li><a href="news.html">News &amp; Events</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="admin.html">Admin Login</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach Us</h4>
+        <ul>
+          <li><a href="tel:+2348000000000">+234 800 000 0000</a></li>
+          <li><a href="mailto:admissions@peacementoraryacademy.com.ng">admissions@peacementoraryacademy.com.ng</a></li>
+          <li>123 School Road, Uyo, Akwa Ibom</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Peace Mentorary International Academy</span>
+      <span>Built with care for our pupils and their families</span>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/2348000000000" target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">&#128172;</a>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/admissions.js"></script>
+</body>
+</html>

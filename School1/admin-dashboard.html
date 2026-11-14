@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MathCloud Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1565C0;--secondary:#0A2540;--bg:#f5f8fd;--white:#fff}
+*{box-sizing:border-box;font-family:Poppins,sans-serif}
+body{margin:0;background:var(--bg)}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--secondary);color:#fff;padding:20px;overflow:auto}
+.sidebar h2{margin-top:0}
+.sidebar a{display:block;color:#fff;text-decoration:none;padding:12px;border-radius:10px;margin:4px 0;background:rgba(255,255,255,.05)}
+.main{margin-left:260px;padding:20px}
+.header{background:linear-gradient(135deg,#1565C0,#0A2540);color:#fff;padding:20px;border-radius:18px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin:20px 0}
+.card{background:#fff;padding:20px;border-radius:18px}
+.tablewrap{background:#fff;padding:15px;border-radius:18px;overflow:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
+button{padding:8px 12px;border:none;border-radius:8px;cursor:pointer}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5)}
+.modal-content{background:#fff;max-width:700px;margin:30px auto;padding:20px;border-radius:18px;max-height:90vh;overflow:auto}
+label{display:block;margin-top:10px}
+input,select{width:100%;padding:10px}
+@media(max-width:768px){.sidebar{position:relative;width:100%;height:auto}.main{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h2>MathCloud LMS</h2>
+<a href="#">Dashboard</a>
+<a href="#">Students</a>
+<a href="#">Parents</a>
+<a href="#">Tutors</a>
+<a href="#">Classes</a>
+<a href="#">Lessons</a>
+<a href="#">Assignments</a>
+<a href="#">Attendance</a>
+<a href="#">Results</a>
+<a href="#">Payments</a>
+<a href="#">Reports</a>
+</div>
+
+<div class="main">
+<div class="header"><h1>Admin Dashboard</h1><div id="today"></div></div>
+
+<div class="cards">
+<div class="card"><h3>Total Students</h3><h1 id="totalStudents">0</h1></div>
+<div class="card"><h3>Pending</h3><h1 id="pendingStudents">0</h1></div>
+<div class="card"><h3>Approved</h3><h1 id="approvedStudents">0</h1></div>
+<div class="card"><h3>Classes</h3><h1 id="totalClasses">0</h1></div>
+</div>
+
+<div class="tablewrap">
+<input id="search" placeholder="Search student" style="margin-bottom:10px;padding:10px;width:100%">
+<table>
+<thead><tr><th>Name</th><th>WhatsApp</th><th>Class</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="studentsTable"></tbody>
+</table>
+</div>
+</div>
+
+<div class="modal" id="portalModal">
+<div class="modal-content">
+<h2>Create Student Portal</h2>
+<label>Student Name</label><input id="studentName">
+<label>Username</label><input id="studentUsername">
+<label>Password</label><input id="studentPassword">
+<label>Assigned Class</label><input id="studentClass">
+<label>Assigned Tutor</label><input id="studentTutor">
+<label>Google Meet Link</label><input id="googleMeet">
+<button onclick="document.getElementById('portalModal').style.display='none'">Close</button>
+</div>
+</div>
+
+<script>
+document.getElementById('today').textContent=new Date().toLocaleString();
+</script>
+</body>
+</html>
