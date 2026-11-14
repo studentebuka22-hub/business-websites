@@ -1,0 +1,1 @@
+Place licensed logos, property photos, favicon and local media here for production.

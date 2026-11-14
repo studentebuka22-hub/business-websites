@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Aster & Stone | Admin Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+</head>
+<body class="admin-body">
+<header class="admin-header"><div class="container admin-nav"><a class="brand" href="index.html"><span class="brand-mark">A<span>&</span>S</span><span><strong>ASTER & STONE</strong><small>ADMIN CONSOLE</small></span></a><div><a class="btn btn-outline" href="index.html">View website ↗</a></div></div></header>
+<main class="admin-main">
+<div class="container">
+<div class="admin-title"><div><div class="eyebrow">OPERATIONS CENTER</div><h1>Property management.</h1><p>Manage listings, enquiries, applications and tour requests from one place.</p></div><div class="admin-actions"><button class="btn btn-dark" id="exportBtn">Export data</button><label class="btn btn-outline import-label">Import data<input type="file" id="importFile" accept=".json" hidden></label></div></div>
+<div class="admin-stats"><div><span>Total listings</span><strong id="statListings">0</strong></div><div><span>Open enquiries</span><strong id="statEnquiries">0</strong></div><div><span>Applications</span><strong id="statApplications">0</strong></div><div><span>Tour requests</span><strong id="statTours">0</strong></div></div>
+<div class="admin-tabs"><button class="active" data-panel="listings">Listings</button><button data-panel="leads">Leads & enquiries</button><button data-panel="settings">Site settings</button></div>
+
+<section class="admin-panel active" id="listingsPanel">
+<div class="panel-head"><div><h2>Property inventory</h2><p>Add, edit, publish or remove property cards.</p></div><button class="btn btn-dark" id="addPropertyBtn">+ Add property</button></div>
+<div class="admin-table-wrap"><table><thead><tr><th>Property</th><th>Location</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody id="listingTable"></tbody></table></div>
+</section>
+
+<section class="admin-panel" id="leadsPanel">
+<div class="panel-head"><div><h2>Client activity</h2><p>All applications, enquiries and virtual-tour requests are stored in this browser demo.</p></div><button class="btn btn-outline" id="clearLeadsBtn">Clear all leads</button></div>
+<div class="admin-table-wrap"><table><thead><tr><th>Date</th><th>Client</th><th>Type</th><th>Contact</th><th>Message</th><th>Status</th></tr></thead><tbody id="leadTable"></tbody></table></div>
+</section>
+
+<section class="admin-panel" id="settingsPanel">
+<div class="settings-card"><div class="eyebrow">SITE SETTINGS</div><h2>Business profile</h2><form id="settingsForm" class="settings-form"><label>Company name<input name="company"></label><label>Public email<input name="email"></label><label>Phone<input name="phone"></label><label>Primary market<input name="market"></label><label>Hero headline<input name="headline"></label><button class="btn btn-dark">Save settings</button></form></div>
+<div class="danger-zone"><h3>Demo data controls</h3><p>Reset the local property and lead database to the included starter data.</p><button class="btn btn-outline" id="resetBtn">Reset demo data</button></div>
+</section>
+</div>
+</main>
+
+<div class="modal" id="adminPropertyModal" aria-hidden="true"><div class="modal-card admin-form-modal"><button class="close">×</button><div class="eyebrow">PROPERTY EDITOR</div><h2 id="propertyEditorTitle">Add property</h2><form id="propertyForm" class="lead-form"><input type="hidden" name="id"><input name="title" placeholder="Property title" required><div class="form-row"><input name="city" placeholder="City" required><input name="state" placeholder="State" value="California" required></div><div class="form-row"><input name="price" placeholder="Price e.g. $2,450,000" required><select name="type"><option>Single Family</option><option>Condo</option><option>Townhome</option><option>Estate</option><option>Multi-Family</option></select></div><div class="form-row"><input name="beds" type="number" placeholder="Beds" required><input name="baths" type="number" step=".5" placeholder="Baths" required><input name="sqft" type="number" placeholder="Sq ft" required></div><input name="image" placeholder="Image URL" required><input name="tag" placeholder="Tag e.g. NEW LISTING"><textarea name="description" placeholder="Property description"></textarea><label class="check"><input name="published" type="checkbox" checked> Published</label><button class="btn btn-dark">Save property</button></form></div></div>
+<div class="toast" id="toast"></div>
+<script src="assets/admin.js"></script>
+</body>
+</html>
