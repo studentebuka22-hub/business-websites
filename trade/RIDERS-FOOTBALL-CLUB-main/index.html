@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Riders FC - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+      background-color: #000;
+    }
+
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+  z-index: -1;
+}
+
+/* Adjust on smaller screens to prevent zoom/cropping of video action */
+@media (max-width: 768px) {
+  video {
+    object-fit: contain;
+    background: black;
+  }
+}
+
+
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      padding: 10px 20px;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    nav ul.menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .menu li {
+      position: relative;
+    }
+
+    .menu li a {
+      padding: 10px 15px;
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .menu li a:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .submenu {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      display: none;
+      flex-direction: column;
+      min-width: 150px;
+      border-radius: 10px;
+      z-index: 11;
+    }
+
+    .submenu li a {
+      display: block;
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .menu li:hover .submenu {
+      display: flex;
+    }
+
+    h2 {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 15px;
+      border-radius: 10px;
+      z-index: 5;
+    }
+
+    .logo-container {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: 100px;
+      z-index: 10;
+    }
+
+    .ring {
+      width: 100%;
+      height: 100%;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      position: absolute;
+      animation: rotateRing 6s linear infinite;
+    }
+
+    .logo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      animation: rotateLogo 4s linear infinite reverse;
+    }
+
+    @keyframes rotateRing {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateLogo {
+      to { transform: rotate(360deg); }
+    }
+
+    .info-container {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 90%;
+      width: 400px;
+      font-size: 16px;
+      text-align: center;
+      display: none;
+      z-index: 3;
+    }
+
+    @media (max-width: 768px) {
+      nav ul.menu {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .logo-container {
+        width: 80px;
+        height: 80px;
+      }
+
+      .info-container {
+        width: 90%;
+        font-size: 14px;
+      }
+
+      h2 {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video Background -->
+  <video autoplay muted loop>
+    <source src="video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Navigation -->
+  <header>
+    <nav>
+      <ul class="menu">
+        <li>
+          <a href="#">Explore</a>
+          <ul class="submenu">
+            <li><a href="https://riders-fc-photos.vercel.app/">Photo Gallery</a></li>
+            <li><a href="https://riders-fc-premier-league.vercel.app/">Leagues</a></li>
+            <li><a href="https://riders-fc-kwamba.vercel.app/">About Us</a></li>
+            <li><a href="https://riders-fc-training.vercel.app/">Training Sessons</a></li>
+            <li><a href="https://players-profile.vercel.app/players.html">Players</a></li>
+            <li><a href="uder.html">Videos</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Logo Animation -->
+  <div class="logo-container">
+    <div class="ring"></div>
+    <img class="logo" src="logo.jpg" alt="Logo">
+  </div>
+
+  <!-- Club Name -->
+  <h2>Riders FC - RC: 7279702</h2>
+
+  <!-- Info Box -->
+  <div class="info-container" id="randomInfo"></div>
+
+  <!-- Script for Info Rotation -->
+  <script>
+    const infoContainer = document.getElementById('randomInfo');
+    const infoData = [
+      "Welcome to Riders Football Club.",
+      "To inspire a passion for football, foster sportsmanship, and empower individuals through teamwork and athletic excellence.",
+      "Address: Suleiman Barau Technical College, Kwamba 910101, Suleja, Niger State, Nigeria.",
+      "We believe in collaboration and unity. Through teamwork, we achieve more.",
+      "Engaging the local community through sportsmanship, health, and youth programs.",
+      "An inclusive football family where everyone can thrive regardless of background or ability."
+    ];
+
+    let currentIndex = 0;
+
+    function displayRandomInfo() {
+      infoContainer.textContent = infoData[currentIndex];
+      infoContainer.style.display = 'block';
+      currentIndex = (currentIndex + 1) % infoData.length;
+
+      setTimeout(() => {
+        infoContainer.style.display = 'none';
+        setTimeout(displayRandomInfo, 1000);
+      }, 15000);
+    }
+
+    displayRandomInfo();
+  </script>
+</body>
+</html>

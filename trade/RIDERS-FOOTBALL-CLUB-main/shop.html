@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veteran Sport Football Club - Shop</title>
+    <link rel="stylesheet" href="main_styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-y: auto; /* Enable vertical scrollbar when needed */
+        }
+
+        nav {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 20px; /* Adjust margin to account for fixed nav */
+            padding: 20px;
+        }
+
+        .section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            color: #0056b3;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .product-price {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        .product-button {
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: auto;
+            transition: background-color 0.3s;
+        }
+
+        .product-button:hover {
+            background-color: #003366;
+        }
+
+        footer {
+            background-color: #0056b3;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+        .ticket-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .ticket-card {
+            width: calc(50% - 20px);
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .ticket-title {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .ticket-button {
+            width: 100%;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ticket-button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <div class="container">
+        <!-- Shop Section -->
+        <div class="section">
+            <h2 class="section-title">Shop</h2>
+            <div class="product-container">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img class="product-image" src="photo5.jpg" alt="Product 1">
+                    <h3 class="product-title">Product 1</h3>
+                    <p class="product-price">$20.00</p>
+                    <p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam felis nisi, in interdum nisi bibendum nec.</p>
+                    <button class="product-button">Add to Cart</button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img class="product-image" src="photo5.jpg" alt="Product 2">
+                    <h3 class="product-title">Product 2</h3>
+                    <p class="product-price">$25.00</p>
+                    <p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam felis nisi, in interdum nisi bibendum nec.</p>
+                    <button class="product-button">Add to Cart</button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img class="product-image" src="photo5.jpg" alt="Product 3">
+                    <h3 class="product-title">Product 3</h3>
+                    <p class="product-price">$30.00</p>
+                    <p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam felis nisi, in interdum nisi bibendum nec.</p>
+                    <button class="product-button">Add to Cart</button>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <img class="product-image" src="photo5.jpg" alt="Product 4">
+                    <h3 class="product-title">Product 4</h3>
+                    <p class="product-price">$35.00</p>
+                    <p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam felis nisi, in interdum nisi bibendum nec.</p>
+                    <button class="product-button">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Ticket Purchase Section -->
+        <div class="section">
+            <h2 class="section-title">Ticket Purchase</h2>
+            <div class="ticket-container">
+                <div class="ticket-card">
+                    <h3 class="ticket-title">Match Ticket</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <button class="ticket-button">Buy Now</button>
+                </div>
+                <div class="ticket-card">
+                    <h3 class="ticket-title">Season Pass</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <button class="ticket-button">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    <footer>
+        © 2024 Riders Football Club. All rights reserved.
+    </footer>
+</body>
+</html>

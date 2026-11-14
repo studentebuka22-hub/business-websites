@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Admin Deposit Manager</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body class="admin-page">
+
+<div id="adminLoader">
+Loading Deposit Manager...
+</div>
+
+<div class="admin-wrapper">
+
+<aside class="admin-sidebar">
+
+<div class="logo">
+
+<h2>
+CRYPTO<span>ADMIN</span>
+</h2>
+
+</div>
+
+<nav class="admin-menu">
+
+<a href="admin.html">
+📊 Dashboard
+</a>
+
+<a href="admin-users.html">
+👥 Users
+</a>
+
+<a href="admin-trades.html">
+📈 Trades
+</a>
+
+<a href="admin-deposits.html" class="active">
+💳 Deposits
+</a>
+
+<a href="admin-withdrawals.html">
+💰 Withdrawals
+</a>
+
+<a href="admin-settings.html">
+⚙ Settings
+</a>
+
+<a href="#" id="logoutBtn">
+🚪 Logout
+</a>
+
+</nav>
+
+</aside>
+
+<main class="admin-content">
+
+<header class="admin-header">
+
+<div>
+
+<h1>
+Deposit Management
+</h1>
+
+<p>
+Approve, reject and monitor all investor deposits
+</p>
+
+</div>
+
+<div class="admin-header-right">
+
+<span id="marketStatus">
+
+LIVE
+
+</span>
+
+</div>
+
+</header>
+
+<section class="admin-summary">
+
+<div class="summary-card">
+
+<h4>
+Pending Deposits
+</h4>
+
+<h2 id="pendingCount">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+Approved
+</h4>
+
+<h2 id="approvedCount">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+Rejected
+</h4>
+
+<h2 id="rejectedCount">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+Total Deposits
+</h4>
+
+<h2 id="totalDepositAmount">
+$0.00
+</h2>
+
+</div>
+
+</section>
+
+<section class="admin-card">
+
+<div class="toolbar">
+
+<input
+type="text"
+id="searchDeposit"
+placeholder="Search user, email or transaction">
+
+<select id="statusFilter">
+
+<option value="all">
+All Deposits
+</option>
+
+<option value="pending">
+Pending
+</option>
+
+<option value="approved">
+Approved
+</option>
+
+<option value="rejected">
+Rejected
+</option>
+
+</select>
+
+<button
+class="primary-btn"
+id="refreshDeposits">
+
+Refresh
+
+</button>
+
+<button
+class="secondary-btn"
+id="exportDeposits">
+
+Export CSV
+
+</button>
+
+</div>
+
+</section>
+
+<section class="admin-card">
+
+<h2>
+
+Deposit Requests
+
+</h2>
+
+<div class="table-responsive">
+
+<table class="admin-table">
+
+<thead>
+
+<tr>
+
+<th>User</th>
+
+<th>Email</th>
+
+<th>Amount</th>
+
+<th>Method</th>
+
+<th>Transaction ID</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="depositTable">
+
+<tr>
+
+<td colspan="8">
+
+Loading deposits...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+  <!-- ===========================
+PAGINATION
+=========================== -->
+
+<section class="admin-card">
+
+<div class="pagination">
+
+<button id="firstPage" class="secondary-btn">
+« First
+</button>
+
+<button id="previousPage" class="secondary-btn">
+‹ Previous
+</button>
+
+<span id="pageInfo">
+Page 1 of 1
+</span>
+
+<button id="nextPage" class="secondary-btn">
+Next ›
+</button>
+
+<button id="lastPage" class="secondary-btn">
+Last »
+</button>
+
+</div>
+
+</section>
+
+<!-- ===========================
+DEPOSIT DETAILS MODAL
+=========================== -->
+
+<div id="depositModal" class="admin-modal" style="display:none;">
+
+<div class="admin-modal-content">
+
+<div class="modal-header">
+
+<h2>
+Deposit Details
+</h2>
+
+<button id="closeDepositModal">
+✕
+</button>
+
+</div>
+
+<div class="modal-body">
+
+<div class="details-grid">
+
+<div class="detail-card">
+<label>User</label>
+<span id="modalUser">-</span>
+</div>
+
+<div class="detail-card">
+<label>Email</label>
+<span id="modalEmail">-</span>
+</div>
+
+<div class="detail-card">
+<label>Amount</label>
+<span id="modalAmount">$0.00</span>
+</div>
+
+<div class="detail-card">
+<label>Method</label>
+<span id="modalMethod">-</span>
+</div>
+
+<div class="detail-card">
+<label>Transaction ID</label>
+<span id="modalTransaction">-</span>
+</div>
+
+<div class="detail-card">
+<label>Status</label>
+<span id="modalStatus">-</span>
+</div>
+
+<div class="detail-card">
+<label>Date</label>
+<span id="modalDate">-</span>
+</div>
+
+<div class="detail-card">
+<label>Wallet Address</label>
+<span id="modalWallet">-</span>
+</div>
+
+<div class="detail-card">
+<label>Proof</label>
+
+<a
+id="modalProof"
+href="#"
+target="_blank">
+
+View Proof
+
+</a>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="admin-shortcuts">
+
+<button
+class="primary-btn"
+id="approveDeposit">
+
+Approve
+
+</button>
+
+<button
+class="secondary-btn"
+id="rejectDeposit">
+
+Reject
+
+</button>
+
+<button
+class="secondary-btn"
+id="pendingDeposit">
+
+Mark Pending
+
+</button>
+
+<button
+class="secondary-btn"
+id="deleteDeposit">
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="pageOverlay" style="display:none;">
+
+<div class="loader-box">
+
+<h3>
+Loading...
+</h3>
+
+<p>
+
+Synchronizing deposit records...
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="adminNotification"
+class="admin-notification"
+style="display:none;">
+
+<span id="adminNotificationText">
+
+Ready
+
+</span>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/admin-deposits.js"></script>
+
+</body>
+</html>

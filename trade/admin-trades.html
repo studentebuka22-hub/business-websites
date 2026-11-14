@@ -1,0 +1,478 @@
+<!-- admin-trades.html -->
+<!-- PART 1 - PAGE STRUCTURE -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Trade Management</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body>
+
+<!-- Loader -->
+
+<div id="pageLoader">
+
+<div class="loader"></div>
+
+<h3>Loading Trade Center...</h3>
+
+</div>
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<h2>Crypto<span>Admin</span></h2>
+
+</div>
+
+<nav>
+
+<a href="admin.html">
+📊 Dashboard
+</a>
+
+<a href="admin-users.html">
+👥 Users
+</a>
+
+<a href="admin-deposits.html">
+💳 Deposits
+</a>
+
+<a href="admin-withdrawals.html">
+💰 Withdrawals
+</a>
+
+<a href="admin-trades.html" class="active">
+📈 Trade Manager
+</a>
+
+<a href="admin-wallets.html">
+👛 Wallets
+</a>
+
+<a href="admin-settings.html">
+⚙ Settings
+</a>
+
+<a href="#" id="logoutBtn">
+🚪 Logout
+</a>
+
+</nav>
+
+</aside>
+
+<!-- Main -->
+
+<main class="main">
+
+<header class="topbar">
+
+<div>
+
+<h1>Trade Management Center</h1>
+
+<p>
+
+Monitor every user's investment in real time.
+
+</p>
+
+</div>
+
+<div class="top-actions">
+
+<button onclick="broadcastMessage()">
+
+Broadcast
+
+</button>
+
+<button onclick="exportTrades()">
+
+Export CSV
+
+</button>
+
+<button onclick="backupDatabase()">
+
+Backup
+
+</button>
+
+</div>
+
+</header>
+
+<!-- Statistics -->
+
+<section class="cards">
+
+<div class="card">
+
+<h4>Total Users</h4>
+
+<h2 id="totalUsers">0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Total Trades</h4>
+
+<h2 id="totalTrades">0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Running</h4>
+
+<h2 id="activeTrades">0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Completed</h4>
+
+<h2 id="completedTrades">0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Paused</h4>
+
+<h2 id="pausedTrades">0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Cancelled</h4>
+
+<h2 id="cancelledTrades">0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Total Investment</h4>
+
+<h2 id="tradeVolume">$0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Total Profit</h4>
+
+<h2 id="totalProfit">$0</h2>
+
+</div>
+
+<div class="card">
+
+<h4>Wallet Balance</h4>
+
+<h2 id="walletBalance">$0</h2>
+
+</div>
+
+</section>
+
+<!-- Filters -->
+
+<section class="toolbar">
+
+<input
+type="search"
+id="tradeSearch"
+placeholder="Search name, email or asset">
+
+<select id="assetFilter">
+
+<option value="all">
+
+All Assets
+
+</option>
+
+<option>BTC</option>
+
+<option>ETH</option>
+
+<option>BNB</option>
+
+<option>SOL</option>
+
+<option>XRP</option>
+
+<option>ADA</option>
+
+<option>DOGE</option>
+
+<option>TRX</option>
+
+</select>
+
+<select id="statusFilter">
+
+<option value="all">
+
+All Status
+
+</option>
+
+<option value="active">
+
+ACTIVE
+
+</option>
+
+<option value="paused">
+
+PAUSED
+
+</option>
+
+<option value="completed">
+
+COMPLETED
+
+</option>
+
+<option value="cancelled">
+
+CANCELLED
+
+</option>
+
+</select>
+
+<button onclick="openCreateTrade()">
+
++ Create Trade
+
+</button>
+
+</section>
+
+<!-- Table -->
+
+<section class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>User</th>
+
+<th>Email</th>
+
+<th>Asset</th>
+
+<th>Investment</th>
+
+<th>Balance</th>
+
+<th>Profit</th>
+
+<th>ROI</th>
+
+<th>Progress</th>
+
+<th>Status</th>
+
+<th>Created</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tradeTable">
+
+<tr>
+
+<td colspan="11">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+</main>
+
+<!-- Create/Edit Trade Modal -->
+
+<div id="tradeModal" class="modal">
+
+<div class="modal-box">
+
+<div class="modal-header">
+
+<h2>
+
+Trade Details
+
+</h2>
+
+<button id="closeTradeModal">
+
+×
+
+</button>
+
+</div>
+
+<div class="modal-body">
+
+<div class="grid">
+
+<input
+id="editAsset"
+placeholder="Asset">
+
+<input
+id="editAmount"
+type="number"
+placeholder="Investment">
+
+<input
+id="editBalance"
+type="number"
+placeholder="Current Balance">
+
+<input
+id="editProfit"
+type="number"
+placeholder="Profit">
+
+<input
+id="editROI"
+type="number"
+placeholder="ROI %">
+
+<input
+id="editProgress"
+type="number"
+placeholder="Progress">
+
+<input
+id="editDuration"
+type="number"
+placeholder="Duration">
+
+<select id="editStatus">
+
+<option value="active">
+
+ACTIVE
+
+</option>
+
+<option value="paused">
+
+PAUSED
+
+</option>
+
+<option value="completed">
+
+COMPLETED
+
+</option>
+
+<option value="cancelled">
+
+CANCELLED
+
+</option>
+
+</select>
+
+</div>
+
+<div class="buttons">
+
+<button id="saveTrade">
+
+Save Changes
+
+</button>
+
+<button onclick="deleteTrade(selectedUID,selectedTradeID)">
+
+Delete
+
+</button>
+
+<button onclick="pauseTrade(selectedUID,selectedTradeID)">
+
+Pause
+
+</button>
+
+<button onclick="resumeTrade(selectedUID,selectedTradeID)">
+
+Resume
+
+</button>
+
+<button onclick="completeTrade(selectedUID,selectedTradeID)">
+
+Complete
+
+</button>
+
+<button onclick="cancelTrade(selectedUID,selectedTradeID)">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+
+<script type="module" src="js/auth.js"></script>
+
+<script type="module" src="js/admin-trades.js"></script>
+
+</body>
+
+</html>

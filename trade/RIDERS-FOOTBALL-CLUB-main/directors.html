@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riders FC - Club Directors and Their Responsibilities</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        header img {
+            max-width: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        .nav {
+            background: #0056b3;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+        .nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .time {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        .welcome-message {
+            text-align: center;
+            font-size: 1.5em;
+            color: #0056b3;
+            margin: 20px 0;
+            animation: slideIn 2s ease-in-out;
+        }
+        .section {
+            margin-bottom: 40px;
+            animation: slideIn 2s ease-in-out;
+            overflow: hidden;
+        }
+        .section img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            float: left;
+        }
+        .section h2 {
+            color: #0056b3;
+            margin: 0;
+        }
+        .section h3 {
+            margin: 0;
+            font-weight: normal;
+            color: #666;
+        }
+        ul {
+            padding-left: 20px;
+            clear: both;
+        }
+        .comments {
+            margin-top: 20px;
+        }
+        .comments h3 {
+            margin-top: 0;
+        }
+        .comments input, .comments textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .comments button {
+            background: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: none;
+            color: blue;
+            bottom: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+    <script>
+        function updateTime() {
+            const timeElement = document.getElementById('time');
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateTime, 1000);
+        window.onload = updateTime;
+
+        function sendComment() {
+            const name = document.getElementById('commentName').value;
+            const comment = document.getElementById('commentText').value;
+            const phoneNumber = '+2348102341648';
+            const message = `Name: ${name}%0AComment: ${comment}`;
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="logo.png" alt="Riders FC Logo">
+            <h1>Riders FC - Club Directors and Their Responsibilities</h1>
+            <div id="time" class="time"></div>
+        </header>
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="#">CASH</a>
+        </div>
+        <div class="welcome-message">
+            Welcome to Riders FC! Meet our dedicated team of directors.
+        </div>
+        <section class="section">
+            <img src="akinola.png" alt="Mr. Akinola">
+            <h2>Akeem Akinola - Member</h2>
+            <h3>Director of Operations and Facilities</h3>
+            <ul>
+                <li>Oversee and manage the club's daily operations to ensure smooth functioning.</li>
+                <li>Ensure all logistical arrangements for training sessions and matches are efficiently handled.</li>
+                <li>Coordinate with other directors to implement and uphold club policies and decisions.</li>
+                <li>Ensure all training and match facilities are well-maintained and in top condition.</li>
+                <li>Oversee the procurement and maintenance of all equipment and kits.</li>
+                <li>Manage the setup and breakdown of equipment for training sessions and matches.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <img src="okey.jpg" alt="Mr. Okey">
+            <h2>Okechukwu Samuel - Chairman</h2>
+            <h3>Director of Finance</h3>
+            <ul>
+                <li>Manage the club's financial health, including budgeting and financial planning.</li>
+                <li>Oversee the collection and management of membership fees and other revenue streams.</li>
+                <li>Prepare detailed financial reports and maintain transparency in all financial matters.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <img src="hassan.png" alt="Mr. Hassan">
+            <h2>Hassan - Financial Secretary</h2>
+            <h3>Director of Player Development</h3>
+            <ul>
+                <li>Design and implement comprehensive training programs for players.</li>
+                <li>Collaborate with coaches to monitor and enhance player progress and performance.</li>
+                <li>Identify and address the developmental needs of each player to maximize their potential.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <img src="marshall.jpeg" alt="Mr. Marshall">
+            <h2>Marshall Jacob - Secretary</h2>
+            <h3>Director of Communications and Public Relations</h3>
+            <ul>
+                <li>Oversee all internal and external communications of the club.</li>
+                <li>Manage media relations and handle all public announcements.</li>
+                <li>Maintain and update the club’s social media presence and official website.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <img src="tola.jpeg" alt="Mr. Tola">
+            <h2>Akinremi Akintola - Member</h2>
+            <h3>Director of Membership and Community Relations</h3>
+            <ul>
+                <li>Maintain comprehensive records of all club external members.</li>
+                <li>Develop and nurture strong relationships with the local community.</li>
+                <li>Organize community outreach and engagement activities to enhance club visibility.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <img src="owem.jpeg" alt="Mr. Owem">
+            <h2>Owem Aslem - Member</h2>
+            <h3>Director of Events</h3>
+            <ul>
+                <li>Plan, coordinate, and execute club events and activities.</li>
+                <li>Develop and implement marketing strategies to promote the club and its events.</li>
+                <li>Secure sponsorships and partnerships to support and enhance club activities.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <img src="yunusa.jpeg" alt="Mr. Yunusa">
+            <h2>Yunusa Jibrin -Member</h2>
+            <h3>Director of Marketing</h3>
+            <ul>
+                <li>Develop and execute marketing plans to increase the club's visibility and brand awareness.</li>
+                <li>Manage advertising campaigns across various media platforms.</li>
+                <li>Collaborate with the Director of Communications on promotional materials and social media strategies.</li>
+                <li>Analyze market trends and adjust marketing strategies accordingly to maximize engagement and reach.</li>
+            </ul>
+        </section>
+        <section class="comments">
+            <h3>Leave a Comment</h3>
+            <input type="text" id="commentName" placeholder="Your Name">
+            <textarea id="commentText" rows="4" placeholder="Your Comment"></textarea>
+            <button onclick="sendComment()">Send Comment to WhatsApp</button>
+        </section>
+        <footer>
+            &copy; 2024 Riders FC. All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>

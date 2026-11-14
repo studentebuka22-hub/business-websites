@@ -1,0 +1,430 @@
+<!-- register.html -->
+<!-- Part 1 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Create Account | Crypto Trading Demo</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body class="register-page">
+
+<div class="background">
+
+<div class="glow glow1"></div>
+
+<div class="glow glow2"></div>
+
+<div class="glow glow3"></div>
+
+<canvas id="particleCanvas"></canvas>
+
+</div>
+
+<div class="register-wrapper">
+
+<div class="register-left">
+
+<div class="logo-box">
+
+<h1>
+
+CRYPTO<span>TRADE</span>
+
+</h1>
+
+<p>
+
+Professional AI Crypto Trading Simulator
+
+</p>
+
+</div>
+
+<div class="asset-list">
+
+<div class="asset">
+
+<div>
+
+<h3>Bitcoin</h3>
+
+<p>BTC</p>
+
+</div>
+
+<div>
+
+<span id="BTC-price">$117,245.22</span>
+
+<small
+id="BTC-change"
+class="green">
+
+▲ +2.43%
+
+</small>
+
+</div>
+
+</div>
+
+<div class="asset">
+
+<div>
+
+<h3>Ethereum</h3>
+
+<p>ETH</p>
+
+</div>
+
+<div>
+
+<span id="ETH-price">$6,420.14</span>
+
+<small
+id="ETH-change"
+class="green">
+
+▲ +1.72%
+
+</small>
+
+</div>
+
+</div>
+
+<div class="asset">
+
+<div>
+
+<h3>Toncoin</h3>
+
+<p>TON</p>
+
+</div>
+
+<div>
+
+<span id="TON-price">$18.71</span>
+
+<small
+id="TON-change"
+class="red">
+
+▼ -0.51%
+
+</small>
+
+</div>
+
+</div>
+
+<div class="asset">
+
+<div>
+
+<h3>Solana</h3>
+
+<p>SOL</p>
+
+</div>
+
+<div>
+
+<span id="SOL-price">$382.32</span>
+
+<small
+id="SOL-change"
+class="green">
+
+▲ +3.20%
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="register-right">
+
+<form
+id="registerForm"
+class="register-card">
+
+<h2>
+
+Create Account
+
+</h2>
+
+<p>
+
+Start your professional demo trading journey.
+
+</p>
+
+<div class="grid">
+
+<div class="input-group">
+
+<label>First Name</label>
+
+<input
+
+type="text"
+
+name="firstName"
+
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Last Name</label>
+
+<input
+
+type="text"
+
+name="lastName"
+
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Email</label>
+
+<input
+
+type="email"
+
+name="email"
+
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Phone Number</label>
+
+<input
+
+type="tel"
+
+name="phone"
+
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Country</label>
+
+<input
+
+type="text"
+
+name="country"
+
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<input
+
+type="password"
+
+name="password"
+
+required>
+
+</div>
+
+<div class="input-group full">
+
+<label>Confirm Password</label>
+
+<input
+
+type="password"
+
+name="confirmPassword"
+
+required>
+
+</div>
+
+</div>
+
+<label class="terms">
+
+<input
+type="checkbox"
+required>
+
+I agree to the Terms and Conditions.
+
+</label>
+
+<button
+type="submit"
+class="primary-btn">
+
+CREATE ACCOUNT
+
+</button>
+
+<div class="divider">
+
+Already have an account?
+
+</div>
+
+<a
+href="login.html"
+class="secondary-btn">
+
+LOGIN
+
+</a>
+  <!-- register.html -->
+<!-- Part 2 -->
+
+            <div class="register-benefits">
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">📈</div>
+
+                    <div>
+
+                        <h4>AI Trading Simulation</h4>
+
+                        <p>Watch your demo portfolio grow automatically with real-time updates.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">⚡</div>
+
+                    <div>
+
+                        <h4>Realtime Synchronization</h4>
+
+                        <p>Your balances, charts and progress stay synchronized through Firebase.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">🔐</div>
+
+                    <div>
+
+                        <h4>Secure Authentication</h4>
+
+                        <p>Protected with Firebase Authentication and encrypted user sessions.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">💰</div>
+
+                    <div>
+
+                        <h4>Multiple Crypto Assets</h4>
+
+                        <p>Trade BTC, ETH, TON, BNB, SOL, XRP, ADA, DOGE, TRX and LTC.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="market-footer">
+
+    <div class="market-scroll">
+
+        <span>BTC <strong id="footer-btc">$117,245.22</strong></span>
+
+        <span>ETH <strong id="footer-eth">$6,420.80</strong></span>
+
+        <span>TON <strong id="footer-ton">$18.72</strong></span>
+
+        <span>SOL <strong id="footer-sol">$382.21</strong></span>
+
+        <span>BNB <strong id="footer-bnb">$1,125.33</strong></span>
+
+        <span>XRP <strong id="footer-xrp">$4.21</strong></span>
+
+        <span>ADA <strong id="footer-ada">$3.42</strong></span>
+
+        <span>DOGE <strong id="footer-doge">$0.88</strong></span>
+
+        <span>TRX <strong id="footer-trx">$0.46</strong></span>
+
+        <span>LTC <strong id="footer-ltc">$438.00</strong></span>
+
+    </div>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/register.js"></script>
+<script type="module" src="js/charts.js"></script>
+<script type="module" src="js/main.js"></script>
+
+</body>
+
+</html>

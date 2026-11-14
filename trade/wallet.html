@@ -1,0 +1,981 @@
+<!-- ========================================================= -->
+<!-- wallet.html -->
+<!-- PART 1 -->
+<!-- LIVE CRYPTO WALLET DASHBOARD -->
+<!-- ========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Wallet | CryptoInvest
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body class="wallet-page">
+
+<div id="pageLoader">
+
+Loading Wallet...
+
+</div>
+
+<div class="dashboard">
+
+<!-- ========================= -->
+<!-- SIDEBAR -->
+<!-- ========================= -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<h2>
+
+CRYPTO<span>INVEST</span>
+
+</h2>
+
+</div>
+
+<nav>
+
+<a href="dashboard.html">
+
+🏠 Dashboard
+
+</a>
+
+<a href="trade.html">
+
+📈 Trade
+
+</a>
+
+<a href="deposit.html">
+
+💳 Deposit
+
+</a>
+
+<a href="withdraw.html">
+
+💰 Withdraw
+
+</a>
+
+<a href="wallet.html"
+class="active">
+
+👛 Wallet
+
+</a>
+
+<a href="transactions.html">
+
+📑 Transactions
+
+</a>
+
+<a href="profile.html">
+
+👤 Profile
+
+</a>
+
+<a href="#"
+id="logoutBtn">
+
+🚪 Logout
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- ========================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================= -->
+
+<main class="main-content">
+
+<header class="page-header">
+
+<div>
+
+<h1>
+
+Live Trading Wallet
+
+</h1>
+
+<p>
+
+Monitor your active investments, wallet balance and real-time trading performance.
+
+</p>
+
+</div>
+
+<div>
+
+<h2 id="walletBalance">
+
+$0.00
+
+</h2>
+
+<p>
+
+Available Balance
+
+</p>
+
+</div>
+
+</header>
+
+<!-- ========================= -->
+<!-- SUMMARY CARDS -->
+<!-- ========================= -->
+
+<section class="dashboard-grid">
+
+<div class="dashboard-card">
+
+<h4>
+
+Wallet Balance
+
+</h4>
+
+<h2 id="summaryBalance">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Trading Balance
+
+</h4>
+
+<h2 id="tradingBalance">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Total Profit
+
+</h4>
+
+<h2 id="summaryProfit">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Active Trades
+
+</h4>
+
+<h2 id="activeTrades">
+
+0
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Completed Trades
+
+</h4>
+
+<h2 id="completedTrades">
+
+0
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Total Invested
+
+</h4>
+
+<h2 id="totalInvested">
+
+$0.00
+
+</h2>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- ACTIVE TRADE -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>
+
+Current Active Trade
+
+</h2>
+
+<div id="activeTradeCard"
+class="trade-wallet-card">
+
+<div class="trade-row">
+
+<div>
+
+<label>
+
+Investment Plan
+
+</label>
+
+<h3 id="walletPlan">
+
+No Active Trade
+
+</h3>
+
+</div>
+
+<div>
+
+<label>
+
+Status
+
+</label>
+
+<span id="walletStatus"
+class="badge">
+
+Waiting
+
+</span>
+
+</div>
+
+</div>
+
+<div class="trade-row">
+
+<div>
+
+<label>
+
+Trading Pair
+
+</label>
+
+<h3 id="walletAsset">
+
+--
+
+</h3>
+
+</div>
+
+<div>
+
+<label>
+
+Risk Level
+
+</label>
+
+<h3 id="walletRisk">
+
+--
+
+</h3>
+
+</div>
+
+</div>
+
+<div class="trade-row">
+
+<div>
+
+<label>
+
+Investment
+
+</label>
+
+<h2 id="walletInvestment">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div>
+
+<label>
+
+Expected Profit
+
+</label>
+
+<h2 id="walletExpectedProfit">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div>
+
+<label>
+
+Current Profit
+
+</label>
+
+<h2 id="walletCurrentProfit">
+
+$0.00
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="trade-row">
+
+<div>
+
+<label>
+
+Current Trade Value
+
+</label>
+
+<h2 id="walletCurrentBalance">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div>
+
+<label>
+
+Target Balance
+
+</label>
+
+<h2 id="walletTargetBalance">
+
+$0.00
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="trade-row">
+
+<div>
+
+<label>
+
+Trade Started
+
+</label>
+
+<p id="walletStarted">
+
+--
+
+</p>
+
+</div>
+
+<div>
+
+<label>
+
+Expected Completion
+
+</label>
+
+<p id="walletFinish">
+
+--
+
+</p>
+
+</div>
+
+</div>
+
+<div class="progress-section">
+
+<div class="progress-header">
+
+<span>
+
+Trading Progress
+
+</span>
+
+<span id="walletProgressText">
+
+0%
+
+</span>
+
+</div>
+
+<div class="progress-bar">
+
+<div id="walletProgressBar"
+class="progress-fill">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="countdown-box">
+
+<h3>
+
+Time Remaining
+
+</h3>
+
+<h1 id="walletCountdown">
+
+00d 00h 00m 00s
+
+</h1>
+
+</div>
+
+</div>
+
+</section>
+<!-- ========================================================= -->
+<!-- wallet.html -->
+<!-- PART 2 -->
+<!-- RUNNING TRADES • HISTORY • NOTIFICATIONS -->
+<!-- ========================================================= -->
+
+<!-- ========================= -->
+<!-- RUNNING TRADES -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>
+
+Running Trades
+
+</h2>
+
+<div id="runningTradesContainer">
+
+<div class="empty-state">
+
+<h3>
+
+No Active Trades
+
+</h3>
+
+<p>
+
+Your running trades will appear here automatically.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- RECENT COMPLETED TRADES -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>
+
+Completed Trades
+
+</h2>
+
+<div class="table-responsive">
+
+<table class="admin-table">
+
+<thead>
+
+<tr>
+
+<th>
+
+Plan
+
+</th>
+
+<th>
+
+Asset
+
+</th>
+
+<th>
+
+Investment
+
+</th>
+
+<th>
+
+Profit
+
+</th>
+
+<th>
+
+Final Balance
+
+</th>
+
+<th>
+
+Completed
+
+</th>
+
+<th>
+
+Status
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="completedTradeHistory">
+
+<tr>
+
+<td colspan="7">
+
+No completed trades.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- WALLET TRANSACTIONS -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>
+
+Wallet Transactions
+
+</h2>
+
+<div class="table-responsive">
+
+<table class="admin-table">
+
+<thead>
+
+<tr>
+
+<th>
+
+Date
+
+</th>
+
+<th>
+
+Type
+
+</th>
+
+<th>
+
+Description
+
+</th>
+
+<th>
+
+Amount
+
+</th>
+
+<th>
+
+Status
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="walletTransactionHistory">
+
+<tr>
+
+<td colspan="5">
+
+No transactions found.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- WALLET NOTIFICATIONS -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>
+
+Trading Notifications
+
+</h2>
+
+<div id="walletNotifications">
+
+<div class="notification-item">
+
+Waiting for trading activities...
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- PORTFOLIO SUMMARY -->
+<!-- ========================= -->
+
+<section class="dashboard-grid">
+
+<div class="dashboard-card">
+
+<h4>
+
+Total Deposits
+
+</h4>
+
+<h2 id="walletDeposits">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Total Withdrawals
+
+</h4>
+
+<h2 id="walletWithdrawals">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Current Equity
+
+</h4>
+
+<h2 id="walletEquity">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Average ROI
+
+</h4>
+
+<h2 id="walletROI">
+
+0%
+
+</h2>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- LIVE MARKET -->
+<!-- ========================= -->
+
+<section class="card">
+
+<h2>
+
+Live Crypto Market
+
+</h2>
+
+<div class="market-grid">
+
+<div class="market-card">
+
+<h3>
+
+Bitcoin
+
+</h3>
+
+<h2 id="btcPrice">
+
+$0.00
+
+</h2>
+
+<p id="btcChange">
+
+0.00%
+
+</p>
+
+</div>
+
+<div class="market-card">
+
+<h3>
+
+Ethereum
+
+</h3>
+
+<h2 id="ethPrice">
+
+$0.00
+
+</h2>
+
+<p id="ethChange">
+
+0.00%
+
+</p>
+
+</div>
+
+<div class="market-card">
+
+<h3>
+
+Solana
+
+</h3>
+
+<h2 id="solPrice">
+
+$0.00
+
+</h2>
+
+<p id="solChange">
+
+0.00%
+
+</p>
+
+</div>
+
+<div class="market-card">
+
+<h3>
+
+BNB
+
+</h3>
+
+<h2 id="bnbPrice">
+
+$0.00
+
+</h2>
+
+<p id="bnbChange">
+
+0.00%
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- FLOATING NOTIFICATION -->
+<!-- ========================= -->
+
+<div
+id="walletToast"
+class="admin-notification"
+style="display:none;">
+
+<span id="walletToastText">
+
+Ready
+
+</span>
+
+</div>
+
+<!-- ========================= -->
+<!-- LOADING OVERLAY -->
+<!-- ========================= -->
+
+<div
+id="walletOverlay"
+style="display:none;">
+
+<div class="loader-box">
+
+<h3>
+
+Loading Wallet...
+
+</h3>
+
+<p>
+
+Synchronizing your wallet and trading data.
+
+</p>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+
+<script type="module" src="js/auth.js"></script>
+
+<script type="module" src="js/wallet.js"></script>
+
+</body>
+
+</html>

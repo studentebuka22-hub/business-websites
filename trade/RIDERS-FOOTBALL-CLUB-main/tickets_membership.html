@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veteran Sport Football Club - Membership</title>
+    <link rel="stylesheet" href="main_styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            overflow: auto;
+            position: relative;
+            height: 100%;
+        }
+
+        }
+        nav {
+            position: fixed;
+            top: 20px;
+            center: 100%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }        
+        nav a {
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+            padding: 2px 5px;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            background-color: green;
+        }
+
+        nav a:hover {
+            color: yellow;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Sign-in form styles */
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .form-button {
+            width: 100%;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: darkgreen;
+        }
+
+        /* Ticket purchase styles */
+        .ticket-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .ticket-card {
+            width: calc(50% - 20px);
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .ticket-title {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .ticket-button {
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ticket-button:hover {
+            background-color: darkgreen;
+        }
+
+        /* Schedule section styles */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .schedule-table th {
+            background-color: #f2f2f2;
+            color: #333;
+            text-align: left;
+        }
+
+        .schedule-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .schedule-table tbody tr:hover {
+            background-color: #e2e2e2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="directors.html">DIRECTORS</a>    
+    </nav>
+
+    <div class="container">
+        <!-- Sign-in Section -->
+        <div class="section">
+            <h2 class="section-title">Sign In</h2>
+            <div class="form-container">
+                <input type="text" class="form-input" placeholder="Username">
+                <input type="password" class="form-input" placeholder="Password">
+                <button class="form-button">Sign In</button>
+            </div>
+        </div>
+
+        <!-- Ticket Purchase Section -->
+        <div class="section">
+            <h2 class="section-title">Ticket Purchase</h2>
+            <div class="ticket-container">
+                <div class="ticket-card">
+                    <h3 class="ticket-title">Match Ticket</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <button class="ticket-button">Buy Now</button>
+                </div>
+                <div class="ticket-card">
+                    <h3 class="ticket-title">Season Pass</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <button class="ticket-button">Buy Now</button>
+                </div>
+                <!-- Add more ticket cards as needed -->
+            </div>
+        </div>
+
+        <!-- Schedule Section -->
+        <div class="section">
+            <h2 class="section-title">Match Schedule</h2>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Opponent</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>January 1, 2025</td>
+                        <td>Opponent A</td>
+                        <td>Win (2-1)</td>
+                    </tr>
+                    <tr>
+                        <td>February 15, 2025</td>
+                        <td>Opponent B</td>
+                        <td>Draw (0-0)</td>
+                    </tr>
+                    <!-- Add more rows for additional matches -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

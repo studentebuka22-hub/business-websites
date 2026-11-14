@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Start Trading</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div id="pageLoader">
+
+Loading Trading Center...
+
+</div>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<h2>
+
+CRYPTO<span>INVEST</span>
+
+</h2>
+
+</div>
+
+<nav>
+
+<a href="dashboard.html" class="active">🏠 Dashboard</a>
+
+<a href="trade2.html">📈 Live Trading</a>
+
+<a href="deposit.html">💳 Deposit</a>
+
+<a href="wallet.html">👛 Wallet</a>
+
+<a href="history.html">📋 Trading History</a>
+
+<a href="profile.html">👤 Profile</a>
+
+<a href="settings.html">⚙ Settings</a>
+
+<a href="#" id="logoutBtn">🚪 Logout</a>
+
+</nav>
+
+</aside>
+
+<main class="main-content">
+
+<header class="page-header">
+
+<div>
+
+<h1>
+
+AI Crypto Trading
+
+</h1>
+
+<p>
+
+Start an investment plan and let our AI trading engine generate profits.
+
+</p>
+
+</div>
+
+<div>
+
+<h2 id="walletBalance">
+
+$0.00
+
+</h2>
+
+<p>
+
+Available Balance
+
+</p>
+
+</div>
+
+</header>
+
+<section class="dashboard-grid">
+
+<div class="dashboard-card">
+
+<h4>
+
+Wallet Balance
+
+</h4>
+
+<h2 id="availableBalance">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Running Trades
+
+</h4>
+
+<h2 id="runningTrades">
+
+0
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Completed Trades
+
+</h4>
+
+<h2 id="completedTrades">
+
+0
+
+</h2>
+
+</div>
+
+<div class="dashboard-card">
+
+<h4>
+
+Total Profit
+
+</h4>
+
+<h2 id="totalProfit">
+
+$0.00
+
+</h2>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+Start New Trade
+
+</h2>
+
+<form id="tradeForm">
+
+<div class="form-group">
+
+<label>
+
+Investment Plan
+
+</label>
+
+<select id="plan" required>
+
+<option value="">
+
+Select Plan
+
+</option>
+
+<option value="Starter">
+
+Starter Plan
+
+</option>
+
+<option value="Silver">
+
+Silver Plan
+
+</option>
+
+<option value="Gold">
+
+Gold Plan
+
+</option>
+
+<option value="Platinum">
+
+Platinum Plan
+
+</option>
+
+<option value="VIP">
+
+VIP Plan
+
+</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Investment Amount (USD)
+
+</label>
+
+<input
+
+type="number"
+
+id="amount"
+
+placeholder="Enter investment amount"
+
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Trading Duration
+
+</label>
+
+<select id="duration" required>
+
+<option value="24 Hours">
+
+24 Hours
+
+</option>
+
+<option value="3 Days">
+
+3 Days
+
+</option>
+
+<option value="7 Days">
+
+7 Days
+
+</option>
+
+<option value="14 Days">
+
+14 Days
+
+</option>
+
+<option value="30 Days">
+
+30 Days
+
+</option>
+
+</select>
+
+</div>
+    <div class="form-group">
+
+<label>
+
+Expected Profit
+
+</label>
+
+<input
+
+type="text"
+
+id="expectedProfit"
+
+readonly
+
+value="$0.00">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Estimated Wallet Balance After Completion
+
+</label>
+
+<input
+
+type="text"
+
+id="targetBalance"
+
+readonly
+
+value="$0.00">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Trading Pair
+
+</label>
+
+<select id="asset">
+
+<option value="BTC/USDT">
+
+BTC / USDT
+
+</option>
+
+<option value="ETH/USDT">
+
+ETH / USDT
+
+</option>
+
+<option value="SOL/USDT">
+
+SOL / USDT
+
+</option>
+
+<option value="BNB/USDT">
+
+BNB / USDT
+
+</option>
+
+<option value="XRP/USDT">
+
+XRP / USDT
+
+</option>
+
+<option value="ADA/USDT">
+
+ADA / USDT
+
+</option>
+
+<option value="DOGE/USDT">
+
+DOGE / USDT
+
+</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Trading Risk
+
+</label>
+
+<select id="risk">
+
+<option value="Low">
+
+Low
+
+</option>
+
+<option value="Medium">
+
+Medium
+
+</option>
+
+<option value="High">
+
+High
+
+</option>
+
+</select>
+
+</div>
+
+<button
+
+type="submit"
+
+class="primary-btn">
+
+Start Trading
+
+</button>
+
+</form>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+My Trading History
+
+</h2>
+
+<div class="table-responsive">
+
+<table class="admin-table">
+
+<thead>
+
+<tr>
+
+<th>
+
+Plan
+
+</th>
+
+<th>
+
+Asset
+
+</th>
+
+<th>
+
+Amount
+
+</th>
+
+<th>
+
+Profit
+
+</th>
+
+<th>
+
+Duration
+
+</th>
+
+<th>
+
+Status
+
+</th>
+
+<th>
+
+Date
+
+</th>
+
+<th>
+
+Action
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tradeHistory">
+
+<tr>
+
+<td colspan="8">
+
+Loading Trades...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+    <section class="card">
+
+<h2>
+
+Live Crypto Market
+
+</h2>
+
+<div class="market-grid">
+
+<div class="market-card">
+
+<h3>
+
+Bitcoin
+
+</h3>
+
+<h2 id="btcPrice">
+
+$0.00
+
+</h2>
+
+<p id="btcChange">
+
+0.00%
+
+</p>
+
+</div>
+
+<div class="market-card">
+
+<h3>
+
+Ethereum
+
+</h3>
+
+<h2 id="ethPrice">
+
+$0.00
+
+</h2>
+
+<p id="ethChange">
+
+0.00%
+
+</p>
+
+</div>
+
+<div class="market-card">
+
+<h3>
+
+Solana
+
+</h3>
+
+<h2 id="solPrice">
+
+$0.00
+
+</h2>
+
+<p id="solChange">
+
+0.00%
+
+</p>
+
+</div>
+
+<div class="market-card">
+
+<h3>
+
+BNB
+
+</h3>
+
+<h2 id="bnbPrice">
+
+$0.00
+
+</h2>
+
+<p id="bnbChange">
+
+0.00%
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ==========================
+TRADE DETAILS MODAL
+========================== -->
+
+<div
+
+id="tradeModal"
+
+class="admin-modal"
+
+style="display:none;">
+
+<div class="admin-modal-content">
+
+<div class="modal-header">
+
+<h2>
+
+Trade Details
+
+</h2>
+
+<button
+
+id="closeTradeModal">
+
+✕
+
+</button>
+
+</div>
+
+<div class="modal-body">
+
+<div class="details-grid">
+
+<div class="detail-card">
+
+<label>
+
+Investment Plan
+
+</label>
+
+<span id="viewPlan">
+
+-
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Asset
+
+</label>
+
+<span id="viewAsset">
+
+-
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Investment Amount
+
+</label>
+
+<span id="viewAmount">
+
+$0.00
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Expected Profit
+
+</label>
+
+<span id="viewProfit">
+
+$0.00
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Target Balance
+
+</label>
+
+<span id="viewTarget">
+
+$0.00
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Duration
+
+</label>
+
+<span id="viewDuration">
+
+-
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Risk Level
+
+</label>
+
+<span id="viewRisk">
+
+-
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Trade Status
+
+</label>
+
+<span id="viewStatus">
+
+Pending
+
+</span>
+
+</div>
+
+<div class="detail-card">
+
+<label>
+
+Started
+
+</label>
+
+<span id="viewDate">
+
+-
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+    <div
+
+id="pageOverlay"
+
+style="display:none;">
+
+<div class="loader-box">
+
+<h3>
+
+Processing Trade...
+
+</h3>
+
+<p>
+
+Please wait while your request is being submitted.
+
+</p>
+
+</div>
+
+</div>
+
+<div
+
+id="notification"
+
+class="admin-notification"
+
+style="display:none;">
+
+<span id="notificationText">
+
+Ready
+
+</span>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+
+<script type="module" src="js/auth.js"></script>
+
+<script type="module" src="js/trade.js"></script>
+
+</body>
+
+</html>

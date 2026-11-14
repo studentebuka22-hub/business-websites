@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .player-profile {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .player-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #searchInput {
+            width: 400px;
+            height: 40px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: #66afe9;
+            box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+        }
+
+        .search-container button {
+            height: 40px;
+            padding: 0 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        // Sample player data (you can replace this with your actual data)
+        let players = [
+            { name: "John Doe", position: "Forward", dob: "March 10, 1995", nationality: "Brazilian", height: "6'1\"", weight: "180 lbs" },
+            { name: "Jane Smith", position: "Midfielder", dob: "July 25, 1990", nationality: "English", height: "5'8\"", weight: "165 lbs" },
+            { name: "Michael Johnson", position: "Defender", dob: "January 5, 1988", nationality: "German", height: "6'0\"", weight: "170 lbs" },
+            { name: "Emily Brown", position: "Goalkeeper", dob: "April 15, 1993", nationality: "French", height: "5'10\"", weight: "175 lbs" },
+            { name: "David Wilson", position: "Forward", dob: "February 20, 1992", nationality: "Spanish", height: "6'2\"", weight: "185 lbs" },
+            { name: "Laura Garcia", position: "Defender", dob: "November 12, 1991", nationality: "Italian", height: "5'9\"", weight: "160 lbs" },
+            { name: "Alexandre Santos", position: "Midfielder", dob: "December 30, 1989", nationality: "Portuguese", height: "5'11\"", weight: "170 lbs" }
+        ];
+
+        function displayPlayers(playersToShow) {
+            let playerList = document.getElementById('playerList');
+            playerList.innerHTML = '';
+
+            playersToShow.forEach(player => {
+                let playerProfile = `
+                    <section class="player-profile">
+                        <div class="player-image">
+                            <img src="player.jpeg" alt="${player.name}">
+                        </div>
+                        <div class="player-info">
+                            <h2>${player.name}</h2>
+                            <p><strong>Position:</strong> ${player.position}</p>
+                            <p><strong>Date of Birth:</strong> ${player.dob}</p>
+                            <p><strong>Nationality:</strong> ${player.nationality}</p>
+                            <p><strong>Height:</strong> ${player.height}</p>
+                            <p><strong>Weight:</strong> ${player.weight}</p>
+                            <p><strong>Previous Clubs:</strong> Club A, Club B</p>
+                        </div>
+                    </section>
+                `;
+                playerList.innerHTML += playerProfile;
+            });
+
+            document.getElementById('resultCounter').textContent = `${playersToShow.length} result(s) found.`;
+        }
+
+        function searchPlayers() {
+            let input = document.getElementById('searchInput').value.toUpperCase();
+
+            let filteredPlayers = players.filter(player => {
+                return (
+                    player.name.toUpperCase().includes(input) ||
+                    player.position.toUpperCase().includes(input) ||
+                    player.dob.toUpperCase().includes(input) ||
+                    player.nationality.toUpperCase().includes(input) ||
+                    player.height.toUpperCase().includes(input) ||
+                    player.weight.toUpperCase().includes(input)
+                );
+            });
+
+            displayPlayers(filteredPlayers);
+        }
+
+        // Initial display of all players
+        displayPlayers(players);
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Meet Our Players</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name, position, height, date of birth, nationality...">
+            <button type="button" onclick="searchPlayers()">Search</button>
+        </div>
+        <p id="resultCounter"></p>
+    </header>
+
+    <main id="playerList">
+        <!-- Player profiles will be dynamically added here -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Professional Riders FC. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!-- login.html -->
+<!-- Part 1 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Login | Crypto Trading Demo</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/login.css">
+
+</head>
+
+<body class="login-page">
+
+<div class="background">
+
+<div class="glow glow1"></div>
+
+<div class="glow glow2"></div>
+
+<div class="glow glow3"></div>
+
+<canvas id="particleCanvas"></canvas>
+
+</div>
+
+<div class="login-wrapper">
+
+<div class="login-left">
+
+<div class="brand">
+
+<h1>CRYPTO<span>TRADE</span></h1>
+
+<p>
+Professional Demo Trading Platform
+</p>
+
+</div>
+
+<div class="market-box">
+
+<div class="ticker">
+
+<span id="BTC-price">$117,245.22</span>
+
+<span id="BTC-change"
+class="green">
+▲ +2.41%
+</span>
+
+</div>
+
+<div class="ticker">
+
+<span id="ETH-price">$6,420.80</span>
+
+<span id="ETH-change"
+class="green">
+▲ +1.81%
+</span>
+
+</div>
+
+<div class="ticker">
+
+<span id="TON-price">$18.72</span>
+
+<span id="TON-change"
+class="red">
+▼ -0.52%
+</span>
+
+</div>
+
+<div class="ticker">
+
+<span id="SOL-price">$382.21</span>
+
+<span id="SOL-change"
+class="green">
+▲ +3.22%
+</span>
+
+</div>
+
+</div>
+
+<div class="statistics">
+
+<div class="stat">
+
+<h2>24H Volume</h2>
+
+<h3>$18.7B</h3>
+
+</div>
+
+<div class="stat">
+
+<h2>Market Cap</h2>
+
+<h3>$4.26T</h3>
+
+</div>
+
+<div class="stat">
+
+<h2>Active Traders</h2>
+
+<h3>426,291</h3>
+
+</div>
+
+<div class="stat">
+
+<h2>AI Accuracy</h2>
+
+<h3>98.72%</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="login-right">
+
+<form
+id="loginForm"
+class="login-card">
+
+<h2>
+
+Welcome Back
+
+</h2>
+
+<p>
+
+Sign in to continue trading
+
+</p>
+
+<div class="input-group">
+
+<label>Email</label>
+
+<input
+
+type="email"
+
+name="email"
+
+required
+
+autocomplete="username"
+
+placeholder="Enter Email">
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<input
+
+type="password"
+
+name="password"
+
+required
+
+autocomplete="current-password"
+
+placeholder="Password">
+
+</div>
+
+<div class="remember">
+
+<label>
+
+<input type="checkbox">
+
+Remember Me
+
+</label>
+
+<a href="forgot.html">
+
+Forgot Password?
+
+</a>
+
+</div>
+
+<button
+class="primary-btn"
+type="submit">
+
+LOGIN
+
+</button>
+
+<div class="divider">
+
+OR
+
+</div>
+
+<a
+href="register.html"
+class="secondary-btn">
+
+CREATE ACCOUNT
+
+</a>
+  <!-- login.html -->
+<!-- Part 2 -->
+
+                <div class="security-panel">
+
+                    <div class="security-item">
+
+                        <div class="icon">🔒</div>
+
+                        <div>
+
+                            <h4>256-bit Encryption</h4>
+
+                            <small>Your account is securely protected.</small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="security-item">
+
+                        <div class="icon">🛡️</div>
+
+                        <div>
+
+                            <h4>Realtime Firebase</h4>
+
+                            <small>Instant synchronization across devices.</small>
+
+                        </div>
+
+                    </div>
+
+                    <div class="security-item">
+
+                        <div class="icon">🤖</div>
+
+                        <div>
+
+                            <h4>AI Trading Engine</h4>
+
+                            <small>Live demo portfolio simulation.</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Live Market Footer -->
+
+    <div class="market-footer">
+
+        <div class="market-scroll">
+
+            <span>BTC <strong id="footer-btc">$117,245.22</strong></span>
+
+            <span>ETH <strong id="footer-eth">$6,420.80</strong></span>
+
+            <span>TON <strong id="footer-ton">$18.72</strong></span>
+
+            <span>SOL <strong id="footer-sol">$382.21</strong></span>
+
+            <span>BNB <strong id="footer-bnb">$1,125.33</strong></span>
+
+            <span>XRP <strong id="footer-xrp">$4.21</strong></span>
+
+            <span>ADA <strong id="footer-ada">$3.42</strong></span>
+
+            <span>DOGE <strong id="footer-doge">$0.88</strong></span>
+
+            <span>TRX <strong id="footer-trx">$0.46</strong></span>
+
+            <span>LTC <strong id="footer-ltc">$438.00</strong></span>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/charts.js"></script>
+    <script type="module" src="js/main.js"></script>
+
+</body>
+
+</html>

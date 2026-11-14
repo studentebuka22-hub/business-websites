@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Administrator Dashboard</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/admin.css">
+
+</head>
+
+<body class="admin-page">
+
+<div id="adminLoader">
+
+Loading Administrator Dashboard...
+
+</div>
+
+<div class="admin-wrapper">
+
+<!-- ===========================
+ADMIN SIDEBAR
+=========================== -->
+
+<aside class="admin-sidebar">
+
+<div class="logo">
+
+<h2>
+
+CRYPTO<span>ADMIN</span>
+
+</h2>
+
+</div>
+
+<nav class="admin-menu">
+
+<a href="admin.html"
+class="active">
+
+📊 Dashboard
+
+</a>
+
+<a href="admin-users.html">
+
+👥 Users
+
+</a>
+
+<a href="admin-trades.html">
+
+📈 Trades
+
+</a>
+
+<a href="admin-deposits.html">
+
+💳 Deposits
+
+</a>
+
+<a href="admin-withdrawals.html">
+
+💰 Withdrawals
+
+</a>
+
+<a href="admin-settings.html">
+
+⚙ Settings
+
+</a>
+
+<a href="#"
+id="logoutBtn">
+
+🚪 Logout
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- ===========================
+MAIN CONTENT
+=========================== -->
+
+<main class="admin-content">
+
+<header class="admin-header">
+
+<div>
+
+<h1>
+
+Administrator Dashboard
+
+</h1>
+
+<p>
+
+Realtime Crypto Trading Management System
+
+</p>
+
+</div>
+
+<div class="admin-header-right">
+
+<span id="marketStatus">
+
+Connecting to Global Market...
+
+</span>
+
+</div>
+
+</header>
+
+<!-- ===========================
+SUMMARY CARDS
+=========================== -->
+
+<section class="admin-summary">
+
+<div class="summary-card">
+
+<h4>
+
+Registered Users
+
+</h4>
+
+<h2 id="totalUsers">
+
+0
+
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+
+Online Users
+
+</h4>
+
+<h2 id="onlineUsers">
+
+0
+
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+
+Active Trades
+
+</h4>
+
+<h2 id="activeTrades">
+
+0
+
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+
+Completed Trades
+
+</h4>
+
+<h2 id="completedTrades">
+
+0
+
+</h2>
+
+</div>
+
+</section>
+
+<section class="admin-summary">
+
+<div class="summary-card">
+
+<h4>
+
+Total Deposits
+
+</h4>
+
+<h2 id="totalDeposits">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+
+Total Withdrawals
+
+</h4>
+
+<h2 id="totalWithdrawals">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+
+Platform Profit
+
+</h4>
+
+<h2 id="totalProfit">
+
+$0.00
+
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>
+
+AI Market Status
+
+</h4>
+
+<h2 id="marketHealth">
+
+ONLINE
+
+</h2>
+
+</div>
+
+</section>
+
+<!-- ===========================
+QUICK ACTIONS
+=========================== -->
+
+<section class="admin-grid">
+
+<div class="admin-card">
+
+<h2>
+
+Quick Actions
+
+</h2>
+
+<button
+class="primary-btn"
+onclick="location.href='admin-users.html'">
+
+Manage Users
+
+</button>
+
+<button
+class="primary-btn"
+onclick="location.href='admin-trades.html'">
+
+Manage Trades
+
+</button>
+
+<button
+class="primary-btn"
+onclick="location.href='admin-deposits.html'">
+
+Manage Deposits
+
+</button>
+
+<button
+class="primary-btn"
+onclick="location.href='admin-withdrawals.html'">
+
+Manage Withdrawals
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="location.href='admin-settings.html'">
+
+Platform Settings
+
+</button>
+
+</div>
+
+<div class="admin-card">
+
+<h2>
+
+Live Market Status
+
+</h2>
+
+<div id="liveMarketFeed">
+
+<p>
+
+Waiting for AI Trading Engine...
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+  <!-- ===========================
+LATEST REGISTERED USERS
+=========================== -->
+
+<section class="admin-card">
+
+<h2>
+
+Latest Registered Users
+
+</h2>
+
+<div class="table-responsive">
+
+<table class="admin-table">
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Country</th>
+
+<th>Role</th>
+
+<th>Status</th>
+
+<th>Date Joined</th>
+
+</tr>
+
+</thead>
+
+<tbody id="latestUsers">
+
+<tr>
+
+<td colspan="6">
+
+Loading registered users...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===========================
+LATEST TRADES
+=========================== -->
+
+<section class="admin-card">
+
+<h2>
+
+Latest Trading Activities
+
+</h2>
+
+<div class="table-responsive">
+
+<table class="admin-table">
+
+<thead>
+
+<tr>
+
+<th>Trader</th>
+
+<th>Asset</th>
+
+<th>Type</th>
+
+<th>Amount</th>
+
+<th>Status</th>
+
+<th>Time</th>
+
+</tr>
+
+</thead>
+
+<tbody id="latestTrades">
+
+<tr>
+
+<td colspan="6">
+
+Loading trading activities...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===========================
+SYSTEM ACTIVITY
+=========================== -->
+
+<section class="admin-grid">
+
+<div class="admin-card">
+
+<h2>
+
+Realtime Platform Activity
+
+</h2>
+
+<div id="systemActivity">
+
+<div>
+
+Platform initialized successfully...
+
+</div>
+
+<div>
+
+Realtime Database connected...
+
+</div>
+
+<div>
+
+Authentication service running...
+
+</div>
+
+<div>
+
+Waiting for user activities...
+
+</div>
+
+</div>
+
+</div>
+
+<div class="admin-card">
+
+<h2>
+
+Administrator Shortcuts
+
+</h2>
+
+<div class="admin-shortcuts">
+
+<button
+class="primary-btn"
+onclick="location.href='admin-users.html'">
+
+User Manager
+
+</button>
+
+<button
+class="primary-btn"
+onclick="location.href='admin-trades.html'">
+
+Trade Manager
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="location.href='admin-deposits.html'">
+
+Deposit Requests
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="location.href='admin-withdrawals.html'">
+
+Withdrawal Requests
+
+</button>
+
+<button
+class="secondary-btn"
+onclick="location.href='admin-settings.html'">
+
+System Settings
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+  <!-- ===========================
+FOOTER
+=========================== -->
+
+<footer class="admin-footer">
+
+<p>
+
+© 2026 Crypto Trading Platform.
+Administrator Control Panel.
+
+</p>
+
+</footer>
+
+</main>
+
+</div>
+
+<!-- ===========================
+LOADING OVERLAY
+=========================== -->
+
+<div id="pageOverlay"
+style="display:none;">
+
+<div class="loader-box">
+
+<h3>
+
+Loading...
+
+</h3>
+
+<p>
+
+Please wait while data is being synchronized.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ===========================
+NOTIFICATION AREA
+=========================== -->
+
+<div id="adminNotification"
+class="admin-notification"
+style="display:none;">
+
+<span id="adminNotificationText">
+
+System Ready
+
+</span>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/admin-dashboard.js"></script>
+</body>
+</html>

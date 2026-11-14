@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | CryptoTrade</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+
+
+</head>
+
+<body class="dashboard-page">
+
+<div class="sidebar">
+
+<div class="logo">
+
+<h2>CRYPTO<span>TRADE</span></h2>
+
+</div>
+
+<nav>
+
+<a href="dashboard.html" class="active">🏠 Dashboard</a>
+
+<a href="trade2.html">📈 Live Trading</a>
+
+<a href="deposit.html">💳 Deposit</a>
+
+<a href="wallet.html">👛 Wallet</a>
+
+<a href="trade.html">📋 Trading History</a>
+
+<a href="profile.html">👤 Profile</a>
+
+<a href="settings.html">⚙ Settings</a>
+
+<a href="#" id="logoutBtn">🚪 Logout</a>
+
+</nav>
+
+</div>
+
+<div class="main-content">
+
+<header>
+
+<div>
+
+<h1>Trading Dashboard</h1>
+
+<p>
+
+Welcome back,
+
+<b id="welcomeName">
+Trader
+</b>
+
+</p>
+
+<p id="userEmail"></p>
+
+</div>
+
+<div class="header-right">
+
+<div class="status">
+
+🟢 AI Trading Online
+
+</div>
+
+</div>
+
+</header>
+
+<section class="summary-cards">
+
+<div class="card">
+
+<h3>Wallet Balance</h3>
+
+<h2 id="walletBalance">$0.00</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Demo Balance</h3>
+
+<h2 id="demoBalance">$0.00</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Total Profit</h3>
+
+<h2 id="totalProfit">$0.00</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Total Deposits</h3>
+
+<h2 id="totalDeposit">$0.00</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Total Withdrawals</h3>
+
+<h2 id="totalWithdrawal">$0.00</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Current Trade</h3>
+
+<h2 id="tradeStatus">NO ACTIVE TRADE</h2>
+
+</div>
+
+</section>
+
+<section class="chart-section">
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<h2>Live Market</h2>
+
+<div class="asset-buttons">
+
+<button data-asset="BTC">BTC</button>
+
+<button data-asset="ETH">ETH</button>
+
+<button data-asset="TON">TON</button>
+
+<button data-asset="SOL">SOL</button>
+
+<button data-asset="BNB">BNB</button>
+
+</div>
+
+</div>
+
+<canvas id="tradingChart"></canvas>
+
+</div>
+
+<div class="market-sidebar">
+    <div class="trade-card">
+
+<h3>Trading Status</h3>
+
+<div class="status-live">
+
+<span class="pulse"></span>
+
+<span id="marketStatus">
+
+AI Engine Initializing...
+
+</span>
+
+</div>
+
+<div class="trade-row">
+
+<span class="trade-label">
+
+Asset
+
+</span>
+
+<span class="trade-value" id="tradeAsset">
+
+BTC
+
+</span>
+
+</div>
+
+<div class="trade-row">
+
+<span class="trade-label">
+
+Progress
+
+</span>
+
+<span class="trade-value" id="tradeProgress">
+
+0%
+
+</span>
+
+</div>
+
+<div class="progress">
+
+<div id="progressBar"></div>
+
+</div>
+
+<div class="trade-row">
+
+<span class="trade-label">
+
+Current Balance
+
+</span>
+
+<span class="trade-value" id="currentBalance">
+
+$0.00
+
+</span>
+
+</div>
+
+<div class="trade-row">
+
+<span class="trade-label">
+
+Target Balance
+
+</span>
+
+<span class="trade-value" id="targetBalance">
+
+$0.00
+
+</span>
+
+</div>
+
+<div class="trade-row">
+
+<span class="trade-label">
+
+Time Remaining
+
+</span>
+
+<span class="trade-value" id="countdown">
+
+14d 00h 00m 00s
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="summary-cards">
+
+<div class="card">
+
+<h3>Portfolio</h3>
+
+<div id="portfolioContainer">
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Latest Notification</h3>
+
+<p id="recentNotification">
+
+No notifications available.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Account Email</h3>
+
+<h2 id="email">
+
+-
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Phone Number</h3>
+
+<h2 id="phone">
+
+-
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Country</h3>
+
+<h2 id="country">
+
+-
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Account Status</h3>
+
+<h2 id="accountStatus">
+
+Active
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Account Role</h3>
+
+<h2 id="role">
+
+User
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Member Since</h3>
+
+<h2 id="joinedDate">
+
+-
+
+</h2>
+
+</div>
+
+</section>
+    <footer style="margin-top:35px;">
+
+<div class="card">
+
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;">
+
+<div>
+
+<h3 style="margin-bottom:8px;color:#fff;">
+
+CryptoTrade AI Engine
+
+</h3>
+
+<p style="color:#94a3b8;">
+
+Realtime AI-powered cryptocurrency trading dashboard.
+
+</p>
+
+</div>
+
+<div style="text-align:right;">
+
+<div>
+
+<strong>Logged in as:</strong>
+
+<span id="fullName">
+
+Trader
+
+</span>
+
+</div>
+
+<div style="margin-top:8px;">
+
+<strong>Email:</strong>
+
+<span id="userEmail">
+
+-
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+
+<script type="module" src="js/auth.js"></script>
+
+<script type="module" src="js/dashboard.js"></script>
+
+<script>
+
+document.querySelectorAll(".asset-buttons button").forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+document.querySelectorAll(".asset-buttons button").forEach(btn=>{
+
+btn.style.background="#24304b";
+
+});
+
+button.style.background="linear-gradient(135deg,#2563eb,#7c3aed)";
+
+});
+
+});
+
+const chart=document.getElementById("tradingChart");
+
+if(chart){
+
+chart.width=900;
+
+chart.height=430;
+
+const ctx=chart.getContext("2d");
+
+function drawChart(){
+
+ctx.clearRect(0,0,chart.width,chart.height);
+
+ctx.strokeStyle="#1e293b";
+
+ctx.lineWidth=1;
+
+for(let i=0;i<12;i++){
+
+ctx.beginPath();
+
+ctx.moveTo(0,i*40);
+
+ctx.lineTo(chart.width,i*40);
+
+ctx.stroke();
+
+}
+
+for(let i=0;i<16;i++){
+
+ctx.beginPath();
+
+ctx.moveTo(i*60,0);
+
+ctx.lineTo(i*60,chart.height);
+
+ctx.stroke();
+
+}
+
+ctx.beginPath();
+
+ctx.lineWidth=4;
+
+ctx.strokeStyle="#22c55e";
+
+let x=0;
+
+let y=220;
+
+ctx.moveTo(x,y);
+
+for(let i=1;i<45;i++){
+
+x=i*20;
+
+y=220+
+
+Math.sin(i/2.8)*35+
+
+Math.random()*20-10;
+
+ctx.lineTo(x,y);
+
+}
+
+ctx.stroke();
+
+}
+
+drawChart();
+
+setInterval(drawChart,3000);
+
+}
+
+</script>
+
+</body>
+
+</html>
