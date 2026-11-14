@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<meta name="theme-color"
+content="#0D6EFD">
+
+<title>
+
+MathCloud Tutorial Academy | Initial Setup
+
+</title>
+
+<link rel="stylesheet"
+href="assets/css/reset.css">
+
+<link rel="stylesheet"
+href="assets/css/variables.css">
+
+<link rel="stylesheet"
+href="assets/css/components.css">
+
+<link rel="stylesheet"
+href="assets/css/animations.css">
+
+<link rel="stylesheet"
+href="assets/css/responsive.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+
+background:#eef3ff;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:30px;
+
+}
+
+.setupCard{
+
+width:100%;
+
+max-width:600px;
+
+background:#fff;
+
+border-radius:20px;
+
+padding:40px;
+
+box-shadow:0 20px 60px rgba(0,0,0,.12);
+
+}
+
+.logo{
+
+display:block;
+
+width:110px;
+
+margin:auto;
+
+margin-bottom:20px;
+
+}
+
+h1{
+
+text-align:center;
+
+color:#0D6EFD;
+
+margin-bottom:10px;
+
+}
+
+p{
+
+text-align:center;
+
+color:#666;
+
+margin-bottom:35px;
+
+}
+
+.formGroup{
+
+margin-bottom:22px;
+
+}
+
+label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:600;
+
+}
+
+.inputBox{
+
+position:relative;
+
+}
+
+.inputBox i{
+
+position:absolute;
+
+left:18px;
+
+top:18px;
+
+color:#888;
+
+}
+
+.inputBox input{
+
+width:100%;
+
+padding:16px 16px 16px 52px;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+font-size:15px;
+
+outline:none;
+
+}
+
+.inputBox input:focus{
+
+border-color:#0D6EFD;
+
+}
+
+.passwordToggle{
+
+position:absolute;
+
+right:15px;
+
+top:15px;
+
+border:none;
+
+background:none;
+
+cursor:pointer;
+
+font-size:18px;
+
+}
+
+button#createAccount{
+
+width:100%;
+
+padding:18px;
+
+border:none;
+
+border-radius:12px;
+
+background:#0D6EFD;
+
+color:#fff;
+
+font-size:17px;
+
+font-weight:700;
+
+cursor:pointer;
+
+margin-top:10px;
+
+}
+
+button#createAccount:hover{
+
+background:#004ecb;
+
+}
+
+#status{
+
+margin-top:20px;
+
+text-align:center;
+
+font-weight:600;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="setupCard">
+
+<img
+src="assets/images/logo/logo.png"
+class="logo">
+
+<h1>
+
+System Installation
+
+</h1>
+
+<p>
+
+Create First Super Administrator
+
+</p>
+
+<form id="setupForm">
+
+<div class="formGroup">
+
+<label>
+
+Full Name
+
+</label>
+
+<div class="inputBox">
+
+<i class="fa-solid fa-user"></i>
+
+<input
+
+type="text"
+
+id="name"
+
+required
+
+placeholder="Enter full name">
+
+</div>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Email Address
+
+</label>
+
+<div class="inputBox">
+
+<i class="fa-solid fa-envelope"></i>
+
+<input
+
+type="email"
+
+id="email"
+
+required
+
+placeholder="Enter email address">
+
+</div>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Password
+
+</label>
+
+<div class="inputBox">
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+
+type="password"
+
+id="password"
+
+required
+
+placeholder="Create password">
+
+<button
+
+type="button"
+
+class="passwordToggle"
+
+id="togglePassword">
+
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Confirm Password
+
+</label>
+
+<div class="inputBox">
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+
+type="password"
+
+id="confirmPassword"
+
+required
+
+placeholder="Confirm password">
+
+<button
+
+type="button"
+
+class="passwordToggle"
+
+id="toggleConfirm">
+
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<button
+
+type="submit"
+
+id="createAccount">
+
+<i class="fa-solid fa-user-shield"></i>
+
+Create Super Admin
+
+</button>
+
+<div id="status"></div>
+
+</form>
+
+</div>
+
+<script type="module" src="firebase/setup.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,612 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+Super Admin Dashboard
+File: pages/super-admin/dashboard.html
+Part 1
+========================================================== -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#0D6EFD">
+
+<title>
+
+Super Admin Dashboard | MathCloud Tutorial Academy
+
+</title>
+
+<link rel="icon"
+href="../../assets/images/logo/favicon.png">
+
+<link rel="stylesheet"
+href="../../assets/css/reset.css">
+
+<link rel="stylesheet"
+href="../../assets/css/variables.css">
+
+<link rel="stylesheet"
+href="../../assets/css/components.css">
+
+<link rel="stylesheet"
+href="../../assets/css/dashboard.css">
+
+<link rel="stylesheet"
+href="../../assets/css/responsive.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div id="preloader">
+
+<div class="loader">
+
+<img
+src="../../assets/images/logo/logo.png">
+
+<div class="spinner"></div>
+
+<h2>
+
+Loading Dashboard...
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="dashboard">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="sidebarLogo">
+
+<img
+src="../../assets/images/logo/logo.png">
+
+<h2>
+
+MathCloud
+
+</h2>
+
+</div>
+
+<ul class="sidebarMenu">
+
+<li class="active">
+
+<a href="#">
+
+<i class="fa-solid fa-gauge-high"></i>
+
+<span>
+
+Dashboard
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../super-admin/users.html">
+
+<i class="fa-solid fa-users"></i>
+
+<span>
+
+Users
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../super-admin/students.html">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span>
+
+Students
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../super-admin/teachers.html">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+<span>
+
+Teachers
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../super-admin/classes.html">
+
+<i class="fa-solid fa-school"></i>
+
+<span>
+
+Classes
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../super-admin/subjects.html">
+
+<i class="fa-solid fa-book-open"></i>
+
+<span>
+
+Subjects
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../super-admin/results.html">
+
+<i class="fa-solid fa-square-poll-vertical"></i>
+
+<span>
+
+Results
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../super-admin/settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>
+
+Settings
+
+</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="#" id="logoutBtn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+<span>
+
+Logout
+
+</span>
+
+</a>
+
+</li>
+
+</ul>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="mainContent">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Super Admin Dashboard
+
+</h1>
+
+<p>
+
+Welcome back.
+
+</p>
+
+</div>
+
+<div class="topRight">
+
+<button id="themeToggle">
+
+<i class="fa-solid fa-moon"></i>
+
+</button>
+
+<div class="profile">
+
+<img
+src="../../assets/images/avatars/admin.png">
+
+<div>
+
+<h4 id="adminName">
+
+Loading...
+
+</h4>
+
+<small id="adminRole">
+
+Super Administrator
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+  <!-- ==========================================================
+dashboard.html
+Part 2
+Continue inside <main class="mainContent">
+=========================================================== -->
+
+<section class="dashboardCards">
+
+<div class="dashboardCard">
+
+<div class="cardIcon blue">
+
+<i class="fa-solid fa-users"></i>
+
+</div>
+
+<div class="cardContent">
+
+<h2 id="totalUsers">
+
+0
+
+</h2>
+
+<p>
+
+Total Users
+
+</p>
+
+</div>
+
+</div>
+
+<div class="dashboardCard">
+
+<div class="cardIcon green">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+</div>
+
+<div class="cardContent">
+
+<h2 id="totalStudents">
+
+0
+
+</h2>
+
+<p>
+
+Students
+
+</p>
+
+</div>
+
+</div>
+
+<div class="dashboardCard">
+
+<div class="cardIcon orange">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+</div>
+
+<div class="cardContent">
+
+<h2 id="totalTeachers">
+
+0
+
+</h2>
+
+<p>
+
+Teachers
+
+</p>
+
+</div>
+
+</div>
+
+<div class="dashboardCard">
+
+<div class="cardIcon purple">
+
+<i class="fa-solid fa-school"></i>
+
+</div>
+
+<div class="cardContent">
+
+<h2 id="totalClasses">
+
+0
+
+</h2>
+
+<p>
+
+Classes
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="dashboardGrid">
+
+<div class="chartCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+School Overview
+
+</h3>
+
+</div>
+
+<canvas id="overviewChart"></canvas>
+
+</div>
+
+<div class="activityCard">
+
+<div class="sectionHeader">
+
+<h3>
+
+Recent Activities
+
+</h3>
+
+</div>
+
+<ul id="recentActivities">
+
+</ul>
+
+<li>
+
+<i class="fa-solid fa-circle-check"></i>
+
+System initialized successfully.
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-user-plus"></i>
+
+Awaiting new user registrations.
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-database"></i>
+
+Realtime database connected.
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-bell"></i>
+
+No unread notifications.
+
+</li>
+
+</ul>
+
+</div>
+
+</section>
+
+<section class="quickActions">
+
+<div class="sectionHeader">
+
+<h3>
+
+Quick Actions
+
+</h3>
+
+</div>
+
+<div class="actionGrid">
+
+<a href="create-user.html" class="actionCard">
+
+<i class="fa-solid fa-user-plus"></i>
+
+<span>
+
+Create User
+
+</span>
+
+</a>
+
+<a href="students.html" class="actionCard">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span>
+
+Students
+
+</span>
+
+</a>
+
+<a href="teachers.html" class="actionCard">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+<span>
+
+Teachers
+
+</span>
+
+</a>
+
+<a href="classes.html" class="actionCard">
+
+<i class="fa-solid fa-school"></i>
+
+<span>
+
+Classes
+
+</span>
+
+</a>
+
+<a href="subjects.html" class="actionCard">
+
+<i class="fa-solid fa-book-open"></i>
+
+<span>
+
+Subjects
+
+</span>
+
+</a>
+
+<a href="settings.html" class="actionCard">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>
+
+Settings
+
+</span>
+
+</a>
+
+</div>
+
+</section>
+  <!-- ==========================================================
+dashboard.html
+Part 3
+=========================================================== -->
+
+<footer class="dashboardFooter">
+
+<p>
+
+© 2026 MathCloud Tutorial Academy. All Rights Reserved.
+
+</p>
+
+</footer>
+
+</main>
+
+</div>
+
+
+
+<script type="module"
+src="../../assets/js/theme.js"></script>
+
+<script type="module"
+src="../../assets/js/loader.js"></script>
+
+<script type="module"
+src="../../assets/js/router.js"></script>
+
+<script type="module"
+src="../../assets/js/dashboard.js"></script>
+
+<script type="module"
+src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>

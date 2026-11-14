@@ -1,0 +1,399 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+Production School Management System
+File: login.html
+Part 1
+=========================================================== -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#0D6EFD">
+
+<title>
+MathCloud Tutorial Academy | Login
+</title>
+
+<link rel="icon"
+href="assets/images/logo/favicon.png">
+
+<link rel="manifest"
+href="manifest.json">
+
+<link rel="stylesheet"
+href="assets/css/reset.css">
+
+<link rel="stylesheet"
+href="assets/css/variables.css">
+
+<link rel="stylesheet"
+href="assets/css/animations.css">
+
+<link rel="stylesheet"
+href="assets/css/components.css">
+
+<link rel="stylesheet"
+href="assets/css/login.css">
+
+<link rel="stylesheet"
+href="assets/css/responsive.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- PRELOADER -->
+
+<div id="preloader">
+
+<div class="loader">
+
+<img
+src="assets/images/logo/logo.png"
+alt="Logo">
+
+<div class="spinner"></div>
+
+<h2>
+
+MathCloud Tutorial Academy
+
+</h2>
+
+<p>
+
+Preparing Secure Login...
+
+</p>
+
+</div>
+
+</div>
+
+<!-- LOGIN PAGE -->
+
+<section class="loginPage">
+
+<!-- LEFT -->
+
+<div class="loginLeft">
+
+<div class="overlay"></div>
+
+<img
+src="assets/images/backgrounds/login.jpg"
+class="backgroundImage">
+
+<div class="welcomeContent">
+
+<img
+src="assets/images/logo/logo.png"
+class="schoolLogo">
+
+<h1>
+
+MathCloud Tutorial Academy
+
+</h1>
+
+<p>
+
+Learning Beyond Imagination
+
+</p>
+
+<div class="features">
+
+<div>
+
+<i class="fa-solid fa-user-shield"></i>
+
+<span>
+
+Secure Authentication
+
+</span>
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-chart-line"></i>
+
+<span>
+
+Smart Dashboard
+
+</span>
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-cloud"></i>
+
+<span>
+
+Realtime Firebase
+
+</span>
+
+</div>
+
+<div>
+
+<i class="fa-solid fa-mobile-screen"></i>
+
+<span>
+
+Responsive Design
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="loginRight">
+
+<div class="loginCard">
+
+<div class="cardHeader">
+
+<img
+src="assets/images/logo/logo.png">
+
+<h2>
+
+Welcome Back
+
+</h2>
+
+<p>
+
+Sign in to continue
+
+</p>
+
+</div>
+
+<form id="loginForm">
+
+<div class="formGroup">
+
+<label>
+
+Email Address
+
+</label>
+
+<div class="inputBox">
+
+<i class="fa-solid fa-envelope"></i>
+
+<input
+
+type="email"
+
+id="email"
+
+placeholder="Enter email"
+
+required>
+
+</div>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Password
+
+</label>
+
+<div class="inputBox">
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+
+type="password"
+
+id="password"
+
+placeholder="Enter password"
+
+required>
+
+<button
+
+type="button"
+
+id="togglePassword">
+
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+</div>
+
+</div>
+    <!-- ==========================================================
+login.html
+Part 2
+Continue inside <form id="loginForm">
+=========================================================== -->
+
+<div class="rememberArea">
+
+    <label class="checkboxContainer">
+
+        <input
+            type="checkbox"
+            id="rememberMe">
+
+        <span class="checkmark"></span>
+
+        Remember Me
+
+    </label>
+
+    <a
+        href="forgot-password.html"
+        class="forgotPassword">
+
+        Forgot Password?
+
+    </a>
+
+</div>
+
+<button
+    type="submit"
+    id="loginButton"
+    class="loginButton">
+
+    <i class="fa-solid fa-right-to-bracket"></i>
+
+    Login
+
+</button>
+
+<div class="divider">
+
+    <span>
+
+        Secure School Portal
+
+    </span>
+
+</div>
+
+<div class="loginInformation">
+
+    <div class="infoCard">
+
+        <i class="fa-solid fa-user-shield"></i>
+
+        <h4>
+
+            Super Admin
+
+        </h4>
+
+        <p>
+
+            Full system administration and configuration.
+
+        </p>
+
+    </div>
+
+    <div class="infoCard">
+
+        <i class="fa-solid fa-user-gear"></i>
+
+        <h4>
+
+            Admin
+
+        </h4>
+
+        <p>
+
+            Manage students, teachers, academics and school activities.
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="securityBox">
+
+    <i class="fa-solid fa-shield-halved"></i>
+
+    <span>
+
+        Protected by Firebase Authentication & Realtime Database
+
+    </span>
+
+</div>
+
+</form>
+
+<div class="loginFooter">
+
+    <p>
+
+        © 2026 MathCloud Tutorial Academy
+
+    </p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div id="toastContainer"></div>
+
+<script type="module"
+src="assets/js/login.js"></script>
+<script type="module"
+src="assets/js/theme.js"></script>
+
+<script type="module"
+src="assets/js/loader.js"></script>
+
+<script type="module"
+src="assets/js/router.js"></script>
+
+<script type="module"
+src="assets/js/app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,342 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+File: pages/super-admin/users.html
+Part 1
+========================================================== -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#0D6EFD">
+
+<title>
+
+User Management | MathCloud Tutorial Academy
+
+</title>
+
+<link rel="icon"
+href="../../assets/images/logo/favicon.png">
+
+<link rel="stylesheet"
+href="../../assets/css/reset.css">
+
+<link rel="stylesheet"
+href="../../assets/css/variables.css">
+
+<link rel="stylesheet"
+href="../../assets/css/components.css">
+
+<link rel="stylesheet"
+href="../../assets/css/dashboard.css">
+
+<link rel="stylesheet"
+href="../../assets/css/users.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div id="preloader">
+
+<div class="loader">
+
+<img src="../../assets/images/logo/logo.png">
+
+<div class="spinner"></div>
+
+<h2>
+
+Loading Users...
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<div class="sidebarLogo">
+
+<img src="../../assets/images/logo/logo.png">
+
+<h2>
+
+MathCloud
+
+</h2>
+
+</div>
+
+<ul class="sidebarMenu">
+
+<li>
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-gauge-high"></i>
+
+<span>Dashboard</span>
+
+</a>
+
+</li>
+
+<li class="active">
+
+<a href="users.html">
+
+<i class="fa-solid fa-users"></i>
+
+<span>Users</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="students.html">
+
+<i class="fa-solid fa-user-graduate"></i>
+
+<span>Students</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="teachers.html">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+<span>Teachers</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../../login.html">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+<span>Logout</span>
+
+</a>
+
+</li>
+
+</ul>
+
+</aside>
+
+<main class="mainContent">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+User Management
+
+</h1>
+
+<p>
+
+Manage all system users
+
+</p>
+
+</div>
+
+<div class="topRight">
+
+<button class="loginButton"
+
+id="addUser">
+
+<i class="fa-solid fa-user-plus"></i>
+
+Create User
+
+</button>
+
+</div>
+
+</header>
+
+<section class="tableCard">
+
+<div class="tableHeader">
+
+<input
+
+type="search"
+
+id="searchUser"
+
+data-search="#usersTable tbody tr"
+
+placeholder="Search users...">
+
+</div>
+
+<table id="usersTable">
+
+<thead>
+
+<tr>
+
+<th>Photo</th>
+
+<th>Full Name</th>
+
+<th>Email</th>
+
+<th>Role</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</section>
+  <!-- ==========================================================
+pages/super-admin/users.html
+Part 2
+========================================================== -->
+
+<div class="pagination">
+
+<button id="prevPage">
+
+<i class="fa-solid fa-angle-left"></i>
+
+Previous
+
+</button>
+
+<span id="pageInfo">
+
+Page 1 of 1
+
+</span>
+
+<button id="nextPage">
+
+Next
+
+<i class="fa-solid fa-angle-right"></i>
+
+</button>
+
+</div>
+
+<footer class="dashboardFooter">
+
+<p>
+
+© 2026 MathCloud Tutorial Academy. All Rights Reserved.
+
+</p>
+
+</footer>
+
+</main>
+
+</div>
+
+<script type="module">
+
+import { logout } from "../../firebase/auth.js";
+
+import {
+
+initializeUsersPage
+
+}
+
+from "../../assets/js/users.js";
+
+const logoutLink=document.querySelector(
+
+'.sidebarMenu a[href="../../login.html"]'
+
+);
+
+logoutLink.addEventListener("click",(event)=>{
+
+event.preventDefault();
+
+logout();
+
+});
+
+initializeUsersPage();
+
+</script>
+
+<script type="module"
+src="../../assets/js/theme.js"></script>
+
+<script type="module"
+src="../../assets/js/loader.js"></script>
+
+<script type="module"
+src="../../assets/js/router.js"></script>
+
+<script type="module"
+src="../../assets/js/sidebar.js"></script>
+
+<script type="module"
+src="../../assets/js/users.js"></script>
+
+<script type="module"
+src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>

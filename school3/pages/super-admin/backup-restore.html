@@ -1,0 +1,165 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+File: pages/super-admin/backup-restore.html
+Part 1
+========================================================== -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Backup & Restore | MathCloud Tutorial Academy
+
+</title>
+
+<link rel="icon"
+href="../../assets/images/logo/favicon.png">
+
+<link rel="stylesheet"
+href="../../assets/css/reset.css">
+
+<link rel="stylesheet"
+href="../../assets/css/variables.css">
+
+<link rel="stylesheet"
+href="../../assets/css/components.css">
+
+<link rel="stylesheet"
+href="../../assets/css/dashboard.css">
+
+<link rel="stylesheet"
+href="../../assets/css/backup-restore.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<!-- Same Sidebar -->
+
+</aside>
+
+<main class="mainContent">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Backup & Restore
+
+</h1>
+
+<p>
+
+Create, download and restore system backups
+
+</p>
+
+</div>
+
+</header>
+
+<section class="backupCard">
+
+<div class="backupSection">
+
+<h2>
+
+Database Backup
+
+</h2>
+
+<p>
+
+Create a complete backup of the Firebase database.
+
+</p>
+
+<button
+
+id="createBackup"
+
+class="primaryButton">
+
+<i class="fa-solid fa-download"></i>
+
+Create Backup
+
+</button>
+
+</div>
+
+<div class="backupSection">
+
+<h2>
+
+Restore Database
+
+</h2>
+
+<p>
+
+Select a previously exported backup file.
+
+</p>
+
+<input
+
+type="file"
+
+id="backupFile"
+
+accept=".json">
+
+<button
+
+id="restoreBackup"
+
+class="secondaryButton">
+
+<i class="fa-solid fa-upload"></i>
+
+Restore Backup
+
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<script type="module"
+src="../../assets/js/backup-restore.js"></script>
+
+<script type="module"
+src="../../assets/js/sidebar.js"></script>
+
+<script type="module"
+src="../../assets/js/theme.js"></script>
+
+<script type="module"
+src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+File: pages/super-admin/edit-user.html
+Part 1
+========================================================== -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit User | MathCloud Tutorial Academy</title>
+
+<link rel="icon" href="../../assets/images/logo/favicon.png">
+
+<link rel="stylesheet" href="../../assets/css/reset.css">
+
+<link rel="stylesheet" href="../../assets/css/variables.css">
+
+<link rel="stylesheet" href="../../assets/css/components.css">
+
+<link rel="stylesheet" href="../../assets/css/dashboard.css">
+
+<link rel="stylesheet" href="../../assets/css/create-user.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div id="preloader">
+
+<div class="loader">
+
+<img src="../../assets/images/logo/logo.png">
+
+<div class="spinner"></div>
+
+<h2>Loading User...</h2>
+
+</div>
+
+</div>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<!-- Same Sidebar -->
+
+</aside>
+
+<main class="mainContent">
+
+<header class="topbar">
+
+<div>
+
+<h1>Edit User</h1>
+
+<p>Update user information</p>
+
+</div>
+
+</header>
+
+<section class="formCard">
+
+<form id="editUserForm">
+
+<div class="formGrid">
+
+<div class="formGroup">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="fullName"
+required>
+
+</div>
+
+<div class="formGroup">
+
+<label>Email</label>
+
+<input
+type="email"
+id="email"
+required>
+
+</div>
+
+<div class="formGroup">
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="phone">
+
+</div>
+
+<div class="formGroup">
+
+<label>Role</label>
+
+<select id="role" required>
+
+<option>Super Admin</option>
+
+<option>Admin</option>
+
+<option>Principal</option>
+
+<option>Vice Principal</option>
+
+<option>Teacher</option>
+
+<option>Student</option>
+
+<option>Parent</option>
+
+<option>Accountant</option>
+
+<option>Librarian</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>Status</label>
+
+<select id="status">
+
+<option>Active</option>
+
+<option>Suspended</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>Profile Photo</label>
+
+<input
+type="file"
+id="photo"
+accept="image/*">
+
+</div>
+
+</div>
+
+<div class="formActions">
+
+<button
+type="button"
+class="secondaryButton"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</button>
+
+<button
+type="submit"
+class="primaryButton">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Save Changes
+
+</button>
+
+</div>
+
+</form>
+
+</section>
+
+<footer class="dashboardFooter">
+
+<p>
+
+© 2026 MathCloud Tutorial Academy. All Rights Reserved.
+
+</p>
+
+</footer>
+
+</main>
+
+</div>
+
+<script type="module"
+src="../../assets/js/edit-user.js"></script>
+
+<script type="module"
+src="../../assets/js/theme.js"></script>
+
+<script type="module"
+src="../../assets/js/sidebar.js"></script>
+
+<script type="module"
+src="../../assets/js/loader.js"></script>
+
+<script type="module"
+src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>

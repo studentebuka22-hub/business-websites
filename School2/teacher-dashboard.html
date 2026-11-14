@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Brightgate Teacher · School Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS (matches the admin console)
+   ============================================================ */
+:root{
+  --ink: #17223d;
+  --ink-2: #202f52;
+  --ink-3: #2a3c68;
+  --gold: #c69a3e;
+  --gold-light: #e8cf8d;
+  --paper: #f6f3ec;
+  --card: #ffffff;
+  --text: #1e2233;
+  --mute: #6b7080;
+  --line: #e7e2d6;
+  --line-2: #eceff5;
+  --success: #3e7a56;
+  --success-bg: #e9f3ec;
+  --danger: #b1473d;
+  --danger-bg: #fbebe9;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(23,34,61,.06), 0 8px 24px -12px rgba(23,34,61,.18);
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height:100vh;
+}
+.hidden{display:none !important;}
+button{font-family:inherit; cursor:pointer;}
+input,select,textarea{font-family:inherit;}
+a{color:inherit;}
+::selection{background: var(--gold-light);}
+a:focus-visible, button:focus-visible, input:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+#login-screen{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(198,154,62,.14), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(198,154,62,.10), transparent 45%),
+    var(--ink);
+}
+.login-card{
+  width:100%; max-width:400px; background:var(--card); border-radius:18px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.5);
+  padding:40px 34px 32px; text-align:center;
+}
+.seal{
+  width:64px; height:64px; margin:0 auto 18px; border-radius:50%;
+  background: radial-gradient(circle at 30% 25%, var(--gold-light), var(--gold) 60%, #a9812f 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:20px; color:var(--ink);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,.35), 0 8px 20px -6px rgba(198,154,62,.6);
+}
+.seal.logo-wrap{background:none; box-shadow:none; overflow:hidden;}
+.seal.logo-wrap img{width:100%; height:100%; object-fit:cover; border-radius:50%;}
+.login-card h1{font-family:var(--font-display); font-size:23px; margin:2px 0 4px; letter-spacing:-.01em;}
+.login-card .sub{color:var(--mute); font-size:13.5px; margin-bottom:26px;}
+.field{text-align:left; margin-bottom:15px;}
+.field label{display:block; font-size:12.5px; font-weight:600; color:var(--ink); margin-bottom:6px; letter-spacing:.01em;}
+.field input{
+  width:100%; padding:11px 13px; border:1.5px solid var(--line); border-radius:9px;
+  font-size:14.5px; background:var(--paper); color:var(--text); transition:border-color .15s;
+}
+.field input:focus{border-color:var(--gold); outline:none; background:#fff;}
+.btn{
+  border:none; border-radius:9px; padding:11px 18px; font-size:14.5px; font-weight:600;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px; transition:transform .1s, opacity .15s, box-shadow .15s;
+}
+.btn:active{transform: translateY(1px);}
+.btn-primary{background:var(--ink); color:#fff; width:100%; margin-top:6px; padding:12px 18px;}
+.btn-primary:hover{background:var(--ink-3);}
+.btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--gold); color:var(--ink);}
+.btn-sm{padding:7px 12px; font-size:13px; border-radius:8px;}
+.btn:disabled{opacity:.55; cursor:not-allowed;}
+#login-error{
+  color:var(--danger); background:var(--danger-bg); border-radius:8px; padding:9px 12px;
+  font-size:13px; margin-bottom:14px; text-align:left; display:none;
+}
+.login-foot{margin-top:22px; font-size:12px; color:var(--mute);}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+#app{display:flex; min-height:100vh;}
+
+#sidebar{
+  width:252px; flex-shrink:0; background:var(--ink); color:#dfe4f2;
+  display:flex; flex-direction:column; position:fixed; top:0; left:0; bottom:0; z-index:40;
+  transition: transform .25s ease;
+}
+.sb-brand{
+  display:flex; align-items:center; gap:11px; padding:22px 20px 18px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.sb-brand .seal{width:38px; height:38px; font-size:13px; flex-shrink:0;}
+.sb-brand .name{font-family:var(--font-display); font-size:16.5px; font-weight:700; color:#fff; line-height:1.15;}
+.sb-brand .tag{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--gold-light); font-family:var(--font-mono);}
+
+.sb-nav{flex:1; overflow-y:auto; padding:14px 12px;}
+.sb-section-label{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:#8a91ab; padding:12px 10px 6px; font-family:var(--font-mono);}
+.sb-link{
+  display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:9px;
+  color:#c7cce2; text-decoration:none; font-size:14px; font-weight:500; margin-bottom:2px; border:none; background:none; width:100%; text-align:left;
+}
+.sb-link svg{width:18px; height:18px; flex-shrink:0; opacity:.85;}
+.sb-link:hover{background:rgba(255,255,255,.06); color:#fff;}
+.sb-link.active{background:linear-gradient(90deg, rgba(198,154,62,.22), rgba(198,154,62,.05)); color:#fff; box-shadow: inset 3px 0 0 var(--gold);}
+.sb-badge{
+  margin-left:auto; background:rgba(255,255,255,.1); color:#dfe4f2; font-size:11px; font-family:var(--font-mono);
+  padding:1px 7px; border-radius:20px;
+}
+
+.sb-foot{padding:14px 18px 20px; border-top:1px solid rgba(255,255,255,.08);}
+.sb-admin{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+.sb-avatar{width:32px; height:32px; border-radius:50%; background:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; color:var(--gold-light); flex-shrink:0;}
+.sb-admin-email{font-size:12.5px; color:#c7cce2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.sb-logout{width:100%; justify-content:flex-start;}
+
+#sidebar-overlay{display:none; position:fixed; inset:0; background:rgba(15,20,35,.5); z-index:35;}
+
+#main{flex:1; margin-left:252px; display:flex; flex-direction:column; min-width:0;}
+
+#topbar{
+  position:sticky; top:0; z-index:20; background:rgba(246,243,236,.88); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line); padding:16px 28px; display:flex; align-items:center; gap:14px;
+}
+#hamburger{display:none; background:none; border:none; padding:6px; border-radius:8px;}
+#hamburger:hover{background:var(--line-2);}
+#hamburger svg{width:22px; height:22px;}
+.page-title{font-family:var(--font-display); font-size:21px; font-weight:600; flex:1; min-width:0;}
+.page-title .eyebrow{display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); font-weight:500; margin-bottom:2px;}
+
+#content{padding:26px 28px 60px; flex:1;}
+
+/* ============================================================
+   GREETING / DASHBOARD
+   ============================================================ */
+.greet-card{
+  background: var(--ink); color:#fff; border-radius:18px; padding:30px 32px; position:relative; overflow:hidden;
+  background-image: radial-gradient(circle at 100% 0%, rgba(198,154,62,.25), transparent 55%);
+  margin-bottom:22px;
+}
+.greet-eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--gold-light);}
+.greet-title{font-family:var(--font-display); font-size:28px; font-weight:600; margin-top:6px; line-height:1.2;}
+.greet-sub{font-size:13.5px; color:#c7cce2; margin-top:8px;}
+
+.stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:22px;}
+.stat-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 18px 16px;
+  box-shadow:var(--shadow);
+}
+.stat-card .icon-wrap{
+  width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; margin-bottom:12px;
+}
+.stat-card .icon-wrap svg{width:17px; height:17px;}
+.stat-card .num{font-family:var(--font-display); font-size:30px; font-weight:700; line-height:1;}
+.stat-card .label{font-size:12.5px; color:var(--mute); margin-top:6px; font-weight:500;}
+
+.panel{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px 22px 18px; box-shadow:var(--shadow);
+}
+.panel h3{font-family:var(--font-display); font-size:16.5px; margin:0 0 14px; display:flex; align-items:center; justify-content:space-between;}
+.assign-item{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--line-2); font-size:13.5px;}
+.assign-item:last-child{border-bottom:none;}
+.assign-item .a-name{font-weight:600;}
+.assign-item .a-sub{color:var(--mute); font-size:12px; margin-top:2px;}
+.badge{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:20px;}
+.badge-gold{background:#faf1dd; color:#8a6a1f;}
+.badge-mute{background:var(--line-2); color:var(--mute);}
+.badge-success{background:var(--success-bg); color:var(--success);}
+
+.quicklinks{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:20px;}
+.qlink{
+  border:1px solid var(--line); border-radius:11px; padding:14px; text-align:left; background:#fff;
+  display:flex; flex-direction:column; gap:8px;
+}
+.qlink:hover{border-color:var(--gold); box-shadow:var(--shadow);}
+.qlink svg{width:18px; height:18px; color:var(--ink);}
+.qlink .qname{font-size:13px; font-weight:600;}
+
+/* ============================================================
+   SECTION HEADER + EMPTY / COMING-SOON STATE
+   ============================================================ */
+.sec-head{display:flex; justify-content:space-between; align-items:flex-end; gap:14px; margin-bottom:18px; flex-wrap:wrap;}
+.sec-head .sh-text .eyebrow{display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); margin-bottom:3px;}
+.sec-head h2{font-family:var(--font-display); font-size:22px; margin:0;}
+.sec-head .sh-count{font-size:13px; color:var(--mute); margin-top:3px;}
+
+.table-shell{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+.empty-state{padding:70px 24px; text-align:center;}
+.empty-state svg{width:42px; height:42px; color:var(--line); margin-bottom:14px;}
+.empty-state h4{font-family:var(--font-display); font-size:18px; margin:0 0 6px;}
+.empty-state p{color:var(--mute); font-size:13.5px; margin:0 0 4px; max-width:380px; margin-left:auto; margin-right:auto;}
+.empty-state .tag-soon{
+  display:inline-block; margin-top:14px; font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--gold); background:#faf1dd; padding:5px 12px; border-radius:20px;
+}
+
+/* toast */
+#toast-container{position:fixed; bottom:20px; right:20px; z-index:80; display:flex; flex-direction:column; gap:10px;}
+.toast{
+  background:var(--ink); color:#fff; padding:12px 16px; border-radius:10px; font-size:13.5px; box-shadow:0 10px 30px -8px rgba(0,0,0,.4);
+  display:flex; align-items:center; gap:10px; min-width:220px; animation:toastin .18s ease;
+}
+.toast.err{background:var(--danger);}
+.toast.ok{background:var(--success);}
+@keyframes toastin{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+.spinner{width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; animation:spin .7s linear infinite;}
+.spinner.dark{border:2px solid rgba(30,34,51,.2); border-top-color:var(--ink);}
+@keyframes spin{to{transform:rotate(360deg);}}
+#route-loading{display:flex; align-items:center; justify-content:center; padding:80px 0;}
+
+#setup-notice{
+  max-width:480px; margin:60px auto; background:#fff; border-radius:14px; padding:26px; text-align:center;
+  box-shadow:var(--shadow); font-size:14px; color:var(--mute);
+}
+
+/* ============================================================
+   TOOLBAR / SEARCH / PILLS
+   ============================================================ */
+.toolbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.search-wrap{position:relative;}
+.search-wrap svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--mute);}
+.search-wrap input{
+  padding:9px 12px 9px 33px; border:1.5px solid var(--line); border-radius:9px; font-size:13.5px; width:220px;
+  background:#fff; color:var(--text);
+}
+.search-wrap input:focus{border-color:var(--gold); outline:none;}
+.btn-gold{background:var(--gold); color:var(--ink);}
+.btn-gold:hover{background:var(--gold-light);}
+
+.pill-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+.pill{
+  border:1.5px solid var(--line); background:#fff; color:var(--ink); border-radius:20px;
+  padding:7px 14px; font-size:12.8px; font-weight:600; display:inline-flex; align-items:center; gap:6px;
+}
+.pill:hover{border-color:var(--gold);}
+.pill.active{background:var(--ink); border-color:var(--ink); color:#fff;}
+.pill .pill-count{background:rgba(0,0,0,.08); border-radius:20px; padding:1px 6px; font-size:10.5px; font-family:var(--font-mono);}
+.pill.active .pill-count{background:rgba(255,255,255,.18);}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.table-scroll{overflow-x:auto;}
+table{width:100%; border-collapse:collapse; font-size:13.5px;}
+thead th{
+  text-align:left; font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--mute);
+  font-weight:600; padding:12px 18px; border-bottom:1px solid var(--line); white-space:nowrap;
+}
+tbody td{padding:13px 18px; border-bottom:1px solid var(--line-2); vertical-align:top;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:#fbfaf6;}
+.cell-primary{font-weight:600;}
+.cell-sub{font-size:12px; color:var(--mute); margin-top:2px; font-weight:400;}
+.cell-snippet{color:var(--mute); font-size:12.5px; max-width:340px;}
+.row-actions{display:flex; gap:6px; justify-content:flex-end;}
+.icon-btn{
+  width:30px; height:30px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink);
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.icon-btn svg{width:15px; height:15px;}
+.icon-btn:hover{border-color:var(--gold); color:var(--gold);}
+.icon-btn.danger:hover{border-color:var(--danger); color:var(--danger);}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+#modal-backdrop, #confirm-backdrop{
+  position:fixed; inset:0; background:rgba(15,20,35,.55); z-index:60;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.modal{
+  background:#fff; border-radius:16px; width:100%; max-width:460px; max-height:90vh; overflow-y:auto;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+}
+.modal-header{padding:22px 24px 6px; display:flex; justify-content:space-between; align-items:flex-start;}
+.modal-header h3{font-family:var(--font-display); font-size:19px; margin:0;}
+.modal-close{background:none; border:none; color:var(--mute); padding:4px;}
+.modal-close svg{width:18px; height:18px;}
+.modal-body{padding:14px 24px 24px;}
+.field textarea{
+  width:100%; padding:11px 13px; border:1.5px solid var(--line); border-radius:9px;
+  font-size:14px; background:var(--paper); color:var(--text); resize:vertical; min-height:120px; font-family:inherit;
+}
+.field textarea:focus{border-color:var(--gold); outline:none; background:#fff;}
+.field-hint{font-size:11.5px; color:var(--mute); margin-top:5px;}
+.form-error{
+  color:var(--danger); background:var(--danger-bg); border-radius:8px; padding:9px 12px;
+  font-size:13px; margin-bottom:14px; display:none;
+}
+.modal-actions{display:flex; justify-content:flex-end; gap:10px; margin-top:6px;}
+.confirm-modal{background:#fff; border-radius:16px; width:100%; max-width:380px; padding:24px; text-align:center;}
+.confirm-modal h3{font-family:var(--font-display); font-size:18px; margin:0 0 8px;}
+.confirm-modal p{color:var(--mute); font-size:13.5px; margin:0 0 20px;}
+.confirm-actions{display:flex; gap:10px; justify-content:center;}
+.btn-danger{background:var(--danger); color:#fff;}
+.btn-danger:hover{opacity:.9;}
+
+/* ============================================================
+   LESSON DETAIL CARD (student view)
+   ============================================================ */
+.lesson-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; margin-bottom:14px; box-shadow:var(--shadow);
+}
+.lesson-card .lc-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px; flex-wrap:wrap;}
+.lesson-card h4{font-family:var(--font-display); font-size:17px; margin:0;}
+.lesson-card .lc-meta{font-size:12px; color:var(--mute); margin-top:3px;}
+.lesson-card .lc-body{font-size:13.8px; line-height:1.65; color:var(--text); white-space:pre-wrap;}
+
+@media (max-width: 620px){
+  .search-wrap input{width:160px;}
+}
+
+/* ============================================================
+   CBT / EXAMS
+   ============================================================ */
+.badge-draft{background:var(--line-2); color:var(--mute);}
+.badge-published{background:var(--success-bg); color:var(--success);}
+.q-block{
+  border:1.5px solid var(--line); border-radius:12px; padding:16px 16px 14px; margin-bottom:14px; background:var(--paper);
+}
+.q-block-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.q-block-head .q-num{font-family:var(--font-mono); font-size:11.5px; color:var(--mute); font-weight:600; letter-spacing:.04em;}
+.q-remove{background:none; border:none; color:var(--danger); font-size:12px; font-weight:600; padding:4px 6px;}
+.q-block input[type="text"]{
+  width:100%; padding:9px 11px; border:1.5px solid var(--line); border-radius:8px; font-size:13.5px; background:#fff; margin-bottom:8px;
+}
+.q-block input[type="text"]:focus{border-color:var(--gold); outline:none;}
+.opt-row{display:flex; align-items:center; gap:9px; margin-bottom:7px;}
+.opt-row input[type="radio"]{flex-shrink:0; width:16px; height:16px; accent-color:var(--gold);}
+.opt-row input[type="text"]{margin-bottom:0; flex:1;}
+.opt-letter{width:20px; font-size:12px; font-weight:700; color:var(--mute); flex-shrink:0;}
+.add-q-btn{width:100%; border:1.5px dashed var(--line); background:none; border-radius:10px; padding:11px; font-size:13px; font-weight:600; color:var(--ink); margin-bottom:6px;}
+.add-q-btn:hover{border-color:var(--gold); color:var(--gold);}
+
+.exam-meta-row{display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap;}
+.exam-meta-row .field{flex:1; min-width:140px; margin-bottom:0;}
+
+.results-back{display:inline-flex; align-items:center; gap:6px; background:none; border:none; color:var(--mute); font-size:13px; font-weight:600; margin-bottom:14px; padding:4px 0;}
+.results-back:hover{color:var(--ink);}
+.results-back svg{width:15px; height:15px;}
+
+/* ---- exam taker (student) ---- */
+.exam-timer{
+  position:sticky; top:78px; z-index:10; background:var(--ink); color:#fff; border-radius:12px; padding:14px 18px;
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;
+}
+.exam-timer .et-label{font-size:12px; color:#c7cce2;}
+.exam-timer .et-time{font-family:var(--font-mono); font-size:20px; font-weight:600;}
+.exam-timer.low{background:var(--danger);}
+.q-take-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; margin-bottom:14px; box-shadow:var(--shadow);}
+.q-take-card .qt-num{font-family:var(--font-mono); font-size:11px; color:var(--mute); font-weight:600; margin-bottom:6px;}
+.q-take-card .qt-text{font-size:15px; font-weight:600; margin-bottom:14px; line-height:1.5;}
+.opt-choice{
+  display:flex; align-items:center; gap:11px; padding:11px 14px; border:1.5px solid var(--line); border-radius:10px; margin-bottom:9px; cursor:pointer;
+}
+.opt-choice:hover{border-color:var(--gold);}
+.opt-choice.selected{border-color:var(--gold); background:#faf6ea;}
+.opt-choice input{accent-color:var(--gold); width:16px; height:16px; flex-shrink:0;}
+.opt-choice .oc-letter{width:22px; height:22px; border-radius:50%; background:var(--line-2); display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; flex-shrink:0;}
+.opt-choice.selected .oc-letter{background:var(--gold); color:var(--ink);}
+
+.score-hero{
+  background:var(--ink); color:#fff; border-radius:18px; padding:40px 30px; text-align:center; margin-bottom:20px;
+  background-image: radial-gradient(circle at 50% 0%, rgba(198,154,62,.28), transparent 60%);
+}
+.score-hero .sh-num{font-family:var(--font-display); font-size:52px; font-weight:700; line-height:1;}
+.score-hero .sh-label{font-size:13.5px; color:#c7cce2; margin-top:8px;}
+
+/* ============================================================
+   ATTENDANCE
+   ============================================================ */
+.att-toolbar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px;}
+.att-toolbar input[type="date"]{
+  padding:9px 12px; border:1.5px solid var(--line); border-radius:9px; font-size:13.5px; background:#fff; color:var(--text);
+}
+.att-toolbar input[type="date"]:focus{border-color:var(--gold); outline:none;}
+.status-btns{display:flex; gap:6px;}
+.status-btn{
+  border:1.5px solid var(--line); background:#fff; border-radius:8px; padding:6px 12px; font-size:12.5px; font-weight:600; color:var(--mute);
+}
+.status-btn:hover{border-color:var(--gold);}
+.status-btn.active-present{background:var(--success-bg); border-color:var(--success); color:var(--success);}
+.status-btn.active-absent{background:var(--danger-bg); border-color:var(--danger); color:var(--danger);}
+.status-btn.active-late{background:#faf1dd; border-color:var(--gold); color:#8a6a1f;}
+.badge-present{background:var(--success-bg); color:var(--success);}
+.badge-absent{background:var(--danger-bg); color:var(--danger);}
+.badge-late{background:#faf1dd; color:#8a6a1f;}
+.att-history-item{
+  display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid var(--line-2); font-size:13.5px; cursor:pointer;
+}
+.att-history-item:last-child{border-bottom:none;}
+.att-history-item:hover .a-name{color:var(--gold);}
+.att-summary-chip{font-size:11.5px; color:var(--mute); font-family:var(--font-mono);}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1180px){
+  .stat-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media (max-width: 880px){
+  #sidebar{transform:translateX(-100%); box-shadow:0 0 40px rgba(0,0,0,.3);}
+  #sidebar.open{transform:translateX(0);}
+  #sidebar-overlay.show{display:block;}
+  #main{margin-left:0;}
+  #hamburger{display:flex; align-items:center; justify-content:center;}
+  #topbar{padding:14px 16px;}
+  #content{padding:18px 16px 50px;}
+  .greet-card{padding:22px;}
+  .quicklinks{grid-template-columns:1fr;}
+}
+@media (max-width: 520px){
+  .stat-grid{grid-template-columns:1fr;}
+  .page-title{font-size:18px;}
+  .greet-title{font-size:22px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     LOGIN
+     ============================================================ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="seal logo-wrap" id="login-seal">
+      <img src="logo.png" alt="School logo" onerror="this.style.display='none'; this.parentElement.textContent='BG'; this.parentElement.classList.remove('logo-wrap');" />
+    </div>
+    <h1>Teacher Sign In</h1>
+    <div class="sub">Brightgate School Management</div>
+    <div id="login-error"></div>
+    <div id="script-error" style="display:none; color:var(--danger); background:var(--danger-bg); border-radius:8px; padding:9px 12px; font-size:13px; margin-bottom:14px; text-align:left;">
+      Couldn't load the sign-in service. Check your internet connection, disable any ad-blockers for this page, and reload.
+    </div>
+    <form id="login-form">
+      <div class="field">
+        <label for="login-email">Email address</label>
+        <input id="login-email" type="email" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-primary" id="login-btn">Sign in</button>
+    </form>
+    <div class="login-foot">Don't have an account yet? Ask your school admin to create one for you.</div>
+  </div>
+</div>
+
+<div id="setup-notice" class="hidden">
+  Firebase isn't configured yet. Add your project's <code>firebaseConfig</code> values in the script to enable sign-in.
+</div>
+
+<!-- ============================================================
+     APP SHELL
+     ============================================================ -->
+<div id="app" class="hidden">
+  <div id="sidebar-overlay"></div>
+  <aside id="sidebar">
+    <div class="sb-brand">
+      <div class="seal logo-wrap" id="sidebar-seal">
+        <img src="logo.png" alt="School logo" onerror="this.style.display='none'; this.parentElement.textContent='BG'; this.parentElement.classList.remove('logo-wrap');" />
+      </div>
+      <div>
+        <div class="name">Brightgate</div>
+        <div class="tag">Teacher Portal</div>
+      </div>
+    </div>
+    <nav class="sb-nav" id="sb-nav">
+      <div class="sb-section-label">Overview</div>
+      <button class="sb-link" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
+        Dashboard
+      </button>
+      <div class="sb-section-label">Classroom</div>
+      <button class="sb-link" data-view="lessons">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5a2 2 0 0 1 2-2h12.5v17H6a2 2 0 0 1-2-2v-13Z"/><path d="M18.5 3.5v17"/><path d="M8 8h6M8 11.5h6"/></svg>
+        Lessons
+      </button>
+      <button class="sb-link" data-view="assignments">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3.5h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+        Assignments
+      </button>
+      <button class="sb-link" data-view="attendance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/><path d="M8 14l2 2 4-4"/></svg>
+        Attendance
+      </button>
+      <button class="sb-link" data-view="exam">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3.5h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M8.5 11h6M8.5 14.5h6M8.5 8h3"/></svg>
+        Exam
+      </button>
+      <button class="sb-link" data-view="results">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5.6c0-.9.7-1.6 1.6-1.6H18a2 2 0 0 1 2 2v14"/><path d="M4 19.5c0-1 .8-1.7 1.8-1.7H20"/><path d="M8 9l2 2 4-4"/></svg>
+        Results
+      </button>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-admin">
+        <div class="sb-avatar" id="sb-avatar">T</div>
+        <div class="sb-admin-email" id="sb-admin-email">—</div>
+      </div>
+      <button class="btn btn-ghost btn-sm sb-logout" id="logout-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <div id="main">
+    <header id="topbar">
+      <button id="hamburger" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="page-title">
+        <span class="eyebrow" id="page-eyebrow">Overview</span>
+        <span id="page-title-text">Dashboard</span>
+      </div>
+    </header>
+    <main id="content"><div id="route-loading"><div class="spinner dark"></div></div></main>
+  </div>
+</div>
+
+<div id="modal-backdrop" class="hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Add Lesson</h3>
+      <button class="modal-close" id="modal-close-btn" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body"><form id="modal-form"></form></div>
+  </div>
+</div>
+
+<div id="confirm-backdrop" class="hidden">
+  <div class="confirm-modal">
+    <h3 id="confirm-title">Delete this lesson?</h3>
+    <p id="confirm-sub">This can't be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost" id="confirm-cancel">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, collection, onSnapshot, query,
+  addDoc, updateDoc, deleteDoc, doc, setDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* ============================================================
+   1. FIREBASE CONFIG — same project as the admin console
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyB4DMYZJHWgbRUZV-uamOy7TpxLM1sGYPY",
+  authDomain: "chats-afcff.firebaseapp.com",
+  databaseURL: "https://chats-afcff-default-rtdb.firebaseio.com",
+  projectId: "chats-afcff",
+  storageBucket: "chats-afcff.firebasestorage.app",
+  messagingSenderId: "764250889947",
+  appId: "1:764250889947:web:2c843497ce389edf5876fe"
+};
+const isPlaceholder = !firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY";
+
+if (isPlaceholder) {
+  document.getElementById("setup-notice").classList.remove("hidden");
+} else {
+  try {
+    runApp();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("script-error").style.display = "block";
+  }
+}
+
+function runApp(){
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  /* ============================================================
+     STATE
+     ============================================================ */
+  const state = {
+    users: [], teachers: [], classes: [], students: [], subjects: [], classSubjects: [], lessons: [], exams: [], examAttempts: [], attendance: []
+  };
+  let unsubscribers = [];
+  let currentView = "dashboard";
+  let profile = null;   // the users/{id} doc for the signed-in teacher
+  let teacherRec = null; // the teachers/{id} doc linked to that profile
+  let lessonFilter = null;  // "classId::subjectId" of the selected class-subject pill
+  let lessonSearch = "";
+  let editingLessonId = null;
+  let pendingDeleteLessonId = null;
+  let examFilter = null;     // "classId::subjectId" of the selected class-subject pill
+  let examSearch = "";
+  let viewingResultsExamId = null;
+  let draftQuestions = [];
+  let pendingDeleteExamId = null;
+  let attendanceClassId = null;
+  let attendanceDate = new Date().toISOString().slice(0,10);
+  let attendanceDraft = {}; // studentId -> "present" | "absent" | "late"
+
+  /* ============================================================
+     PLACEHOLDER ROUTES — wired up now, built out one by one later
+     ============================================================ */
+  const COMING_SOON = {
+    assignments: { title:"Assignments", eyebrow:"Classroom", blurb:"Set homework and assignments and track submissions." },
+    results:     { title:"Results",     eyebrow:"Classroom", blurb:"Review and publish student results by term." }
+  };
+
+  /* ============================================================
+     HELPERS
+     ============================================================ */
+  function escapeHtml(s){
+    return String(s ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  function toast(msg, tone=""){
+    const el = document.createElement("div");
+    el.className = "toast" + (tone?` ${tone}`:"");
+    el.textContent = msg;
+    document.getElementById("toast-container").appendChild(el);
+    setTimeout(()=>{ el.style.opacity="0"; el.style.transition="opacity .25s"; setTimeout(()=>el.remove(),250); }, 2600);
+  }
+  function badge(text, tone){
+    return `<span class="badge badge-${tone}">${escapeHtml(text)}</span>`;
+  }
+
+  /* ============================================================
+     AUTH
+     ============================================================ */
+  const loginForm = document.getElementById("login-form");
+  const loginError = document.getElementById("login-error");
+  const loginBtn = document.getElementById("login-btn");
+
+  loginForm.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    loginError.style.display = "none";
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = `<span class="spinner"></span> Signing in…`;
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    try{
+      await signInWithEmailAndPassword(auth, email, password);
+    }catch(err){
+      loginError.textContent = friendlyAuthError(err);
+      loginError.style.display = "block";
+    }finally{
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Sign in";
+    }
+  });
+
+  function friendlyAuthError(err){
+    const code = err && err.code || "";
+    if(code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) return "Incorrect email or password.";
+    if(code.includes("too-many-requests")) return "Too many attempts. Please wait a moment and try again.";
+    if(code.includes("invalid-email")) return "Enter a valid email address.";
+    return "Couldn't sign in. Please try again.";
+  }
+
+  document.getElementById("logout-btn").addEventListener("click", ()=> signOut(auth));
+
+  onAuthStateChanged(auth, (user)=>{
+    if(user){
+      document.getElementById("login-screen").classList.add("hidden");
+      attachListeners(user);
+    } else {
+      detachListeners();
+      profile = null; teacherRec = null;
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("login-screen").classList.remove("hidden");
+      loginForm.reset();
+    }
+  });
+
+  /* ============================================================
+     FIRESTORE LISTENERS
+     ============================================================ */
+  function attachListeners(user){
+    detachListeners();
+    const keys = Object.keys(state);
+    let loadedCount = 0;
+    keys.forEach(key=>{
+      const unsub = onSnapshot(query(collection(db, key)), (snap)=>{
+        state[key] = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+        loadedCount++;
+        resolveTeacherIdentity(user);
+      }, (err)=>{
+        console.error(err);
+        toast(`Couldn't load ${key}: ${err.message}`, "err");
+      });
+      unsubscribers.push(unsub);
+    });
+  }
+  function detachListeners(){
+    unsubscribers.forEach(u=>u());
+    unsubscribers = [];
+  }
+
+  let identityResolved = false;
+  function resolveTeacherIdentity(user){
+    profile = state.users.find(u=> u.uid === user.uid) || null;
+
+    if(!profile){
+      // users collection may not have loaded yet on the very first snapshot
+      return;
+    }
+    if(profile.role !== "Teacher"){
+      if(!identityResolved){
+        identityResolved = true;
+        toast("This account isn't registered as a teacher.", "err");
+        signOut(auth);
+      }
+      return;
+    }
+    teacherRec = state.teachers.find(t=> t.id === profile.linkedId) || null;
+
+    document.getElementById("app").classList.remove("hidden");
+    document.getElementById("sb-admin-email").textContent = profile.email || user.email;
+    document.getElementById("sb-avatar").textContent = (profile.name || user.email || "T").charAt(0).toUpperCase();
+    render();
+  }
+
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  document.getElementById("sb-nav").addEventListener("click", (e)=>{
+    const btn = e.target.closest(".sb-link");
+    if(!btn) return;
+    navigate(btn.dataset.view);
+    closeSidebarMobile();
+  });
+  function navigate(view){
+    currentView = view;
+    document.querySelectorAll(".sb-link").forEach(b=> b.classList.toggle("active", b.dataset.view===view));
+    render();
+  }
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebar-overlay");
+  hamburger.addEventListener("click", ()=>{
+    sidebar.classList.add("open");
+    overlay.classList.add("show");
+  });
+  overlay.addEventListener("click", closeSidebarMobile);
+  function closeSidebarMobile(){
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+  }
+
+  /* ============================================================
+     RENDER ROUTER
+     ============================================================ */
+  const content = document.getElementById("content");
+  const pageTitleText = document.getElementById("page-title-text");
+  const pageEyebrow = document.getElementById("page-eyebrow");
+  const modalBackdrop = document.getElementById("modal-backdrop");
+  const modalForm = document.getElementById("modal-form");
+  const modalTitle = document.getElementById("modal-title");
+  const confirmBackdrop = document.getElementById("confirm-backdrop");
+  document.getElementById("modal-close-btn").addEventListener("click", closeModal);
+  document.getElementById("confirm-cancel").addEventListener("click", ()=> confirmBackdrop.classList.add("hidden"));
+  document.getElementById("confirm-ok").addEventListener("click", async ()=>{
+    try{
+      if(pendingDeleteLessonId){
+        await deleteDoc(doc(db, "lessons", pendingDeleteLessonId));
+        toast("Lesson deleted.", "ok");
+      } else if(pendingDeleteExamId){
+        await deleteDoc(doc(db, "exams", pendingDeleteExamId));
+        const attemptsToRemove = state.examAttempts.filter(a=> a.examId === pendingDeleteExamId);
+        await Promise.all(attemptsToRemove.map(a=> deleteDoc(doc(db, "examAttempts", a.id))));
+        toast("Exam deleted.", "ok");
+      }
+    }catch(err){
+      console.error(err);
+      toast(err.message || "Couldn't delete item.", "err");
+    }
+    pendingDeleteLessonId = null;
+    pendingDeleteExamId = null;
+    confirmBackdrop.classList.add("hidden");
+  });
+  function closeModal(){
+    modalBackdrop.classList.add("hidden");
+    modalForm.onsubmit = null;
+    editingLessonId = null;
+  }
+
+  function render(){
+    document.querySelectorAll(".sb-link").forEach(b=> b.classList.toggle("active", b.dataset.view===currentView));
+    if(currentView === "dashboard"){
+      pageEyebrow.textContent = "Overview";
+      pageTitleText.textContent = "Dashboard";
+      renderDashboard();
+    } else if(currentView === "lessons"){
+      pageEyebrow.textContent = "Classroom";
+      pageTitleText.textContent = "Lessons";
+      renderLessons();
+    } else if(currentView === "exam"){
+      pageEyebrow.textContent = "Classroom";
+      pageTitleText.textContent = "Exam (CBT)";
+      renderExams();
+    } else if(currentView === "attendance"){
+      pageEyebrow.textContent = "Classroom";
+      pageTitleText.textContent = "Attendance";
+      renderAttendance();
+    } else if(COMING_SOON[currentView]){
+      const cfg = COMING_SOON[currentView];
+      pageEyebrow.textContent = cfg.eyebrow;
+      pageTitleText.textContent = cfg.title;
+      renderComingSoon(cfg);
+    }
+  }
+
+  /* ---------------- DASHBOARD ---------------- */
+  function renderDashboard(){
+    if(!teacherRec){
+      content.innerHTML = `
+        <div class="table-shell">
+          <div class="empty-state">
+            ${iconAlert()}
+            <h4>No teacher profile linked yet</h4>
+            <p>Your sign-in account isn't linked to a teacher record. Ask your school admin to link your account under User Accounts.</p>
+          </div>
+        </div>`;
+      return;
+    }
+
+    const teacherName = teacherRec.name || profile.name || "Teacher";
+
+    // Primary / homeroom class: where this teacher is the form teacher
+    const primaryClass = state.classes.find(c=> c.formTeacherId === teacherRec.id) || null;
+    const primaryStudentCount = primaryClass ? state.students.filter(s=> s.classId === primaryClass.id).length : 0;
+
+    // All class-subject assignments for this teacher (classes they teach a subject in)
+    const teaching = state.classSubjects.filter(cs=> cs.teacherId === teacherRec.id);
+    const teachingClassIds = new Set(teaching.map(t=> t.classId));
+    const totalStudentsTaught = state.students.filter(s=> teachingClassIds.has(s.classId)).length;
+
+    const greetHtml = `
+      <div class="greet-eyebrow">${new Date().toLocaleDateString(undefined,{weekday:"long", day:"numeric", month:"long"})}</div>
+      <div class="greet-title">Welcome back, ${escapeHtml(teacherName)}</div>
+      <div class="greet-sub">
+        ${primaryClass
+          ? `Form teacher of <strong style="color:#fff;">${escapeHtml(primaryClass.name)}</strong> · ${primaryStudentCount} student${primaryStudentCount===1?"":"s"}`
+          : `No homeroom class assigned yet${teaching.length ? " — see your teaching assignments below." : "."}`}
+      </div>
+    `;
+
+    const statHtml = `
+      <div class="stat-card">
+        <div class="icon-wrap" style="background:#e9eef8; color:#2a3c68;">${iconClass()}</div>
+        <div class="num">${primaryClass ? escapeHtml(primaryClass.name) : "—"}</div>
+        <div class="label">Your Class</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon-wrap" style="background:#faf1dd; color:#8a6a1f;">${iconUsers()}</div>
+        <div class="num">${primaryStudentCount}</div>
+        <div class="label">Students In Your Class</div>
+      </div>
+      <div class="stat-card">
+        <div class="icon-wrap" style="background:#e9f3ec; color:#3e7a56;">${iconBook()}</div>
+        <div class="num">${teaching.length}</div>
+        <div class="label">Subjects You Teach</div>
+      </div>
+    `;
+
+    const teachingHtml = teaching.length ? teaching.map(t=>{
+      const cls = state.classes.find(c=> c.id === t.classId);
+      const subj = state.subjects.find(s=> s.id === t.subjectId);
+      const count = state.students.filter(s=> s.classId === t.classId).length;
+      return `
+        <div class="assign-item">
+          <div>
+            <div class="a-name">${escapeHtml(subj ? subj.name : "Unknown Subject")}</div>
+            <div class="a-sub">${escapeHtml(cls ? cls.name : "Unknown Class")} · ${count} student${count===1?"":"s"}</div>
+          </div>
+          ${badge(cls ? cls.name : "—", "mute")}
+        </div>`;
+    }).join("") : `<div class="a-sub" style="padding:6px 0;">No subject-class assignments on record yet.</div>`;
+
+    content.innerHTML = `
+      <div class="greet-card">${greetHtml}</div>
+      <div class="stat-grid">${statHtml}</div>
+      <div class="panel">
+        <h3>Your Teaching Assignments <span style="font-size:12px; font-weight:500; color:var(--mute); font-family:var(--font-mono);">${totalStudentsTaught} total students</span></h3>
+        ${teachingHtml}
+        <div class="quicklinks">
+          <button class="qlink" data-nav="lessons">${iconClassSm()}<span class="qname">Lessons</span></button>
+          <button class="qlink" data-nav="assignments">${iconAssign()}<span class="qname">Assignments</span></button>
+          <button class="qlink" data-nav="attendance">${iconCalendar()}<span class="qname">Attendance</span></button>
+          <button class="qlink" data-nav="exam">${iconExam()}<span class="qname">Exam</span></button>
+        </div>
+      </div>
+    `;
+    content.querySelectorAll("[data-nav]").forEach(b=> b.addEventListener("click", ()=> navigate(b.dataset.nav)));
+  }
+
+  /* ---------------- LESSONS ---------------- */
+  function myTeachingPairs(){
+    return state.classSubjects.filter(cs=> cs.teacherId === teacherRec.id).map(cs=>{
+      const cls = state.classes.find(c=> c.id === cs.classId);
+      const subj = state.subjects.find(s=> s.id === cs.subjectId);
+      return { key:`${cs.classId}::${cs.subjectId}`, classId:cs.classId, subjectId:cs.subjectId, className: cls?cls.name:"Unknown Class", subjectName: subj?subj.name:"Unknown Subject" };
+    });
+  }
+
+  function renderLessons(){
+    if(!teacherRec){
+      content.innerHTML = `
+        <div class="table-shell"><div class="empty-state">
+          ${iconAlert()}
+          <h4>No teacher profile linked yet</h4>
+          <p>Ask your school admin to link your account to a teacher record.</p>
+        </div></div>`;
+      return;
+    }
+
+    const pairs = myTeachingPairs();
+    if(!pairs.length){
+      content.innerHTML = `
+        <div class="sec-head">
+          <div class="sh-text"><span class="eyebrow">Classroom</span><h2>Lessons</h2></div>
+        </div>
+        <div class="table-shell"><div class="empty-state">
+          ${iconBook()}
+          <h4>No class-subject assignments yet</h4>
+          <p>You'll be able to post lessons once your admin assigns you to teach a subject in a class.</p>
+        </div></div>`;
+      return;
+    }
+
+    if(!lessonFilter || !pairs.some(p=> p.key === lessonFilter)) lessonFilter = pairs[0].key;
+    const [selClassId, selSubjectId] = lessonFilter.split("::");
+
+    const rows = state.lessons.filter(l=>{
+      if(l.classId !== selClassId || l.subjectId !== selSubjectId) return false;
+      if(!lessonSearch) return true;
+      const q = lessonSearch.toLowerCase();
+      return (l.title||"").toLowerCase().includes(q) || (l.content||"").toLowerCase().includes(q) || (l.topic||"").toLowerCase().includes(q);
+    }).sort((a,b)=> (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+    content.innerHTML = `
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">Classroom</span>
+          <h2>Lessons</h2>
+          <div class="sh-count">${state.lessons.filter(l=>pairs.some(p=>p.classId===l.classId && p.subjectId===l.subjectId)).length} lesson${state.lessons.length===1?"":"s"} across your classes</div>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="lesson-search" placeholder="Search lessons…" value="${escapeHtml(lessonSearch)}" />
+          </div>
+          <button class="btn btn-gold" id="add-lesson-btn">+ Add Lesson</button>
+        </div>
+      </div>
+      <div class="pill-tabs">
+        ${pairs.map(p=>`<button class="pill ${p.key===lessonFilter?'active':''}" data-pill="${p.key}">${escapeHtml(p.className)} · ${escapeHtml(p.subjectName)} <span class="pill-count">${state.lessons.filter(l=>l.classId===p.classId && l.subjectId===p.subjectId).length}</span></button>`).join("")}
+      </div>
+      <div class="table-shell">
+        ${rows.length ? `
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Title</th><th>Topic</th><th>Posted</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              ${rows.map(l=>`
+                <tr>
+                  <td>
+                    <div class="cell-primary">${escapeHtml(l.title)}</div>
+                    <div class="cell-snippet">${escapeHtml((l.content||"").slice(0,90))}${(l.content||"").length>90?"…":""}</div>
+                  </td>
+                  <td>${escapeHtml(l.topic || "—")}</td>
+                  <td>${l.createdAt?.seconds ? new Date(l.createdAt.seconds*1000).toLocaleDateString(undefined,{day:"numeric", month:"short", year:"numeric"}) : "—"}</td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="icon-btn" data-edit-lesson="${l.id}" aria-label="Edit">${iconEdit()}</button>
+                      <button class="icon-btn danger" data-del-lesson="${l.id}" aria-label="Delete">${iconTrash()}</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>` : `
+        <div class="empty-state">
+          ${iconBook()}
+          <h4>No lessons posted yet</h4>
+          <p>Add your first lesson for this class and subject.</p>
+          <button class="btn btn-gold btn-sm" id="empty-add-lesson-btn">+ Add Lesson</button>
+        </div>`}
+      </div>
+    `;
+
+    document.getElementById("lesson-search").addEventListener("input", (e)=>{ lessonSearch = e.target.value; renderLessons(); });
+    content.querySelectorAll("[data-pill]").forEach(b=> b.addEventListener("click", ()=>{ lessonFilter = b.dataset.pill; renderLessons(); }));
+    document.getElementById("add-lesson-btn")?.addEventListener("click", ()=> openLessonModal());
+    document.getElementById("empty-add-lesson-btn")?.addEventListener("click", ()=> openLessonModal());
+    content.querySelectorAll("[data-edit-lesson]").forEach(b=> b.addEventListener("click", ()=> openLessonModal(b.dataset.editLesson)));
+    content.querySelectorAll("[data-del-lesson]").forEach(b=> b.addEventListener("click", ()=> confirmDeleteLesson(b.dataset.delLesson)));
+  }
+
+  function openLessonModal(id=null){
+    editingLessonId = id;
+    const row = id ? state.lessons.find(l=> l.id===id) : {};
+    const isEdit = !!id;
+    modalTitle.textContent = isEdit ? "Edit Lesson" : "Add Lesson";
+    const [selClassId, selSubjectId] = lessonFilter.split("::");
+    const pair = myTeachingPairs().find(p=> p.key === lessonFilter);
+
+    modalForm.innerHTML = `
+      <div class="form-error" id="form-error"></div>
+      <div class="field-hint" style="margin-bottom:14px;">Posting to <strong>${escapeHtml(pair.className)} · ${escapeHtml(pair.subjectName)}</strong></div>
+      <div class="field">
+        <label>Title *</label>
+        <input type="text" name="title" required value="${row.title?escapeHtml(row.title):""}" placeholder="e.g. Introduction to Fractions" />
+      </div>
+      <div class="field">
+        <label>Topic / Week</label>
+        <input type="text" name="topic" value="${row.topic?escapeHtml(row.topic):""}" placeholder="e.g. Week 3" />
+      </div>
+      <div class="field">
+        <label>Lesson Content *</label>
+        <textarea name="content" required placeholder="Write the lesson notes your students will see…">${row.content?escapeHtml(row.content):""}</textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancel-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="save-btn">${isEdit ? "Save changes" : "Post Lesson"}</button>
+      </div>
+    `;
+    modalBackdrop.classList.remove("hidden");
+    document.getElementById("cancel-modal").addEventListener("click", closeModal);
+    modalForm.onsubmit = (e)=> handleLessonSubmit(e, id, selClassId, selSubjectId);
+  }
+
+  async function handleLessonSubmit(e, id, classId, subjectId){
+    e.preventDefault();
+    const formData = new FormData(modalForm);
+    const errorBox = document.getElementById("form-error");
+    errorBox.style.display = "none";
+    const title = (formData.get("title")||"").trim();
+    const topic = (formData.get("topic")||"").trim();
+    const content_ = (formData.get("content")||"").trim();
+
+    if(!title || !content_){
+      errorBox.textContent = "Please fill in the title and lesson content.";
+      errorBox.style.display = "block";
+      return;
+    }
+
+    const saveBtn = document.getElementById("save-btn");
+    saveBtn.disabled = true;
+    const originalLabel = saveBtn.textContent;
+    saveBtn.innerHTML = `<span class="spinner"></span> Saving…`;
+
+    try{
+      if(id){
+        await updateDoc(doc(db, "lessons", id), { title, topic, content: content_, updatedAt: serverTimestamp() });
+        toast("Lesson updated.", "ok");
+      } else {
+        await addDoc(collection(db, "lessons"), {
+          classId, subjectId, teacherId: teacherRec.id, title, topic, content: content_, createdAt: serverTimestamp()
+        });
+        toast("Lesson posted.", "ok");
+      }
+      closeModal();
+    }catch(err){
+      console.error(err);
+      errorBox.textContent = err.message || "Something went wrong while saving.";
+      errorBox.style.display = "block";
+    }finally{
+      saveBtn.disabled = false;
+      saveBtn.textContent = originalLabel;
+    }
+  }
+
+  function confirmDeleteLesson(id){
+    const l = state.lessons.find(x=> x.id===id);
+    pendingDeleteLessonId = id;
+    pendingDeleteExamId = null;
+    document.getElementById("confirm-title").textContent = "Delete this lesson?";
+    document.getElementById("confirm-sub").textContent = `${l?.title?`"${l.title}" `:""}will be removed and students will no longer see it.`;
+    confirmBackdrop.classList.remove("hidden");
+  }
+
+  /* ---------------- EXAM (CBT) ---------------- */
+  function renderExams(){
+    if(!teacherRec){
+      content.innerHTML = `
+        <div class="table-shell"><div class="empty-state">
+          ${iconAlert()}
+          <h4>No teacher profile linked yet</h4>
+          <p>Ask your school admin to link your account to a teacher record.</p>
+        </div></div>`;
+      return;
+    }
+    if(viewingResultsExamId){ renderExamResults(viewingResultsExamId); return; }
+
+    const pairs = myTeachingPairs();
+    if(!pairs.length){
+      content.innerHTML = `
+        <div class="sec-head"><div class="sh-text"><span class="eyebrow">Classroom</span><h2>Exam (CBT)</h2></div></div>
+        <div class="table-shell"><div class="empty-state">
+          ${iconExam()}
+          <h4>No class-subject assignments yet</h4>
+          <p>You'll be able to create CBT exams once your admin assigns you to teach a subject in a class.</p>
+        </div></div>`;
+      return;
+    }
+
+    if(!examFilter || !pairs.some(p=> p.key === examFilter)) examFilter = pairs[0].key;
+    const [selClassId, selSubjectId] = examFilter.split("::");
+
+    const rows = state.exams.filter(x=>{
+      if(x.classId !== selClassId || x.subjectId !== selSubjectId) return false;
+      if(!examSearch) return true;
+      return (x.title||"").toLowerCase().includes(examSearch.toLowerCase());
+    }).sort((a,b)=> (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+    content.innerHTML = `
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">Classroom</span>
+          <h2>Exam (CBT)</h2>
+          <div class="sh-count">${state.exams.filter(x=>pairs.some(p=>p.classId===x.classId && p.subjectId===x.subjectId)).length} exam${state.exams.length===1?"":"s"} across your classes</div>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="exam-search" placeholder="Search exams…" value="${escapeHtml(examSearch)}" />
+          </div>
+          <button class="btn btn-gold" id="add-exam-btn">+ Create Exam</button>
+        </div>
+      </div>
+      <div class="pill-tabs">
+        ${pairs.map(p=>`<button class="pill ${p.key===examFilter?'active':''}" data-pill="${p.key}">${escapeHtml(p.className)} · ${escapeHtml(p.subjectName)} <span class="pill-count">${state.exams.filter(x=>x.classId===p.classId && x.subjectId===p.subjectId).length}</span></button>`).join("")}
+      </div>
+      <div class="table-shell">
+        ${rows.length ? `
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Title</th><th>Questions</th><th>Duration</th><th>Status</th><th>Submissions</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              ${rows.map(x=>{
+                const subCount = state.examAttempts.filter(a=> a.examId===x.id).length;
+                return `
+                <tr>
+                  <td class="cell-primary">${escapeHtml(x.title)}</td>
+                  <td>${(x.questions||[]).length}</td>
+                  <td>${x.durationMinutes} min</td>
+                  <td>${x.status==="published" ? `<span class="badge badge-published">Published</span>` : `<span class="badge badge-draft">Draft</span>`}</td>
+                  <td>${subCount}</td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="icon-btn" data-results="${x.id}" aria-label="View results" title="View results">${iconResults()}</button>
+                      <button class="icon-btn" data-toggle-pub="${x.id}" aria-label="Toggle publish" title="${x.status==='published'?'Unpublish':'Publish'}">${x.status==='published'?iconEyeOff():iconEye()}</button>
+                      <button class="icon-btn" data-edit-exam="${x.id}" aria-label="Edit">${iconEdit()}</button>
+                      <button class="icon-btn danger" data-del-exam="${x.id}" aria-label="Delete">${iconTrash()}</button>
+                    </div>
+                  </td>
+                </tr>`;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>` : `
+        <div class="empty-state">
+          ${iconExam()}
+          <h4>No exams yet</h4>
+          <p>Create a timed multiple-choice exam for this class and subject.</p>
+          <button class="btn btn-gold btn-sm" id="empty-add-exam-btn">+ Create Exam</button>
+        </div>`}
+      </div>
+    `;
+
+    document.getElementById("exam-search").addEventListener("input", (e)=>{ examSearch = e.target.value; renderExams(); });
+    content.querySelectorAll("[data-pill]").forEach(b=> b.addEventListener("click", ()=>{ examFilter = b.dataset.pill; renderExams(); }));
+    document.getElementById("add-exam-btn")?.addEventListener("click", ()=> openExamModal());
+    document.getElementById("empty-add-exam-btn")?.addEventListener("click", ()=> openExamModal());
+    content.querySelectorAll("[data-edit-exam]").forEach(b=> b.addEventListener("click", ()=> openExamModal(b.dataset.editExam)));
+    content.querySelectorAll("[data-del-exam]").forEach(b=> b.addEventListener("click", ()=> confirmDeleteExam(b.dataset.delExam)));
+    content.querySelectorAll("[data-toggle-pub]").forEach(b=> b.addEventListener("click", ()=> togglePublish(b.dataset.togglePub)));
+    content.querySelectorAll("[data-results]").forEach(b=> b.addEventListener("click", ()=>{ viewingResultsExamId = b.dataset.results; renderExams(); }));
+  }
+
+  function blankQuestion(){ return { text:"", options:["","","",""], correct:0 }; }
+
+  function openExamModal(id=null){
+    const row = id ? state.exams.find(x=> x.id===id) : {};
+    const isEdit = !!id;
+    draftQuestions = isEdit ? JSON.parse(JSON.stringify(row.questions || [])) : [blankQuestion()];
+    if(!draftQuestions.length) draftQuestions = [blankQuestion()];
+
+    modalTitle.textContent = isEdit ? "Edit Exam" : "Create Exam";
+    const [selClassId, selSubjectId] = examFilter.split("::");
+    const pair = myTeachingPairs().find(p=> p.key === examFilter);
+
+    modalForm.innerHTML = `
+      <div class="form-error" id="form-error"></div>
+      <div class="field-hint" style="margin-bottom:14px;">For <strong>${escapeHtml(pair.className)} · ${escapeHtml(pair.subjectName)}</strong></div>
+      <div class="field">
+        <label>Exam Title *</label>
+        <input type="text" name="title" required value="${row.title?escapeHtml(row.title):""}" placeholder="e.g. Mid-Term Test — Algebra" />
+      </div>
+      <div class="exam-meta-row">
+        <div class="field">
+          <label>Duration (minutes) *</label>
+          <input type="number" name="durationMinutes" min="1" required value="${row.durationMinutes||30}" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Questions *</label>
+        <div id="question-editor"></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancel-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="save-btn">${isEdit ? "Save changes" : "Create Exam"}</button>
+      </div>
+    `;
+    modalBackdrop.classList.remove("hidden");
+    document.getElementById("cancel-modal").addEventListener("click", closeModal);
+    renderQuestionEditor();
+    modalForm.onsubmit = (e)=> handleExamSubmit(e, id, selClassId, selSubjectId);
+  }
+
+  function renderQuestionEditor(){
+    const container = document.getElementById("question-editor");
+    if(!container) return;
+    container.innerHTML = draftQuestions.map((q,i)=>`
+      <div class="q-block" data-qi="${i}">
+        <div class="q-block-head">
+          <span class="q-num">QUESTION ${i+1}</span>
+          ${draftQuestions.length>1 ? `<button type="button" class="q-remove" data-remove-q="${i}">Remove</button>` : ""}
+        </div>
+        <input type="text" placeholder="Question text" data-qtext="${i}" value="${escapeHtml(q.text)}" />
+        ${["A","B","C","D"].map((letter,j)=>`
+          <div class="opt-row">
+            <input type="radio" name="correct-${i}" data-qcorrect="${i}" data-optidx="${j}" ${q.correct===j?"checked":""} />
+            <span class="opt-letter">${letter}</span>
+            <input type="text" placeholder="Option ${letter}" data-qopt="${i}" data-optidx="${j}" value="${escapeHtml(q.options[j]||"")}" />
+          </div>
+        `).join("")}
+      </div>
+    `).join("") + `<button type="button" class="add-q-btn" id="add-q-btn">+ Add Question</button>`;
+
+    container.querySelectorAll("[data-qtext]").forEach(el=> el.addEventListener("input", (e)=>{ draftQuestions[+el.dataset.qtext].text = e.target.value; }));
+    container.querySelectorAll("[data-qopt]").forEach(el=> el.addEventListener("input", (e)=>{ draftQuestions[+el.dataset.qopt].options[+el.dataset.optidx] = e.target.value; }));
+    container.querySelectorAll("[data-qcorrect]").forEach(el=> el.addEventListener("change", (e)=>{ draftQuestions[+el.dataset.qcorrect].correct = +el.dataset.optidx; }));
+    container.querySelectorAll("[data-remove-q]").forEach(el=> el.addEventListener("click", ()=>{ draftQuestions.splice(+el.dataset.removeQ, 1); renderQuestionEditor(); }));
+    document.getElementById("add-q-btn").addEventListener("click", ()=>{ draftQuestions.push(blankQuestion()); renderQuestionEditor(); });
+  }
+
+  async function handleExamSubmit(e, id, classId, subjectId){
+    e.preventDefault();
+    const formData = new FormData(modalForm);
+    const errorBox = document.getElementById("form-error");
+    errorBox.style.display = "none";
+    const title = (formData.get("title")||"").trim();
+    const durationMinutes = parseInt(formData.get("durationMinutes"), 10);
+
+    if(!title || !durationMinutes || durationMinutes < 1){
+      errorBox.textContent = "Please fill in the exam title and a valid duration.";
+      errorBox.style.display = "block";
+      return;
+    }
+    const cleanQuestions = draftQuestions.map(q=> ({ text:q.text.trim(), options:q.options.map(o=>o.trim()), correct:q.correct }));
+    const invalid = cleanQuestions.some(q=> !q.text || q.options.some(o=>!o));
+    if(!cleanQuestions.length || invalid){
+      errorBox.textContent = "Every question needs text and all four options filled in.";
+      errorBox.style.display = "block";
+      return;
+    }
+
+    const saveBtn = document.getElementById("save-btn");
+    saveBtn.disabled = true;
+    const originalLabel = saveBtn.textContent;
+    saveBtn.innerHTML = `<span class="spinner"></span> Saving…`;
+
+    try{
+      if(id){
+        await updateDoc(doc(db, "exams", id), { title, durationMinutes, questions: cleanQuestions, updatedAt: serverTimestamp() });
+        toast("Exam updated.", "ok");
+      } else {
+        await addDoc(collection(db, "exams"), {
+          classId, subjectId, teacherId: teacherRec.id, title, durationMinutes, questions: cleanQuestions,
+          status:"draft", createdAt: serverTimestamp()
+        });
+        toast("Exam created as a draft. Publish it when you're ready for students.", "ok");
+      }
+      closeModal();
+    }catch(err){
+      console.error(err);
+      errorBox.textContent = err.message || "Something went wrong while saving.";
+      errorBox.style.display = "block";
+    }finally{
+      saveBtn.disabled = false;
+      saveBtn.textContent = originalLabel;
+    }
+  }
+
+  async function togglePublish(id){
+    const x = state.exams.find(e=> e.id===id);
+    if(!x) return;
+    try{
+      await updateDoc(doc(db, "exams", id), { status: x.status==="published" ? "draft" : "published" });
+      toast(x.status==="published" ? "Exam unpublished." : "Exam published — students can now take it.", "ok");
+    }catch(err){
+      console.error(err);
+      toast(err.message || "Couldn't update exam.", "err");
+    }
+  }
+
+  function confirmDeleteExam(id){
+    const x = state.exams.find(item=> item.id===id);
+    pendingDeleteLessonId = null;
+    pendingDeleteExamId = id;
+    document.getElementById("confirm-title").textContent = "Delete this exam?";
+    document.getElementById("confirm-sub").textContent = `${x?.title?`"${x.title}" `:""}and all student submissions for it will be permanently removed.`;
+    confirmBackdrop.classList.remove("hidden");
+  }
+
+  function renderExamResults(examId){
+    const x = state.exams.find(e=> e.id===examId);
+    if(!x){ viewingResultsExamId = null; renderExams(); return; }
+    const attempts = state.examAttempts.filter(a=> a.examId===examId).sort((a,b)=> (b.submittedAt?.seconds||0)-(a.submittedAt?.seconds||0));
+    const total = (x.questions||[]).length;
+
+    content.innerHTML = `
+      <button class="results-back" id="results-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Back to exams
+      </button>
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">Results</span>
+          <h2>${escapeHtml(x.title)}</h2>
+          <div class="sh-count">${attempts.length} submission${attempts.length===1?"":"s"}</div>
+        </div>
+      </div>
+      <div class="table-shell">
+        ${attempts.length ? `
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Student</th><th>Score</th><th>Percentage</th><th>Submitted</th></tr></thead>
+            <tbody>
+              ${attempts.map(a=>{
+                const student = state.students.find(s=> s.id===a.studentId);
+                const pct = total ? Math.round((a.score/total)*100) : 0;
+                const dateStr = a.submittedAt?.seconds ? new Date(a.submittedAt.seconds*1000).toLocaleString(undefined,{day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"}) : "—";
+                return `<tr>
+                  <td class="cell-primary">${escapeHtml(student?student.name:"Unknown Student")}</td>
+                  <td>${a.score} / ${total}</td>
+                  <td>${badge(pct+"%", pct>=50?"success":"mute")}</td>
+                  <td>${dateStr}</td>
+                </tr>`;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>` : `
+        <div class="empty-state">
+          ${iconResults()}
+          <h4>No submissions yet</h4>
+          <p>Results will appear here as soon as students complete this exam.</p>
+        </div>`}
+      </div>
+    `;
+    document.getElementById("results-back").addEventListener("click", ()=>{ viewingResultsExamId = null; renderExams(); });
+  }
+
+  /* ---------------- ATTENDANCE ---------------- */
+  function myAccessibleClasses(){
+    const ids = new Set();
+    const primary = state.classes.find(c=> c.formTeacherId === teacherRec.id);
+    if(primary) ids.add(primary.id);
+    state.classSubjects.filter(cs=> cs.teacherId === teacherRec.id).forEach(cs=> ids.add(cs.classId));
+    return Array.from(ids).map(id=> state.classes.find(c=> c.id===id)).filter(Boolean);
+  }
+
+  function loadAttendanceDraft(){
+    const existing = state.attendance.find(a=> a.classId===attendanceClassId && a.date===attendanceDate);
+    const roster = state.students.filter(s=> s.classId===attendanceClassId);
+    attendanceDraft = {};
+    roster.forEach(s=>{
+      const rec = existing ? (existing.records||[]).find(r=> r.studentId===s.id) : null;
+      attendanceDraft[s.id] = rec ? rec.status : "present";
+    });
+    return existing;
+  }
+
+  function renderAttendance(){
+    if(!teacherRec){
+      content.innerHTML = `
+        <div class="table-shell"><div class="empty-state">
+          ${iconAlert()}
+          <h4>No teacher profile linked yet</h4>
+          <p>Ask your school admin to link your account to a teacher record.</p>
+        </div></div>`;
+      return;
+    }
+    const classes = myAccessibleClasses();
+    if(!classes.length){
+      content.innerHTML = `
+        <div class="sec-head"><div class="sh-text"><span class="eyebrow">Classroom</span><h2>Attendance</h2></div></div>
+        <div class="table-shell"><div class="empty-state">
+          ${iconCalendar()}
+          <h4>No classes assigned yet</h4>
+          <p>You'll be able to mark attendance once you're set as a form teacher or assigned to teach a subject in a class.</p>
+        </div></div>`;
+      return;
+    }
+    if(!attendanceClassId || !classes.some(c=> c.id===attendanceClassId)) attendanceClassId = classes[0].id;
+    const existing = loadAttendanceDraft();
+    const roster = state.students.filter(s=> s.classId===attendanceClassId).sort((a,b)=> (a.name||"").localeCompare(b.name||""));
+    const history = state.attendance.filter(a=> a.classId===attendanceClassId).sort((a,b)=> b.date.localeCompare(a.date)).slice(0,10);
+
+    content.innerHTML = `
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">Classroom</span>
+          <h2>Attendance</h2>
+          <div class="sh-count">${roster.length} student${roster.length===1?"":"s"}${existing ? " · already recorded for this date" : ""}</div>
+        </div>
+      </div>
+      <div class="pill-tabs">
+        ${classes.map(c=>`<button class="pill ${c.id===attendanceClassId?'active':''}" data-pill="${c.id}">${escapeHtml(c.name)}</button>`).join("")}
+      </div>
+      <div class="att-toolbar">
+        <input type="date" id="att-date" value="${attendanceDate}" max="${new Date().toISOString().slice(0,10)}" />
+        <button class="btn btn-gold" id="save-attendance-btn">Save Attendance</button>
+      </div>
+      <div class="table-shell" style="margin-bottom:20px;">
+        ${roster.length ? `
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Student</th><th style="text-align:right;">Status</th></tr></thead>
+            <tbody>
+              ${roster.map(s=>`
+                <tr>
+                  <td class="cell-primary">${escapeHtml(s.name)}</td>
+                  <td>
+                    <div class="status-btns" style="justify-content:flex-end;">
+                      <button type="button" class="status-btn ${attendanceDraft[s.id]==='present'?'active-present':''}" data-status-btn="${s.id}" data-status="present">Present</button>
+                      <button type="button" class="status-btn ${attendanceDraft[s.id]==='late'?'active-late':''}" data-status-btn="${s.id}" data-status="late">Late</button>
+                      <button type="button" class="status-btn ${attendanceDraft[s.id]==='absent'?'active-absent':''}" data-status-btn="${s.id}" data-status="absent">Absent</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>` : `
+        <div class="empty-state">
+          ${iconUsers()}
+          <h4>No students in this class</h4>
+          <p>Once students are assigned to this class, they'll appear here.</p>
+        </div>`}
+      </div>
+      <div class="panel">
+        <h3>Recent History</h3>
+        ${history.length ? history.map(h=>{
+          const counts = { present:0, absent:0, late:0 };
+          (h.records||[]).forEach(r=> counts[r.status] = (counts[r.status]||0)+1);
+          return `
+          <div class="att-history-item" data-load-date="${h.date}">
+            <div>
+              <div class="a-name">${new Date(h.date+"T00:00:00").toLocaleDateString(undefined,{weekday:"short", day:"numeric", month:"short"})}</div>
+              <div class="att-summary-chip">${counts.present} present · ${counts.late} late · ${counts.absent} absent</div>
+            </div>
+            ${badge(h.date===attendanceDate ? "Viewing" : "Load", h.date===attendanceDate?"gold":"mute")}
+          </div>`;
+        }).join("") : `<div class="a-sub" style="padding:6px 0;">No attendance recorded for this class yet.</div>`}
+      </div>
+    `;
+
+    content.querySelectorAll("[data-pill]").forEach(b=> b.addEventListener("click", ()=>{ attendanceClassId = b.dataset.pill; renderAttendance(); }));
+    document.getElementById("att-date").addEventListener("change", (e)=>{ attendanceDate = e.target.value; renderAttendance(); });
+    content.querySelectorAll("[data-status-btn]").forEach(b=>{
+      b.addEventListener("click", ()=>{ attendanceDraft[b.dataset.statusBtn] = b.dataset.status; renderAttendance(); });
+    });
+    content.querySelectorAll("[data-load-date]").forEach(el=>{
+      el.addEventListener("click", ()=>{ attendanceDate = el.dataset.loadDate; renderAttendance(); });
+    });
+    document.getElementById("save-attendance-btn").addEventListener("click", saveAttendance);
+  }
+
+  async function saveAttendance(){
+    const btn = document.getElementById("save-attendance-btn");
+    const original = btn.textContent;
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> Saving…`;
+    try{
+      const existing = state.attendance.find(a=> a.classId===attendanceClassId && a.date===attendanceDate);
+      const docId = `${attendanceClassId}_${attendanceDate}`;
+      const records = Object.entries(attendanceDraft).map(([studentId,status])=> ({ studentId, status }));
+      await setDoc(doc(db, "attendance", docId), {
+        classId: attendanceClassId, date: attendanceDate, teacherId: teacherRec.id, records,
+        createdAt: existing?.createdAt || serverTimestamp(), updatedAt: serverTimestamp()
+      });
+      toast("Attendance saved.", "ok");
+    }catch(err){
+      console.error(err);
+      toast(err.message || "Couldn't save attendance.", "err");
+    }finally{
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  }
+
+  /* ---------------- COMING SOON PLACEHOLDER ---------------- */
+  function renderComingSoon(cfg){
+    content.innerHTML = `
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">${cfg.eyebrow}</span>
+          <h2>${cfg.title}</h2>
+        </div>
+      </div>
+      <div class="table-shell">
+        <div class="empty-state">
+          ${iconCalendar()}
+          <h4>${cfg.title} is on its way</h4>
+          <p>${cfg.blurb}</p>
+          <span class="tag-soon">Page coming soon</span>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ============================================================
+     ICONS
+     ============================================================ */
+  function iconUsers(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-5.5"/></svg>`; }
+  function iconClass(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5.6c0-.9.7-1.6 1.6-1.6H18a2 2 0 0 1 2 2v14"/><path d="M4 19.5c0-1 .8-1.7 1.8-1.7H20"/></svg>`; }
+  function iconClassSm(){ return iconClass(); }
+  function iconBook(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5a2 2 0 0 1 2-2h12.5v17H6a2 2 0 0 1-2-2v-13Z"/><path d="M18.5 3.5v17"/></svg>`; }
+  function iconCalendar(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/></svg>`; }
+  function iconAssign(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3.5h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M9 12.5l2 2 4-4.5"/></svg>`; }
+  function iconExam(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3.5h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M8.5 11h6M8.5 14.5h6M8.5 8h3"/></svg>`; }
+  function iconAlert(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5a1.8 1.8 0 0 0 1.6 2.7h15.6a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/></svg>`; }
+  function iconEdit(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"/></svg>`; }
+  function iconTrash(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M19 6l-.8 13.1A2 2 0 0 1 16.2 21H7.8a2 2 0 0 1-2-1.9L5 6"/></svg>`; }
+  function iconResults(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5.6c0-.9.7-1.6 1.6-1.6H18a2 2 0 0 1 2 2v14"/><path d="M4 19.5c0-1 .8-1.7 1.8-1.7H20"/><path d="M8 9l2 2 4-4"/></svg>`; }
+  function iconEye(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`; }
+  function iconEyeOff(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3l18 18"/><path d="M10.6 5.2A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.6 4.6M6.6 6.6C4 8.3 2 12 2 12s3.5 7 10 7a10.6 10.6 0 0 0 3.4-.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>`; }
+}
+</script>
+</body>
+</html>

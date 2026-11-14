@@ -1,0 +1,167 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+File: pages/super-admin/edit-role.html
+Part 1
+========================================================== -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Edit Role | MathCloud Tutorial Academy
+
+</title>
+
+<link rel="icon"
+href="../../assets/images/logo/favicon.png">
+
+<link rel="stylesheet"
+href="../../assets/css/reset.css">
+
+<link rel="stylesheet"
+href="../../assets/css/variables.css">
+
+<link rel="stylesheet"
+href="../../assets/css/components.css">
+
+<link rel="stylesheet"
+href="../../assets/css/dashboard.css">
+
+<link rel="stylesheet"
+href="../../assets/css/create-role.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<!-- Same Sidebar -->
+
+</aside>
+
+<main class="mainContent">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Edit Role
+
+</h1>
+
+<p>
+
+Update role information and permissions
+
+</p>
+
+</div>
+
+</header>
+
+<section class="formCard">
+
+<form id="editRoleForm">
+
+<div class="formGroup">
+
+<label>
+
+Role Name
+
+</label>
+
+<input
+type="text"
+id="roleName"
+required>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Description
+
+</label>
+
+<textarea
+id="description"
+rows="4"></textarea>
+
+</div>
+
+<h3>
+
+Permissions
+
+</h3>
+
+<div class="permissionGrid" id="permissionGrid">
+
+<!-- Loaded from JavaScript -->
+
+</div>
+
+<div class="formActions">
+
+<button
+type="button"
+class="secondaryButton"
+onclick="history.back()">
+
+Cancel
+
+</button>
+
+<button
+type="submit"
+class="primaryButton">
+
+Save Changes
+
+</button>
+
+</div>
+
+</form>
+
+</section>
+
+</main>
+
+</div>
+
+<script type="module"
+src="../../assets/js/edit-role.js"></script>
+
+<script type="module"
+src="../../assets/js/sidebar.js"></script>
+
+<script type="module"
+src="../../assets/js/theme.js"></script>
+
+<script type="module"
+src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>

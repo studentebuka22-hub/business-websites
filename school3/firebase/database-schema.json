@@ -1,0 +1,133 @@
+/* ==========================================================
+   MathCloud Tutorial Academy Management System
+   Firebase Realtime Database Structure
+   File: firebase/database-schema.json
+   ========================================================== */
+
+{
+  "users": {
+    "{uid}": {
+      "uid": "",
+      "fullName": "",
+      "email": "",
+      "phone": "",
+      "gender": "",
+      "passport": "",
+      "role": "",
+      "permissions": [],
+      "status": "active",
+      "createdBy": "",
+      "lastLogin": 0,
+      "createdAt": 0,
+      "updatedAt": 0
+    }
+  },
+
+  "superAdmins": {
+    "{uid}": {
+      "uid": "",
+      "fullName": "",
+      "email": ""
+    }
+  },
+
+  "admins": {
+    "{uid}": {
+      "uid": "",
+      "fullName": "",
+      "email": "",
+      "department": ""
+    }
+  },
+
+  "students": {
+    "{studentId}": {
+      "studentId": "",
+      "admissionNumber": "",
+      "fullName": "",
+      "gender": "",
+      "dateOfBirth": "",
+      "class": "",
+      "parentId": "",
+      "passport": "",
+      "status": "active"
+    }
+  },
+
+  "teachers": {
+    "{teacherId}": {
+      "teacherId": "",
+      "staffNumber": "",
+      "fullName": "",
+      "department": "",
+      "subjects": {},
+      "passport": "",
+      "status": "active"
+    }
+  },
+
+  "parents": {
+    "{parentId}": {
+      "parentId": "",
+      "fullName": "",
+      "phone": "",
+      "email": "",
+      "children": {}
+    }
+  },
+
+  "departments": {},
+
+  "classes": {},
+
+  "subjects": {},
+
+  "attendance": {},
+
+  "lessonNotes": {},
+
+  "assignments": {},
+
+  "results": {},
+
+  "cbt": {},
+
+  "theoryExams": {},
+
+  "timetable": {},
+
+  "fees": {},
+
+  "payments": {},
+
+  "notifications": {},
+
+  "messages": {},
+
+  "gallery": {},
+
+  "events": {},
+
+  "news": {},
+
+  "settings": {
+    "schoolName": "MathCloud Tutorial Academy",
+    "schoolMotto": "",
+    "schoolLogo": "",
+    "phone": "",
+    "email": "",
+    "address": "",
+    "currentSession": "",
+    "currentTerm": "",
+    "theme": "light"
+  },
+
+  "logs": {
+    "{logId}": {
+      "action": "",
+      "userId": "",
+      "description": "",
+      "timestamp": 0
+    }
+  }
+}

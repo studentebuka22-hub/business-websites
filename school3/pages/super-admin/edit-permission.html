@@ -1,0 +1,195 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+File: pages/super-admin/edit-permission.html
+Part 1
+========================================================== -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Edit Permission | MathCloud Tutorial Academy
+
+</title>
+
+<link rel="icon"
+href="../../assets/images/logo/favicon.png">
+
+<link rel="stylesheet"
+href="../../assets/css/reset.css">
+
+<link rel="stylesheet"
+href="../../assets/css/variables.css">
+
+<link rel="stylesheet"
+href="../../assets/css/components.css">
+
+<link rel="stylesheet"
+href="../../assets/css/dashboard.css">
+
+<link rel="stylesheet"
+href="../../assets/css/create-permission.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<!-- Same Sidebar -->
+
+</aside>
+
+<main class="mainContent">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Edit Permission
+
+</h1>
+
+<p>
+
+Update system permission
+
+</p>
+
+</div>
+
+</header>
+
+<section class="formCard">
+
+<form id="editPermissionForm">
+
+<div class="formGroup">
+
+<label>
+
+Permission Name
+
+</label>
+
+<input
+type="text"
+id="permissionName"
+required>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Module
+
+</label>
+
+<select
+id="module"
+required>
+
+<option>Dashboard</option>
+
+<option>Users</option>
+
+<option>Students</option>
+
+<option>Teachers</option>
+
+<option>Classes</option>
+
+<option>Subjects</option>
+
+<option>Attendance</option>
+
+<option>Results</option>
+
+<option>Finance</option>
+
+<option>Library</option>
+
+<option>Reports</option>
+
+<option>Settings</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Description
+
+</label>
+
+<textarea
+id="description"
+rows="5"></textarea>
+
+</div>
+
+<div class="formActions">
+
+<button
+type="button"
+class="secondaryButton"
+onclick="history.back()">
+
+Cancel
+
+</button>
+
+<button
+type="submit"
+class="primaryButton">
+
+Save Changes
+
+</button>
+
+</div>
+
+</form>
+
+</section>
+
+</main>
+
+</div>
+
+<script type="module"
+src="../../assets/js/edit-permission.js"></script>
+
+<script type="module"
+src="../../assets/js/sidebar.js"></script>
+
+<script type="module"
+src="../../assets/js/theme.js"></script>
+
+<script type="module"
+src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>

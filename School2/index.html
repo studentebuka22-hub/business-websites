@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Brightgate Admin · School Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --ink: #17223d;
+  --ink-2: #202f52;
+  --ink-3: #2a3c68;
+  --gold: #c69a3e;
+  --gold-light: #e8cf8d;
+  --paper: #f6f3ec;
+  --card: #ffffff;
+  --text: #1e2233;
+  --mute: #6b7080;
+  --line: #e7e2d6;
+  --line-2: #eceff5;
+  --success: #3e7a56;
+  --success-bg: #e9f3ec;
+  --danger: #b1473d;
+  --danger-bg: #fbebe9;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(23,34,61,.06), 0 8px 24px -12px rgba(23,34,61,.18);
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height:100vh;
+}
+.hidden{display:none !important;}
+button{font-family:inherit; cursor:pointer;}
+input,select,textarea{font-family:inherit;}
+a{color:inherit;}
+::selection{background: var(--gold-light);}
+
+/* focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+  
+/* ============================================================
+   LOGIN
+   ============================================================ */
+#login-screen{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(198,154,62,.14), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(198,154,62,.10), transparent 45%),
+    var(--ink);
+}
+.login-card{
+  width:100%; max-width:400px; background:var(--card); border-radius:18px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.5);
+  padding:40px 34px 32px; text-align:center;
+}
+.seal{
+  width:64px; height:64px; margin:0 auto 18px; border-radius:50%;
+  background: radial-gradient(circle at 30% 25%, var(--gold-light), var(--gold) 60%, #a9812f 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:20px; color:var(--ink);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,.35), 0 8px 20px -6px rgba(198,154,62,.6);
+}
+.login-card h1{font-family:var(--font-display); font-size:23px; margin:2px 0 4px; letter-spacing:-.01em;}
+.login-card .sub{color:var(--mute); font-size:13.5px; margin-bottom:26px;}
+.field{text-align:left; margin-bottom:15px;}
+.field label{display:block; font-size:12.5px; font-weight:600; color:var(--ink); margin-bottom:6px; letter-spacing:.01em;}
+.field input{
+  width:100%; padding:11px 13px; border:1.5px solid var(--line); border-radius:9px;
+  font-size:14.5px; background:var(--paper); color:var(--text); transition:border-color .15s;
+}
+.field input:focus{border-color:var(--gold); outline:none; background:#fff;}
+.btn{
+  border:none; border-radius:9px; padding:11px 18px; font-size:14.5px; font-weight:600;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px; transition:transform .1s, opacity .15s, box-shadow .15s;
+}
+.btn:active{transform: translateY(1px);}
+.btn-primary{background:var(--ink); color:#fff; width:100%; margin-top:6px; padding:12px 18px;}
+.btn-primary:hover{background:var(--ink-3);}
+.btn-gold{background:var(--gold); color:#22190a;}
+.btn-gold:hover{background:#d3a94e;}
+.btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--gold); color:var(--ink);}
+.btn-danger-ghost{background:transparent; color:var(--danger); border:1.5px solid var(--danger-bg);}
+.btn-danger-ghost:hover{background:var(--danger-bg);}
+.btn-sm{padding:7px 12px; font-size:13px; border-radius:8px;}
+.btn:disabled{opacity:.55; cursor:not-allowed;}
+#login-error{
+  color:var(--danger); background:var(--danger-bg); border-radius:8px; padding:9px 12px;
+  font-size:13px; margin-bottom:14px; text-align:left; display:none;
+}
+.login-foot{margin-top:22px; font-size:12px; color:var(--mute);}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+#app{display:flex; min-height:100vh;}
+
+#sidebar{
+  width:252px; flex-shrink:0; background:var(--ink); color:#dfe4f2;
+  display:flex; flex-direction:column; position:fixed; top:0; left:0; bottom:0; z-index:40;
+  transition: transform .25s ease;
+}
+.sb-brand{
+  display:flex; align-items:center; gap:11px; padding:22px 20px 18px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.sb-brand .seal{width:38px; height:38px; font-size:13px; flex-shrink:0;}
+.sb-brand .name{font-family:var(--font-display); font-size:16.5px; font-weight:700; color:#fff; line-height:1.15;}
+.sb-brand .tag{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--gold-light); font-family:var(--font-mono);}
+
+.sb-nav{flex:1; overflow-y:auto; padding:14px 12px;}
+.sb-section-label{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:#8a91ab; padding:12px 10px 6px; font-family:var(--font-mono);}
+.sb-link{
+  display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:9px;
+  color:#c7cce2; text-decoration:none; font-size:14px; font-weight:500; margin-bottom:2px; border:none; background:none; width:100%; text-align:left;
+}
+.sb-link svg{width:18px; height:18px; flex-shrink:0; opacity:.85;}
+.sb-link:hover{background:rgba(255,255,255,.06); color:#fff;}
+.sb-link.active{background:linear-gradient(90deg, rgba(198,154,62,.22), rgba(198,154,62,.05)); color:#fff; box-shadow: inset 3px 0 0 var(--gold);}
+.sb-badge{
+  margin-left:auto; background:rgba(255,255,255,.1); color:#dfe4f2; font-size:11px; font-family:var(--font-mono);
+  padding:1px 7px; border-radius:20px;
+}
+
+.sb-foot{padding:14px 18px 20px; border-top:1px solid rgba(255,255,255,.08);}
+.sb-admin{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+.sb-avatar{width:32px; height:32px; border-radius:50%; background:var(--ink-3); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; color:var(--gold-light); flex-shrink:0;}
+.sb-admin-email{font-size:12.5px; color:#c7cce2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.sb-logout{width:100%; justify-content:flex-start;}
+
+#sidebar-overlay{display:none; position:fixed; inset:0; background:rgba(15,20,35,.5); z-index:35;}
+
+#main{flex:1; margin-left:252px; display:flex; flex-direction:column; min-width:0;}
+
+#topbar{
+  position:sticky; top:0; z-index:20; background:rgba(246,243,236,.88); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line); padding:16px 28px; display:flex; align-items:center; gap:14px;
+}
+#hamburger{display:none; background:none; border:none; padding:6px; border-radius:8px;}
+#hamburger:hover{background:var(--line-2);}
+#hamburger svg{width:22px; height:22px;}
+.page-title{font-family:var(--font-display); font-size:21px; font-weight:600; flex:1; min-width:0;}
+.page-title .eyebrow{display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); font-weight:500; margin-bottom:2px;}
+
+#content{padding:26px 28px 60px; flex:1;}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+.stat-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:22px;}
+.stat-card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 18px 16px;
+  box-shadow:var(--shadow);
+}
+.stat-card .icon-wrap{
+  width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; margin-bottom:12px;
+}
+.stat-card .icon-wrap svg{width:17px; height:17px;}
+.stat-card .num{font-family:var(--font-display); font-size:30px; font-weight:700; line-height:1;}
+.stat-card .label{font-size:12.5px; color:var(--mute); margin-top:6px; font-weight:500;}
+
+.dash-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:16px; align-items:start;}
+
+.ledger-card{
+  background: var(--ink); color:#fff; border-radius:18px; padding:26px 28px; position:relative; overflow:hidden;
+  background-image: radial-gradient(circle at 100% 0%, rgba(198,154,62,.25), transparent 55%);
+}
+.ledger-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:22px; gap:12px;}
+.ledger-eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--gold-light);}
+.ledger-term{font-family:var(--font-display); font-size:24px; font-weight:600; margin-top:4px;}
+.ledger-session{font-size:12.5px; color:#aab0c8; margin-top:2px;}
+.ledger-days{
+  text-align:right; flex-shrink:0;
+}
+.ledger-days .n{font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--gold-light); line-height:1;}
+.ledger-days .l{font-size:11px; color:#aab0c8; text-transform:uppercase; letter-spacing:.06em; margin-top:3px;}
+
+.timeline{margin-top:6px;}
+.timeline-track{height:8px; border-radius:6px; background:rgba(255,255,255,.12); position:relative; overflow:visible;}
+.timeline-fill{height:100%; border-radius:6px; background:linear-gradient(90deg, var(--gold), var(--gold-light));}
+.timeline-marker{
+  position:absolute; top:-5px; width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid var(--gold);
+  transform:translateX(-50%); box-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+.timeline-labels{display:flex; justify-content:space-between; margin-top:12px; font-size:12px; color:#c7cce2; font-family:var(--font-mono);}
+.timeline-labels span b{color:#fff; font-weight:600;}
+
+.no-term{padding:6px 0 4px;}
+.no-term p{color:#c7cce2; font-size:13.5px; line-height:1.6; margin:6px 0 16px;}
+
+.panel{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px 22px 18px; box-shadow:var(--shadow);
+}
+.panel h3{font-family:var(--font-display); font-size:16.5px; margin:0 0 14px; display:flex; align-items:center; justify-content:space-between;}
+.upcoming-item{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--line-2); font-size:13.5px;}
+.upcoming-item:last-child{border-bottom:none;}
+.upcoming-item .u-name{font-weight:600;}
+.upcoming-item .u-sub{color:var(--mute); font-size:12px; margin-top:2px;}
+.upcoming-item .u-date{font-family:var(--font-mono); font-size:12.5px; color:var(--ink); background:var(--line-2); padding:3px 8px; border-radius:6px;}
+
+.quicklinks{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:20px;}
+.qlink{
+  border:1px solid var(--line); border-radius:11px; padding:14px; text-align:left; background:#fff;
+  display:flex; flex-direction:column; gap:8px;
+}
+.qlink:hover{border-color:var(--gold); box-shadow:var(--shadow);}
+.qlink svg{width:18px; height:18px; color:var(--ink);}
+.qlink .qname{font-size:13px; font-weight:600;}
+
+/* ============================================================
+   SECTION HEADER / TOOLBAR
+   ============================================================ */
+.sec-head{display:flex; justify-content:space-between; align-items:flex-end; gap:14px; margin-bottom:18px; flex-wrap:wrap;}
+.sec-head .sh-text .eyebrow{display:block; font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); margin-bottom:3px;}
+.sec-head h2{font-family:var(--font-display); font-size:22px; margin:0;}
+.sec-head .sh-count{font-size:13px; color:var(--mute); margin-top:3px;}
+.toolbar{display:flex; gap:10px; align-items:center;}
+.search-wrap{position:relative;}
+.search-wrap svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--mute);}
+.search-wrap input{
+  padding:9px 12px 9px 32px; border:1.5px solid var(--line); border-radius:9px; font-size:13.5px; width:220px; background:#fff;
+}
+.search-wrap input:focus{border-color:var(--gold); outline:none;}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+.table-shell{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+.table-scroll{overflow-x:auto;}
+table{width:100%; border-collapse:collapse; min-width:640px;}
+thead th{
+  text-align:left; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--mute);
+  padding:13px 18px; border-bottom:1px solid var(--line); font-weight:600; white-space:nowrap; background:#fbfaf6;
+}
+tbody td{padding:14px 18px; border-bottom:1px solid var(--line-2); font-size:13.8px; vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:#fbfaf6;}
+.cell-primary{font-weight:600; color:var(--ink);}
+.cell-sub{color:var(--mute); font-size:12px; margin-top:2px;}
+.row-actions{display:flex; gap:6px; justify-content:flex-end;}
+.icon-btn{
+  width:30px; height:30px; border-radius:8px; border:1px solid var(--line); background:#fff;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.icon-btn svg{width:14.5px; height:14.5px;}
+.icon-btn:hover{border-color:var(--gold);}
+.icon-btn.danger:hover{border-color:var(--danger); background:var(--danger-bg);}
+.badge{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:20px;}
+.badge-gold{background:#faf1dd; color:#8a6a1f;}
+.badge-mute{background:var(--line-2); color:var(--mute);}
+.badge-success{background:var(--success-bg); color:var(--success);}
+.badge-dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+
+/* logo */
+.seal.logo-wrap{background:none; box-shadow:none; overflow:hidden;}
+.seal.logo-wrap img{width:100%; height:100%; object-fit:cover; border-radius:50%;}
+
+/* pill tabs (directory toggle) */
+.pill-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+.pill{
+  border:1.5px solid var(--line); background:#fff; color:var(--ink); border-radius:20px;
+  padding:7px 14px; font-size:12.8px; font-weight:600; display:inline-flex; align-items:center; gap:6px;
+}
+.pill:hover{border-color:var(--gold);}
+.pill.active{background:var(--ink); border-color:var(--ink); color:#fff;}
+.pill .pill-count{
+  background:rgba(0,0,0,.08); border-radius:20px; padding:1px 6px; font-size:10.5px; font-family:var(--font-mono);
+}
+.pill.active .pill-count{background:rgba(255,255,255,.18);}
+
+/* type tag used in directory rows */
+.type-tag{font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--mute); font-family:var(--font-mono);}
+
+.field-note{font-size:12px; color:var(--mute); background:var(--paper); border:1px dashed var(--line); border-radius:8px; padding:9px 11px; margin:2px 0 14px; line-height:1.5;}
+
+.empty-state{padding:60px 24px; text-align:center;}
+.empty-state svg{width:40px; height:40px; color:var(--line); margin-bottom:14px;}
+.empty-state h4{font-family:var(--font-display); font-size:17px; margin:0 0 6px;}
+.empty-state p{color:var(--mute); font-size:13.5px; margin:0 0 18px; max-width:340px; margin-left:auto; margin-right:auto;}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+#modal-backdrop{
+  position:fixed; inset:0; background:rgba(15,20,35,.52); z-index:60; display:flex; align-items:center; justify-content:center; padding:20px;
+}
+#modal{
+  width:100%; max-width:480px; background:#fff; border-radius:16px; box-shadow:0 30px 70px -20px rgba(0,0,0,.45);
+  max-height:88vh; display:flex; flex-direction:column; overflow:hidden;
+}
+#modal header{
+  display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--line);
+}
+#modal header h3{font-family:var(--font-display); font-size:18px; margin:0;}
+#modal-close{background:none; border:none; font-size:20px; color:var(--mute); line-height:1; padding:4px;}
+#modal-close:hover{color:var(--text);}
+#modal-form{padding:20px 22px; overflow-y:auto;}
+#modal-form .field select, #modal-form .field textarea{
+  width:100%; padding:11px 13px; border:1.5px solid var(--line); border-radius:9px; font-size:14px; background:var(--paper);
+}
+#modal-form .field select:focus, #modal-form .field textarea:focus{border-color:var(--gold); outline:none; background:#fff;}
+#modal-form textarea{resize:vertical; min-height:64px;}
+.field-hint{font-size:11.5px; color:var(--mute); margin-top:4px;}
+.checkgrid{display:grid; grid-template-columns:1fr 1fr; gap:8px; max-height:150px; overflow-y:auto; border:1.5px solid var(--line); border-radius:9px; padding:10px; background:var(--paper);}
+.checkitem{display:flex; align-items:center; gap:7px; font-size:13px;}
+.checkitem input{accent-color:var(--gold);}
+.checkbox-row{display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--paper); border:1.5px solid var(--line); border-radius:9px;}
+.checkbox-row input{accent-color:var(--gold); width:16px; height:16px;}
+.checkbox-row label{font-size:13.5px; font-weight:500;}
+.modal-actions{display:flex; gap:10px; justify-content:flex-end; padding-top:6px; margin-top:6px; border-top:1px solid var(--line-2);}
+.form-error{color:var(--danger); background:var(--danger-bg); border-radius:8px; padding:8px 11px; font-size:12.5px; margin-bottom:12px; display:none;}
+
+/* confirm dialog */
+#confirm-backdrop{position:fixed; inset:0; background:rgba(15,20,35,.52); z-index:70; display:flex; align-items:center; justify-content:center; padding:20px;}
+#confirm-box{width:100%; max-width:360px; background:#fff; border-radius:14px; padding:24px; box-shadow:0 30px 70px -20px rgba(0,0,0,.45); text-align:center;}
+#confirm-box .warn-icon{width:42px; height:42px; border-radius:50%; background:var(--danger-bg); display:flex; align-items:center; justify-content:center; margin:0 auto 14px;}
+#confirm-box .warn-icon svg{width:20px; height:20px; color:var(--danger);}
+#confirm-box h4{font-family:var(--font-display); font-size:17px; margin:0 0 6px;}
+#confirm-box p{font-size:13.5px; color:var(--mute); margin:0 0 20px;}
+#confirm-box .row{display:flex; gap:10px;}
+#confirm-box .row .btn{flex:1;}
+
+/* toast */
+#toast-container{position:fixed; bottom:20px; right:20px; z-index:80; display:flex; flex-direction:column; gap:10px;}
+.toast{
+  background:var(--ink); color:#fff; padding:12px 16px; border-radius:10px; font-size:13.5px; box-shadow:0 10px 30px -8px rgba(0,0,0,.4);
+  display:flex; align-items:center; gap:10px; min-width:220px; animation:toastin .18s ease;
+}
+.toast.err{background:var(--danger);}
+.toast.ok{background:var(--success);}
+@keyframes toastin{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+/* loading spinner */
+.spinner{width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; animation:spin .7s linear infinite;}
+.spinner.dark{border:2px solid rgba(30,34,51,.2); border-top-color:var(--ink);}
+@keyframes spin{to{transform:rotate(360deg);}}
+#route-loading{display:flex; align-items:center; justify-content:center; padding:80px 0;}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1180px){
+  .stat-grid{grid-template-columns:repeat(3,1fr);}
+  .dash-grid{grid-template-columns:1fr;}
+}
+@media (max-width: 880px){
+  #sidebar{transform:translateX(-100%); box-shadow:0 0 40px rgba(0,0,0,.3);}
+  #sidebar.open{transform:translateX(0);}
+  #sidebar-overlay.show{display:block;}
+  #main{margin-left:0;}
+  #hamburger{display:flex; align-items:center; justify-content:center;}
+  #topbar{padding:14px 16px;}
+  #content{padding:18px 16px 50px;}
+  .stat-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
+  .stat-card{padding:14px;}
+  .stat-card .num{font-size:24px;}
+  .sec-head{flex-direction:column; align-items:stretch;}
+  .toolbar{flex-direction:column; align-items:stretch;}
+  .search-wrap input{width:100%;}
+  .ledger-card{padding:20px;}
+  .ledger-top{flex-direction:column;}
+  .ledger-days{text-align:left;}
+  .checkgrid{grid-template-columns:1fr;}
+  .quicklinks{grid-template-columns:1fr;}
+}
+@media (max-width: 520px){
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .page-title{font-size:18px;}
+}
+</style>
+</head>
+<body>
+
+
+<!-- ============================================================
+     LOGIN
+     ============================================================ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="seal logo-wrap" id="login-seal">
+      <img src="logo.png" alt="School logo" onerror="this.style.display='none'; this.parentElement.textContent='BG'; this.parentElement.classList.remove('logo-wrap');" />
+    </div>
+    <h1>Admin Sign In</h1>
+    <div class="sub">Brightgate School Management</div>
+    <div id="login-error"></div>
+    <div id="script-error" style="display:none; color:var(--danger); background:var(--danger-bg); border-radius:8px; padding:9px 12px; font-size:13px; margin-bottom:14px; text-align:left;">
+      Couldn't load the sign-in service. Check your internet connection, disable any ad-blockers for this page, and reload.
+    </div>
+    <form id="login-form">
+      <div class="field">
+        <label for="login-email">Email address</label>
+        <input id="login-email" type="email" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" class="btn btn-primary" id="login-btn">Sign in</button>
+    </form>
+    <div class="login-foot">Admin accounts are created in the Firebase console — there is no public sign-up.</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     APP SHELL
+     ============================================================ -->
+<div id="app" class="hidden">
+  <div id="sidebar-overlay"></div>
+  <aside id="sidebar">
+    <div class="sb-brand">
+      <div class="seal logo-wrap" id="sidebar-seal">
+        <img src="logo.png" alt="School logo" onerror="this.style.display='none'; this.parentElement.textContent='BG'; this.parentElement.classList.remove('logo-wrap');" />
+      </div>
+      <div>
+        <div class="name">Brightgate</div>
+        <div class="tag">Admin Console</div>
+      </div>
+    </div>
+    <nav class="sb-nav" id="sb-nav">
+      <div class="sb-section-label">Overview</div>
+      <button class="sb-link" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
+        Dashboard
+      </button>
+      <button class="sb-link" data-view="terms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/></svg>
+        Academic Calendar
+      </button>
+      <div class="sb-section-label">People</div>
+      <button class="sb-link" data-view="teachers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.2-4 4-6 7.5-6s6.3 2 7.5 6"/></svg>
+        Teachers <span class="sb-badge" id="badge-teachers">0</span>
+      </button>
+      <button class="sb-link" data-view="students">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-5.5"/></svg>
+        Students <span class="sb-badge" id="badge-students">0</span>
+      </button>
+      <button class="sb-link" data-view="parents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 8.6c0-2.3-1.9-4.1-4.2-4.1-1.4 0-2.7.7-3.4 1.9-.7-1.2-2-1.9-3.4-1.9-2.3 0-4.2 1.8-4.2 4.1 0 4.7 7.6 9.8 7.6 9.8s7.6-5.1 7.6-9.8Z"/></svg>
+        Parents <span class="sb-badge" id="badge-parents">0</span>
+      </button>
+      <div class="sb-section-label">Academics</div>
+      <button class="sb-link" data-view="classes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5.6c0-.9.7-1.6 1.6-1.6H18a2 2 0 0 1 2 2v14"/><path d="M4 19.5c0-1 .8-1.7 1.8-1.7H20"/></svg>
+        Classes <span class="sb-badge" id="badge-classes">0</span>
+      </button>
+      <button class="sb-link" data-view="subjects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5a2 2 0 0 1 2-2h12.5v17H6a2 2 0 0 1-2-2v-13Z"/><path d="M18.5 3.5v17"/></svg>
+        Subjects <span class="sb-badge" id="badge-subjects">0</span>
+      </button>
+      <button class="sb-link" data-view="classSubjects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3v18M4 8h5M4 16h5"/><circle cx="17" cy="12" r="4.2"/></svg>
+        Class Subjects <span class="sb-badge" id="badge-classSubjects">0</span>
+      </button>
+      <div class="sb-section-label">Access</div>
+      <button class="sb-link" data-view="directory">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Directory
+      </button>
+      <button class="sb-link" data-view="users">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10.5" width="16" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
+        User Accounts <span class="sb-badge" id="badge-users">0</span>
+      </button>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-admin">
+        <div class="sb-avatar" id="sb-avatar">A</div>
+        <div class="sb-admin-email" id="sb-admin-email">—</div>
+      </div>
+      <button class="btn btn-ghost btn-sm sb-logout" id="logout-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <div id="main">
+    <header id="topbar">
+      <button id="hamburger" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="page-title">
+        <span class="eyebrow" id="page-eyebrow">Overview</span>
+        <span id="page-title-text">Dashboard</span>
+      </div>
+    </header>
+    <main id="content"><div id="route-loading"><div class="spinner dark"></div></div></main>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL (add/edit)
+     ============================================================ -->
+<div id="modal-backdrop" class="hidden">
+  <div id="modal">
+    <header>
+      <h3 id="modal-title">Add record</h3>
+      <button id="modal-close" aria-label="Close">×</button>
+    </header>
+    <form id="modal-form"></form>
+  </div>
+</div>
+
+<!-- confirm delete -->
+<div id="confirm-backdrop" class="hidden">
+  <div id="confirm-box">
+    <div class="warn-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 2.6 17.5a1.8 1.8 0 0 0 1.6 2.7h15.6a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/></svg>
+    </div>
+    <h4 id="confirm-title">Delete this record?</h4>
+    <p id="confirm-sub">This can't be undone.</p>
+    <div class="row">
+      <button class="btn btn-ghost" id="confirm-cancel">Cancel</button>
+      <button class="btn" style="background:var(--danger); color:#fff;" id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script type="module">
+import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut,
+  createUserWithEmailAndPassword, sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot,
+  serverTimestamp, writeBatch, query
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* ============================================================
+   1. FIREBASE CONFIG — replace with your project's values
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyB4DMYZJHWgbRUZV-uamOy7TpxLM1sGYPY",
+  authDomain: "chats-afcff.firebaseapp.com",
+  databaseURL: "https://chats-afcff-default-rtdb.firebaseio.com",
+  projectId: "chats-afcff",
+  storageBucket: "chats-afcff.firebasestorage.app",
+  messagingSenderId: "764250889947",
+  appId: "1:764250889947:web:2c843497ce389edf5876fe"
+};
+const isPlaceholder = !firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY";
+
+if (isPlaceholder) {
+  document.getElementById("setup-notice").classList.remove("hidden");
+} else {
+  try {
+    runApp();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("script-error").style.display = "block";
+  }
+}
+
+function runApp(){
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  /* ============================================================
+     STATE
+     ============================================================ */
+  const state = {
+    classes: [], subjects: [], teachers: [], students: [], parents: [], terms: [], classSubjects: [], users: []
+  };
+  let unsubscribers = [];
+  let currentView = "dashboard";
+  let editing = { entity:null, id:null };
+  let pendingDelete = null;
+
+  /* ============================================================
+     ENTITY CONFIG
+     ============================================================ */
+  const ENTITIES = {
+    terms: {
+      title: "Academic Calendar", singular: "Term", eyebrow: "Sessions & Terms",
+      empty: "No terms yet. Add your first term to set resumption and vacation dates.",
+      fields: [
+        { key:"session", label:"Session", type:"text", placeholder:"e.g. 2025/2026", required:true },
+        { key:"termName", label:"Term", type:"select", options:["First Term","Second Term","Third Term"], required:true },
+        { key:"resumptionDate", label:"Resumption Date", type:"date", required:true },
+        { key:"vacationDate", label:"Vacation Date", type:"date", required:true },
+        { key:"isCurrent", label:"Set as the current term (shown on dashboard)", type:"checkbox" }
+      ],
+      columns: [
+        { label:"Session", get:r=>r.session||"—" },
+        { label:"Term", get:r=>r.termName||"—" },
+        { label:"Resumption", get:r=>fmtDate(r.resumptionDate) },
+        { label:"Vacation", get:r=>fmtDate(r.vacationDate) },
+        { label:"Status", get:r=> r.isCurrent ? badge("Current","gold") : badge("Archived","mute") }
+      ]
+    },
+    classes: {
+      title: "Classes", singular: "Class", eyebrow: "Academics",
+      empty: "No classes yet. Add your first class to start organizing students.",
+      fields: [
+        { key:"name", label:"Class Name", type:"text", placeholder:"e.g. JSS 1A", required:true },
+        { key:"level", label:"Level", type:"select", options:["Creche","Nursery","Primary","Junior Secondary","Senior Secondary"], required:true },
+        { key:"capacity", label:"Capacity", type:"number", placeholder:"e.g. 35" },
+        { key:"formTeacherId", label:"Form / Class Teacher", type:"ref", ref:"teachers" },
+        { key:"subjectIds", label:"Subjects Offered In This Class", type:"multiref", ref:"subjects" }
+      ],
+      columns: [
+        { label:"Class", get:r=>cellPrimary(r.name, r.level) },
+        { label:"Form Teacher", get:r=> lookupName("teachers", r.formTeacherId) || badge("Unassigned","mute") },
+        { label:"Subjects", get:r=> String((r.subjectIds||[]).length) },
+        { label:"Students", get:r=> String(state.students.filter(s=>s.classId===r.id).length) },
+        { label:"Capacity", get:r=> r.capacity ? String(r.capacity) : "—" }
+      ]
+    },
+    subjects: {
+      title: "Subjects", singular: "Subject", eyebrow: "Academics",
+      empty: "No subjects yet. Add a subject and assign it to a teacher.",
+      fields: [
+        { key:"name", label:"Subject Name", type:"text", placeholder:"e.g. Mathematics", required:true },
+        { key:"code", label:"Subject Code", type:"text", placeholder:"e.g. MTH" },
+        { key:"teacherId", label:"Default Teacher", type:"ref", ref:"teachers" }
+      ],
+      columns: [
+        { label:"Subject", get:r=>cellPrimary(r.name, r.code||"") },
+        { label:"Default Teacher", get:r=> lookupName("teachers", r.teacherId) || badge("Unassigned","mute") },
+        { label:"Classes Using It", get:r=> String(state.classes.filter(c=>(c.subjectIds||[]).includes(r.id)).length) }
+      ]
+    },
+    classSubjects: {
+      title: "Class Subjects", singular: "Class Subject Assignment", eyebrow: "Academics",
+      empty: "No class-subject assignments yet. Assign a teacher to teach a subject in a specific class.",
+      fields: [
+        { key:"classId", label:"Class", type:"ref", ref:"classes", required:true },
+        { key:"subjectId", label:"Subject", type:"ref", ref:"subjects", required:true },
+        { key:"teacherId", label:"Teacher", type:"ref", ref:"teachers", required:true }
+      ],
+      columns: [
+        { label:"Class", get:r=> lookupName("classes", r.classId) || badge("Unknown","mute") },
+        { label:"Subject", get:r=> lookupName("subjects", r.subjectId) || badge("Unknown","mute") },
+        { label:"Teacher", get:r=> lookupName("teachers", r.teacherId) || badge("Unassigned","mute") }
+      ]
+    },
+    teachers: {
+      title: "Teachers", singular: "Teacher", eyebrow: "People",
+      empty: "No teachers yet. Add a teacher so you can assign classes and subjects.",
+      fields: [
+        { key:"name", label:"Full Name", type:"text", placeholder:"e.g. Mrs. Ada Obi", required:true },
+        { key:"employeeId", label:"Employee ID", type:"text", placeholder:"e.g. EMP-014" },
+        { key:"email", label:"Email", type:"email", placeholder:"name@school.com" },
+        { key:"phone", label:"Phone Number", type:"tel", placeholder:"e.g. 080..." },
+        { key:"subjectIds", label:"Subjects Taught", type:"multiref", ref:"subjects" }
+      ],
+      columns: [
+        { label:"Teacher", get:r=>cellPrimary(r.name, r.employeeId||"") },
+        { label:"Contact", get:r=> `${r.email||"—"}<div class="cell-sub">${r.phone||""}</div>` },
+        { label:"Subjects", get:r=> String((r.subjectIds||[]).length) },
+        { label:"Classes", get:r=> String(state.classes.filter(c=>c.formTeacherId===r.id).length) }
+      ]
+    },
+    students: {
+      title: "Students", singular: "Student", eyebrow: "People",
+      empty: "No students yet. Add your first student and assign them to a class.",
+      fields: [
+        { key:"name", label:"Full Name", type:"text", placeholder:"e.g. Chidi Umeh", required:true },
+        { key:"admissionNo", label:"Admission Number", type:"text", placeholder:"e.g. BG/2025/041", required:true },
+        { key:"gender", label:"Gender", type:"select", options:["Male","Female"] },
+        { key:"dob", label:"Date of Birth", type:"date" },
+        { key:"classId", label:"Class", type:"ref", ref:"classes", required:true },
+        { key:"parentId", label:"Parent / Guardian", type:"ref", ref:"parents" },
+        { key:"address", label:"Home Address", type:"textarea" }
+      ],
+      columns: [
+        { label:"Student", get:r=>cellPrimary(r.name, r.admissionNo||"") },
+        { label:"Class", get:r=> lookupName("classes", r.classId) || badge("Unassigned","mute") },
+        { label:"Gender", get:r=> r.gender||"—" },
+        { label:"Parent", get:r=> lookupName("parents", r.parentId) || badge("None on file","mute") }
+      ]
+    },
+    parents: {
+      title: "Parents", singular: "Parent", eyebrow: "People",
+      empty: "No parents yet. Add a parent record to link them with their children.",
+      fields: [
+        { key:"name", label:"Full Name", type:"text", placeholder:"e.g. Mr. & Mrs. Umeh", required:true },
+        { key:"phone", label:"Phone Number", type:"tel", placeholder:"e.g. 080...", required:true },
+        { key:"email", label:"Email", type:"email", placeholder:"name@email.com" },
+        { key:"address", label:"Home Address", type:"textarea" }
+      ],
+      columns: [
+        { label:"Parent", get:r=>cellPrimary(r.name, r.email||"") },
+        { label:"Phone", get:r=> r.phone||"—" },
+        { label:"Children", get:r=> String(state.students.filter(s=>s.parentId===r.id).length) }
+      ]
+    }
+  };
+
+  /* ============================================================
+     HELPERS
+     ============================================================ */
+  function roleTone(role){
+    if(role === "Admin") return "gold";
+    if(role === "Teacher") return "success";
+    return "mute";
+  }
+  // Maps entity list keys to the User-account role they correspond to,
+  // so Teacher / Student / Parent rows can offer a one-click "Create Login".
+  const ENTITY_ROLE_MAP = { teachers:"Teacher", students:"Student", parents:"Parent" };
+  function findUserAccount(entityKey, recordId){
+    const role = ENTITY_ROLE_MAP[entityKey];
+    if(!role) return null;
+    return state.users.find(u=> u.role === role && u.linkedId === recordId) || null;
+  }
+  function linkedRecordName(u){
+    if(!u || !u.linkedId || !u.role) return "";
+    const map = { Teacher:"teachers", Student:"students", Parent:"parents" };
+    const coll = map[u.role];
+    if(!coll) return "";
+    return lookupName(coll, u.linkedId);
+  }
+  const USERS_CFG = {
+    title: "User Accounts", singular: "User", eyebrow: "Access",
+    empty: "No user accounts yet. Create sign-in accounts for teachers, parents, or fellow admins.",
+    columns: [
+      { label:"Name", get:r=> cellPrimary(r.name||"—", r.email||"") },
+      { label:"Role", get:r=> badge(r.role||"Unassigned", roleTone(r.role)) },
+      { label:"Linked Record", get:r=> linkedRecordName(r) || "—" }
+    ]
+  };
+  function cfgFor(key){ return key === "users" ? USERS_CFG : ENTITIES[key]; }
+  function fmtDate(iso){
+    if(!iso) return "—";
+    const d = new Date(iso + "T00:00:00");
+    if(isNaN(d)) return iso;
+    return d.toLocaleDateString(undefined, { day:"numeric", month:"short", year:"numeric" });
+  }
+  function lookupName(coll, id){
+    if(!id) return "";
+    const row = state[coll].find(x=>x.id===id);
+    return row ? row.name : "";
+  }
+  function cellPrimary(main, sub){
+    return `<div class="cell-primary">${escapeHtml(main)}</div>${sub?`<div class="cell-sub">${escapeHtml(sub)}</div>`:""}`;
+  }
+  function badge(text, tone){
+    return `<span class="badge badge-${tone}"><span class="badge-dot"></span>${text}</span>`;
+  }
+  function escapeHtml(s){
+    return String(s ?? "").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  function toast(msg, tone=""){
+    const el = document.createElement("div");
+    el.className = "toast" + (tone?` ${tone}`:"");
+    el.textContent = msg;
+    document.getElementById("toast-container").appendChild(el);
+    setTimeout(()=>{ el.style.opacity="0"; el.style.transition="opacity .25s"; setTimeout(()=>el.remove(),250); }, 2600);
+  }
+
+  /* ============================================================
+     AUTH
+     ============================================================ */
+  const loginForm = document.getElementById("login-form");
+  const loginError = document.getElementById("login-error");
+  const loginBtn = document.getElementById("login-btn");
+
+  loginForm.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    loginError.style.display = "none";
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = `<span class="spinner"></span> Signing in…`;
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    try{
+      await signInWithEmailAndPassword(auth, email, password);
+    }catch(err){
+      loginError.textContent = friendlyAuthError(err);
+      loginError.style.display = "block";
+    }finally{
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Sign in";
+    }
+  });
+
+  function friendlyAuthError(err){
+    const code = err && err.code || "";
+    if(code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) return "Incorrect email or password.";
+    if(code.includes("too-many-requests")) return "Too many attempts. Please wait a moment and try again.";
+    if(code.includes("invalid-email")) return "Enter a valid email address.";
+    return "Couldn't sign in. Please try again.";
+  }
+
+  document.getElementById("logout-btn").addEventListener("click", ()=> signOut(auth));
+
+  onAuthStateChanged(auth, (user)=>{
+    if(user){
+      document.getElementById("login-screen").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+      document.getElementById("sb-admin-email").textContent = user.email;
+      document.getElementById("sb-avatar").textContent = (user.email||"A").charAt(0).toUpperCase();
+      attachListeners();
+      navigate("dashboard");
+    } else {
+      detachListeners();
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("login-screen").classList.remove("hidden");
+      loginForm.reset();
+    }
+  });
+
+  /* ============================================================
+     FIRESTORE LISTENERS
+     ============================================================ */
+  function attachListeners(){
+    detachListeners();
+    Object.keys(ENTITIES).forEach(key=>{
+      const unsub = onSnapshot(query(collection(db, key)), (snap)=>{
+        state[key] = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+        updateBadges();
+        if(currentView === key || currentView === "dashboard" || currentView === "directory"){
+          render();
+        }
+      }, (err)=>{
+        console.error(err);
+        toast(`Couldn't load ${key}: ${err.message}`, "err");
+      });
+      unsubscribers.push(unsub);
+    });
+    const usersUnsub = onSnapshot(query(collection(db, "users")), (snap)=>{
+      state.users = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+      updateBadges();
+      if(currentView === "users" || currentView === "directory"){
+        render();
+      }
+    }, (err)=>{
+      console.error(err);
+      toast(`Couldn't load user accounts: ${err.message}`, "err");
+    });
+    unsubscribers.push(usersUnsub);
+  }
+  function detachListeners(){
+    unsubscribers.forEach(u=>u());
+    unsubscribers = [];
+  }
+  function updateBadges(){
+    ["teachers","students","parents","classes","subjects","classSubjects","users"].forEach(k=>{
+      const el = document.getElementById(`badge-${k}`);
+      if(el) el.textContent = state[k].length;
+    });
+  }
+
+  /* ============================================================
+     NAVIGATION
+     ============================================================ */
+  document.getElementById("sb-nav").addEventListener("click", (e)=>{
+    const btn = e.target.closest(".sb-link");
+    if(!btn) return;
+    navigate(btn.dataset.view);
+    closeSidebarMobile();
+  });
+
+  function navigate(view){
+    currentView = view;
+    document.querySelectorAll(".sb-link").forEach(b=> b.classList.toggle("active", b.dataset.view===view));
+    render();
+  }
+
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebar-overlay");
+  hamburger.addEventListener("click", ()=>{
+    sidebar.classList.add("open");
+    overlay.classList.add("show");
+  });
+  overlay.addEventListener("click", closeSidebarMobile);
+  function closeSidebarMobile(){
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+  }
+
+  /* ============================================================
+     RENDER ROUTER
+     ============================================================ */
+  const content = document.getElementById("content");
+  const pageTitleText = document.getElementById("page-title-text");
+  const pageEyebrow = document.getElementById("page-eyebrow");
+
+  function render(){
+    if(currentView === "dashboard"){
+      pageEyebrow.textContent = "Overview";
+      pageTitleText.textContent = "Dashboard";
+      renderDashboard();
+    } else if(currentView === "users"){
+      pageEyebrow.textContent = "Access";
+      pageTitleText.textContent = "User Accounts";
+      renderUsersView();
+    } else if(currentView === "directory"){
+      pageEyebrow.textContent = "Access";
+      pageTitleText.textContent = "Directory";
+      renderDirectoryView();
+    } else {
+      const cfg = ENTITIES[currentView];
+      pageEyebrow.textContent = cfg.eyebrow;
+      pageTitleText.textContent = cfg.title;
+      renderEntityView(currentView);
+    }
+  }
+
+  /* ---------------- DASHBOARD ---------------- */
+  function renderDashboard(){
+    const counts = [
+      { key:"students", label:"Students", icon:iconUsers(), tone:"#2a3c68" },
+      { key:"teachers", label:"Teachers", icon:iconTeacher(), tone:"#8a6a1f" },
+      { key:"parents", label:"Parents", icon:iconHeart(), tone:"#3e7a56" },
+      { key:"classes", label:"Classes", icon:iconClass(), tone:"#2a3c68" },
+      { key:"subjects", label:"Subjects", icon:iconBook(), tone:"#8a6a1f" },
+    ];
+    const statHtml = counts.map(c=>`
+      <div class="stat-card">
+        <div class="icon-wrap" style="background:${hexToTint(c.tone)}; color:${c.tone};">${c.icon}</div>
+        <div class="num">${state[c.key].length}</div>
+        <div class="label">${c.label}</div>
+      </div>
+    `).join("");
+
+    const current = state.terms.find(t=>t.isCurrent);
+    let ledgerHtml;
+    if(current){
+      const today = new Date(); today.setHours(0,0,0,0);
+      const start = new Date(current.resumptionDate+"T00:00:00");
+      const end = new Date(current.vacationDate+"T00:00:00");
+      const totalDays = Math.max(1, Math.round((end-start)/86400000));
+      const elapsed = Math.round((today-start)/86400000);
+      const pct = Math.min(100, Math.max(0, (elapsed/totalDays)*100));
+      const daysToVacation = Math.round((end-today)/86400000);
+      const daysToResumption = Math.round((start-today)/86400000);
+      let bigNum, bigLabel;
+      if(today < start){ bigNum = daysToResumption; bigLabel = "days to resumption"; }
+      else if(today > end){ bigNum = Math.abs(daysToVacation); bigLabel = "days since vacation"; }
+      else { bigNum = daysToVacation; bigLabel = "days to vacation"; }
+
+      ledgerHtml = `
+        <div class="ledger-top">
+          <div>
+            <div class="ledger-eyebrow">${current.session||""}</div>
+            <div class="ledger-term">${current.termName||"Current Term"}</div>
+            <div class="ledger-session">Resumption ${fmtDate(current.resumptionDate)} · Vacation ${fmtDate(current.vacationDate)}</div>
+          </div>
+          <div class="ledger-days">
+            <div class="n">${bigNum}</div>
+            <div class="l">${bigLabel}</div>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-track">
+            <div class="timeline-fill" style="width:${pct}%;"></div>
+            <div class="timeline-marker" style="left:${pct}%;"></div>
+          </div>
+          <div class="timeline-labels">
+            <span>Resumption<br><b>${fmtDate(current.resumptionDate)}</b></span>
+            <span style="text-align:right;">Vacation<br><b>${fmtDate(current.vacationDate)}</b></span>
+          </div>
+        </div>`;
+    } else {
+      ledgerHtml = `
+        <div class="no-term">
+          <div class="ledger-eyebrow">Academic Calendar</div>
+          <div class="ledger-term">No current term set</div>
+          <p>Mark a term as "current" in the Academic Calendar to see resumption and vacation countdowns here.</p>
+          <button class="btn btn-gold btn-sm" id="dash-add-term">Set up academic calendar</button>
+        </div>`;
+    }
+
+    const upcoming = state.terms
+      .filter(t=>!t.isCurrent)
+      .slice()
+      .sort((a,b)=> (a.resumptionDate||"").localeCompare(b.resumptionDate||""))
+      .slice(0,4);
+    const upcomingHtml = upcoming.length ? upcoming.map(t=>`
+      <div class="upcoming-item">
+        <div>
+          <div class="u-name">${escapeHtml(t.termName||"Term")}</div>
+          <div class="u-sub">${escapeHtml(t.session||"")}</div>
+        </div>
+        <div class="u-date">${fmtDate(t.resumptionDate)}</div>
+      </div>
+    `).join("") : `<div class="u-sub" style="padding:6px 0;">No other terms on record yet.</div>`;
+
+    content.innerHTML = `
+      <div class="stat-grid">${statHtml}</div>
+      <div class="dash-grid">
+        <div class="ledger-card">${ledgerHtml}</div>
+        <div class="panel">
+          <h3>Other Terms</h3>
+          ${upcomingHtml}
+          <div class="quicklinks">
+            <button class="qlink" data-nav="students">${iconUsers()}<span class="qname">Add Student</span></button>
+            <button class="qlink" data-nav="teachers">${iconTeacher()}<span class="qname">Add Teacher</span></button>
+            <button class="qlink" data-nav="classes">${iconClass()}<span class="qname">Add Class</span></button>
+            <button class="qlink" data-nav="terms">${iconCalendar()}<span class="qname">Manage Calendar</span></button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const addTermBtn = document.getElementById("dash-add-term");
+    if(addTermBtn) addTermBtn.addEventListener("click", ()=>{ navigate("terms"); openModal("terms"); });
+    content.querySelectorAll("[data-nav]").forEach(b=>{
+      b.addEventListener("click", ()=> navigate(b.dataset.nav));
+    });
+  }
+
+  function hexToTint(hex){
+    return hex + "1a";
+  }
+
+  /* ---------------- ENTITY LIST VIEW ---------------- */
+  let searchTerm = "";
+  let directoryFilter = "all";
+  let directorySearch = "";
+  function renderEntityView(key){
+    const cfg = ENTITIES[key];
+    const rows = state[key].filter(r=>{
+      if(!searchTerm) return true;
+      const hay = JSON.stringify(r).toLowerCase();
+      return hay.includes(searchTerm.toLowerCase());
+    });
+
+    content.innerHTML = `
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">${cfg.eyebrow}</span>
+          <h2>${cfg.title}</h2>
+          <div class="sh-count">${state[key].length} record${state[key].length===1?"":"s"}</div>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="search-input" placeholder="Search ${cfg.title.toLowerCase()}…" value="${escapeHtml(searchTerm)}" />
+          </div>
+          <button class="btn btn-gold" id="add-btn">+ Add ${cfg.singular}</button>
+        </div>
+      </div>
+      <div class="table-shell">
+        ${rows.length ? `
+        <div class="table-scroll">
+          <table>
+            <thead><tr>${cfg.columns.map(c=>`<th>${c.label}</th>`).join("")}<th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              ${rows.map(r=>`
+                <tr>
+                  ${cfg.columns.map(c=>`<td>${c.get(r)}</td>`).join("")}
+                  <td>
+                    <div class="row-actions">
+                      ${ENTITY_ROLE_MAP[key] ? (()=>{
+                        const acct = findUserAccount(key, r.id);
+                        return `<button class="icon-btn" data-login="${r.id}" aria-label="${acct?'Manage login':'Create login'}" title="${acct?'Manage login account':'Create login account'}">${iconKey()}</button>`;
+                      })() : ""}
+                      <button class="icon-btn" data-edit="${r.id}" aria-label="Edit">${iconEdit()}</button>
+                      <button class="icon-btn danger" data-del="${r.id}" aria-label="Delete">${iconTrash()}</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>` : `
+        <div class="empty-state">
+          ${iconCalendar()}
+          <h4>Nothing here yet</h4>
+          <p>${cfg.empty}</p>
+          <button class="btn btn-gold btn-sm" id="empty-add-btn">+ Add ${cfg.singular}</button>
+        </div>`}
+      </div>
+    `;
+
+    document.getElementById("search-input")?.addEventListener("input", (e)=>{
+      searchTerm = e.target.value;
+      renderEntityView(key);
+    });
+    document.getElementById("add-btn")?.addEventListener("click", ()=> openModal(key));
+    document.getElementById("empty-add-btn")?.addEventListener("click", ()=> openModal(key));
+    content.querySelectorAll("[data-edit]").forEach(b=>{
+      b.addEventListener("click", ()=> openModal(key, b.dataset.edit));
+    });
+    content.querySelectorAll("[data-del]").forEach(b=>{
+      b.addEventListener("click", ()=> confirmDelete(key, b.dataset.del));
+    });
+    content.querySelectorAll("[data-login]").forEach(b=>{
+      b.addEventListener("click", ()=> handleLoginAction(key, b.dataset.login));
+    });
+  }
+
+  // Opens the account-creation modal pre-filled for a Teacher/Student/Parent record,
+  // or jumps to editing their existing account if one is already linked.
+  function handleLoginAction(entityKey, recordId){
+    const existing = findUserAccount(entityKey, recordId);
+    if(existing){
+      openUserModal(existing.id);
+      return;
+    }
+    const record = (state[entityKey] || []).find(x=> x.id === recordId);
+    openUserModal(null, {
+      name: record?.name || "",
+      email: record?.email || "",
+      role: ENTITY_ROLE_MAP[entityKey],
+      linkedId: recordId
+    });
+  }
+
+  /* ============================================================
+     USER ACCOUNTS (Firebase Auth + Firestore profile)
+     ============================================================ */
+  function renderUsersView(){
+    const rows = state.users.filter(u=>{
+      if(!searchTerm) return true;
+      return JSON.stringify(u).toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    content.innerHTML = `
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">Access</span>
+          <h2>User Accounts</h2>
+          <div class="sh-count">${state.users.length} account${state.users.length===1?"":"s"}</div>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="search-input" placeholder="Search user accounts…" value="${escapeHtml(searchTerm)}" />
+          </div>
+          <button class="btn btn-gold" id="add-user-btn">+ Create User</button>
+        </div>
+      </div>
+      <div class="field-note">Creating a user here makes a real email + password sign-in account without signing you out of your own session. "Reset password" emails the user a secure link to set a new password — a direct password overwrite isn't possible from a browser-only app and would need a server-side Admin SDK.</div>
+      <div class="table-shell">
+        ${rows.length ? `
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Linked Record</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody>
+              ${rows.map(u=>`
+                <tr>
+                  <td class="cell-primary">${escapeHtml(u.name||"—")}</td>
+                  <td>${escapeHtml(u.email||"—")}</td>
+                  <td>${badge(u.role||"Unassigned", roleTone(u.role))}</td>
+                  <td>${escapeHtml(linkedRecordName(u) || "—")}</td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="icon-btn" data-reset="${u.id}" aria-label="Reset password" title="Send password reset email">${iconKey()}</button>
+                      <button class="icon-btn" data-edit-user="${u.id}" aria-label="Edit">${iconEdit()}</button>
+                      <button class="icon-btn danger" data-del-user="${u.id}" aria-label="Delete">${iconTrash()}</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>` : `
+        <div class="empty-state">
+          ${iconCalendar()}
+          <h4>No user accounts yet</h4>
+          <p>${USERS_CFG.empty}</p>
+          <button class="btn btn-gold btn-sm" id="empty-add-user-btn">+ Create User</button>
+        </div>`}
+      </div>
+    `;
+
+    document.getElementById("search-input")?.addEventListener("input", (e)=>{ searchTerm = e.target.value; renderUsersView(); });
+    document.getElementById("add-user-btn")?.addEventListener("click", ()=> openUserModal());
+    document.getElementById("empty-add-user-btn")?.addEventListener("click", ()=> openUserModal());
+    content.querySelectorAll("[data-edit-user]").forEach(b=> b.addEventListener("click", ()=> openUserModal(b.dataset.editUser)));
+    content.querySelectorAll("[data-del-user]").forEach(b=> b.addEventListener("click", ()=> confirmDeleteUser(b.dataset.delUser)));
+    content.querySelectorAll("[data-reset]").forEach(b=> b.addEventListener("click", ()=> resetUserPassword(b.dataset.reset)));
+  }
+
+  function linkOptionsHtml(refKey, selectedId){
+    const opts = state[refKey] || [];
+    return opts.map(o=>`<option value="${o.id}" ${selectedId===o.id?"selected":""}>${escapeHtml(o.name)}</option>`).join("");
+  }
+
+  function openUserModal(id=null, prefill=null){
+    editing = { entity:"users", id };
+    const row = id ? state.users.find(u=>u.id===id) : (prefill || {});
+    const isEdit = !!id;
+    modalTitle.textContent = isEdit ? "Edit User Account" : "Create User Account";
+    const role = row.role || "";
+    const roleLinkMap = { Teacher:"teachers", Student:"students", Parent:"parents" };
+
+    modalForm.innerHTML = `
+      <div class="form-error" id="form-error"></div>
+      <div class="field">
+        <label>Full Name *</label>
+        <input type="text" name="name" required value="${row.name?escapeHtml(row.name):""}" placeholder="e.g. Mrs. Ada Obi" />
+      </div>
+      <div class="field">
+        <label>Email Address *</label>
+        <input type="email" name="email" required value="${row.email?escapeHtml(row.email):""}" placeholder="name@school.com" ${isEdit?"readonly":""} />
+        ${isEdit ? `<div class="field-hint">Email can't be changed here once the account exists.</div>` : ""}
+      </div>
+      ${!isEdit ? `
+      <div class="field">
+        <label>Temporary Password *</label>
+        <input type="password" name="password" required minlength="6" placeholder="At least 6 characters" />
+      </div>` : ""}
+      <div class="field">
+        <label>Role *</label>
+        <select name="role" required id="user-role-select">
+          <option value="" disabled ${!role?"selected":""}>Select role</option>
+          ${["Admin","Teacher","Parent","Student"].map(r=>`<option value="${r}" ${role===r?"selected":""}>${r}</option>`).join("")}
+        </select>
+      </div>
+      <div class="field" id="user-link-field">
+        <label>Link To Existing Record</label>
+        <select name="linkedId">
+          <option value="">None</option>
+          ${roleLinkMap[role] ? linkOptionsHtml(roleLinkMap[role], row.linkedId) : ""}
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancel-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="save-btn">${isEdit ? "Save changes" : "Create User"}</button>
+      </div>
+    `;
+
+    modalBackdrop.classList.remove("hidden");
+    document.getElementById("cancel-modal").addEventListener("click", closeModal);
+    document.getElementById("user-role-select").addEventListener("change", (e)=>{
+      const r = e.target.value;
+      const linkSelect = modalForm.querySelector('[name="linkedId"]');
+      const coll = roleLinkMap[r];
+      linkSelect.innerHTML = `<option value="">None</option>` + (coll ? linkOptionsHtml(coll, null) : "");
+    });
+    modalForm.onsubmit = (e)=> handleUserSubmit(e, id);
+  }
+
+  async function handleUserSubmit(e, id){
+    e.preventDefault();
+    const formData = new FormData(modalForm);
+    const errorBox = document.getElementById("form-error");
+    errorBox.style.display = "none";
+    const name = (formData.get("name")||"").trim();
+    const email = (formData.get("email")||"").trim();
+    const role = formData.get("role")||"";
+    const linkedId = formData.get("linkedId")||"";
+    const password = formData.get("password")||"";
+
+    if(!name || !email || !role || (!id && !password)){
+      errorBox.textContent = "Please fill in all required fields.";
+      errorBox.style.display = "block";
+      return;
+    }
+    if(!id && password.length < 6){
+      errorBox.textContent = "Password must be at least 6 characters.";
+      errorBox.style.display = "block";
+      return;
+    }
+
+    const saveBtn = document.getElementById("save-btn");
+    saveBtn.disabled = true;
+    const originalLabel = saveBtn.textContent;
+    saveBtn.innerHTML = `<span class="spinner"></span> Saving…`;
+
+    try{
+      if(id){
+        await updateDoc(doc(db, "users", id), { name, role, linkedId: linkedId || null, updatedAt: serverTimestamp() });
+        toast("User account updated.", "ok");
+        closeModal();
+      } else {
+        await createUserAccount({ name, email, password, role, linkedId });
+        toast(`Account created for ${email}.`, "ok");
+        closeModal();
+      }
+    }catch(err){
+      console.error(err);
+      errorBox.textContent = friendlyAuthError(err) || err.message || "Something went wrong while saving.";
+      errorBox.style.display = "block";
+    }finally{
+      saveBtn.disabled = false;
+      saveBtn.textContent = originalLabel;
+    }
+  }
+
+  async function createUserAccount({ name, email, password, role, linkedId }){
+    // Create the auth account on a throwaway secondary Firebase app instance
+    // so the admin's own session in `auth` is never disturbed.
+    const secondaryApp = initializeApp(firebaseConfig, "Secondary-" + Date.now());
+    const secondaryAuth = getAuth(secondaryApp);
+    try{
+      const cred = await createUserWithEmailAndPassword(secondaryAuth, email, password);
+      await addDoc(collection(db, "users"), {
+        uid: cred.user.uid, name, email, role, linkedId: linkedId || null, createdAt: serverTimestamp()
+      });
+      await signOut(secondaryAuth);
+    } finally {
+      await deleteApp(secondaryApp);
+    }
+  }
+
+  async function resetUserPassword(id){
+    const u = state.users.find(x=>x.id===id);
+    if(!u || !u.email) return;
+    try{
+      await sendPasswordResetEmail(auth, u.email);
+      toast(`Password reset email sent to ${u.email}.`, "ok");
+    }catch(err){
+      console.error(err);
+      toast(err.message || "Couldn't send reset email.", "err");
+    }
+  }
+
+  function confirmDeleteUser(id){
+    const u = state.users.find(x=>x.id===id);
+    pendingDelete = { entityKey:"users", id };
+    document.getElementById("confirm-title").textContent = "Remove this user account?";
+    document.getElementById("confirm-sub").textContent = `${u?.name?`"${u.name}" `:""}will be removed from this directory. This does not delete their sign-in credentials from Firebase Authentication — remove those from the Firebase console if needed.`;
+    confirmBackdrop.classList.remove("hidden");
+  }
+
+  /* ============================================================
+     DIRECTORY (view everything, toggle by type, search across all)
+     ============================================================ */
+  const DIRECTORY_KEYS = ["terms","classes","subjects","classSubjects","teachers","students","parents","users"];
+
+  function renderDirectoryView(){
+    const countFor = k => state[k].length;
+    const pillsHtml = `
+      <button class="pill ${directoryFilter==='all'?'active':''}" data-pill="all">All <span class="pill-count">${DIRECTORY_KEYS.reduce((s,k)=>s+countFor(k),0)}</span></button>
+      ${DIRECTORY_KEYS.map(k=>`<button class="pill ${directoryFilter===k?'active':''}" data-pill="${k}">${cfgFor(k).title} <span class="pill-count">${countFor(k)}</span></button>`).join("")}
+    `;
+
+    const keysToShow = directoryFilter === "all" ? DIRECTORY_KEYS : [directoryFilter];
+    const q = directorySearch.trim().toLowerCase();
+    let sectionsHtml = "";
+
+    keysToShow.forEach(key=>{
+      const cfg = cfgFor(key);
+      const rows = state[key].filter(r=> !q || JSON.stringify(r).toLowerCase().includes(q));
+      if(!rows.length) return;
+      sectionsHtml += `
+        <div class="table-shell" style="margin-bottom:16px;">
+          <div style="padding:12px 18px; border-bottom:1px solid var(--line); background:#fbfaf6; display:flex; justify-content:space-between; align-items:center;">
+            <span class="type-tag">${cfg.title} · ${rows.length}</span>
+            <button class="btn btn-ghost btn-sm" data-open-section="${key}">Open section</button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr>${cfg.columns.map(c=>`<th>${c.label}</th>`).join("")}<th style="text-align:right;">Actions</th></tr></thead>
+              <tbody>
+                ${rows.map(r=>`
+                  <tr>
+                    ${cfg.columns.map(c=>`<td>${c.get(r)}</td>`).join("")}
+                    <td>
+                      <div class="row-actions">
+                        <button class="icon-btn" data-dir-edit="${key}::${r.id}" aria-label="Edit">${iconEdit()}</button>
+                        <button class="icon-btn danger" data-dir-del="${key}::${r.id}" aria-label="Delete">${iconTrash()}</button>
+                      </div>
+                    </td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    });
+
+    content.innerHTML = `
+      <div class="sec-head">
+        <div class="sh-text">
+          <span class="eyebrow">Access</span>
+          <h2>Directory</h2>
+          <div class="sh-count">Every record you've created, in one searchable place</div>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="directory-search" placeholder="Search everything…" value="${escapeHtml(directorySearch)}" />
+          </div>
+        </div>
+      </div>
+      <div class="pill-tabs">${pillsHtml}</div>
+      ${sectionsHtml || `
+        <div class="table-shell"><div class="empty-state">
+          ${iconCalendar()}
+          <h4>No matching records</h4>
+          <p>Try a different search term, or switch the filter above.</p>
+        </div></div>
+      `}
+    `;
+
+    document.getElementById("directory-search").addEventListener("input", (e)=>{
+      directorySearch = e.target.value;
+      renderDirectoryView();
+    });
+    content.querySelectorAll("[data-pill]").forEach(b=>{
+      b.addEventListener("click", ()=>{ directoryFilter = b.dataset.pill; renderDirectoryView(); });
+    });
+    content.querySelectorAll("[data-open-section]").forEach(b=>{
+      b.addEventListener("click", ()=> navigate(b.dataset.openSection));
+    });
+    content.querySelectorAll("[data-dir-edit]").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        const [key,id] = b.dataset.dirEdit.split("::");
+        if(key === "users") openUserModal(id); else openModal(key, id);
+      });
+    });
+    content.querySelectorAll("[data-dir-del]").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        const [key,id] = b.dataset.dirDel.split("::");
+        if(key === "users") confirmDeleteUser(id); else confirmDelete(key, id);
+      });
+    });
+  }
+
+  /* ============================================================
+     MODAL: ADD / EDIT
+     ============================================================ */
+  const modalBackdrop = document.getElementById("modal-backdrop");
+  const modalForm = document.getElementById("modal-form");
+  const modalTitle = document.getElementById("modal-title");
+
+  function openModal(entityKey, id=null){
+    editing = { entity: entityKey, id };
+    const cfg = ENTITIES[entityKey];
+    const row = id ? state[entityKey].find(r=>r.id===id) : {};
+    modalTitle.textContent = id ? `Edit ${cfg.singular}` : `Add ${cfg.singular}`;
+
+    modalForm.innerHTML = `<div class="form-error" id="form-error"></div>` +
+      cfg.fields.map(f=> renderField(f, row)).join("") +
+      `<div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancel-modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="save-btn">${id ? "Save changes" : `Add ${cfg.singular}`}</button>
+      </div>`;
+
+    modalBackdrop.classList.remove("hidden");
+    document.getElementById("cancel-modal").addEventListener("click", closeModal);
+    modalForm.onsubmit = handleSubmit;
+  }
+
+  function renderField(f, row){
+    const val = row[f.key];
+    const req = f.required ? "required" : "";
+    if(f.type === "text" || f.type === "email" || f.type === "tel" || f.type === "number" || f.type === "date"){
+      return `<div class="field">
+        <label>${f.label}${f.required?" *":""}</label>
+        <input type="${f.type}" name="${f.key}" ${req} placeholder="${f.placeholder||""}" value="${val!=null?escapeHtml(val):""}" />
+      </div>`;
+    }
+    if(f.type === "textarea"){
+      return `<div class="field">
+        <label>${f.label}</label>
+        <textarea name="${f.key}">${val!=null?escapeHtml(val):""}</textarea>
+      </div>`;
+    }
+    if(f.type === "select"){
+      return `<div class="field">
+        <label>${f.label}${f.required?" *":""}</label>
+        <select name="${f.key}" ${req}>
+          <option value="" ${!val?"selected":""} disabled>Select ${f.label.toLowerCase()}</option>
+          ${f.options.map(o=>`<option value="${o}" ${val===o?"selected":""}>${o}</option>`).join("")}
+        </select>
+      </div>`;
+    }
+    if(f.type === "ref"){
+      const opts = state[f.ref] || [];
+      return `<div class="field">
+        <label>${f.label}${f.required?" *":""}</label>
+        <select name="${f.key}" ${req}>
+          <option value="">${f.required ? `Select ${f.label.toLowerCase()}` : "None"}</option>
+          ${opts.map(o=>`<option value="${o.id}" ${val===o.id?"selected":""}>${escapeHtml(o.name)}</option>`).join("")}
+        </select>
+        ${!opts.length ? `<div class="field-hint">No ${f.ref} added yet — you can still save and link this later.</div>` : ""}
+      </div>`;
+    }
+    if(f.type === "multiref"){
+      const opts = state[f.ref] || [];
+      const selected = new Set(val||[]);
+      return `<div class="field">
+        <label>${f.label}</label>
+        ${opts.length ? `<div class="checkgrid">
+          ${opts.map(o=>`
+            <label class="checkitem">
+              <input type="checkbox" name="${f.key}" value="${o.id}" ${selected.has(o.id)?"checked":""}/>
+              ${escapeHtml(o.name)}
+            </label>`).join("")}
+        </div>` : `<div class="field-hint">No ${f.ref} added yet — you can still save and link this later.</div>`}
+      </div>`;
+    }
+    if(f.type === "checkbox"){
+      return `<div class="field">
+        <div class="checkbox-row">
+          <input type="checkbox" id="cb-${f.key}" name="${f.key}" ${val?"checked":""}/>
+          <label for="cb-${f.key}">${f.label}</label>
+        </div>
+      </div>`;
+    }
+    return "";
+  }
+
+  function closeModal(){
+    modalBackdrop.classList.add("hidden");
+    modalForm.innerHTML = "";
+    editing = { entity:null, id:null };
+  }
+  document.getElementById("modal-close").addEventListener("click", closeModal);
+  modalBackdrop.addEventListener("click", (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    const cfg = ENTITIES[editing.entity];
+    const formData = new FormData(modalForm);
+    const data = {};
+    const errorBox = document.getElementById("form-error");
+    errorBox.style.display = "none";
+
+    cfg.fields.forEach(f=>{
+      if(f.type === "number"){
+        const v = formData.get(f.key);
+        data[f.key] = v ? Number(v) : null;
+      } else if(f.type === "multiref"){
+        data[f.key] = formData.getAll(f.key);
+      } else if(f.type === "checkbox"){
+        data[f.key] = formData.get(f.key) === "on";
+      } else {
+        data[f.key] = formData.get(f.key) || "";
+      }
+    });
+
+    const missing = cfg.fields.filter(f=>f.required && !data[f.key]);
+    if(missing.length){
+      errorBox.textContent = `Please fill in: ${missing.map(f=>f.label).join(", ")}`;
+      errorBox.style.display = "block";
+      return;
+    }
+
+    const saveBtn = document.getElementById("save-btn");
+    saveBtn.disabled = true;
+    const originalLabel = saveBtn.textContent;
+    saveBtn.innerHTML = `<span class="spinner"></span> Saving…`;
+
+    try{
+      const coll = collection(db, editing.entity);
+      let newId = editing.id;
+      if(editing.id){
+        await updateDoc(doc(db, editing.entity, editing.id), { ...data, updatedAt: serverTimestamp() });
+      } else {
+        const ref = await addDoc(coll, { ...data, createdAt: serverTimestamp() });
+        newId = ref.id;
+      }
+
+      // terms: only one "current" term at a time
+      if(editing.entity === "terms" && data.isCurrent){
+        const others = state.terms.filter(t=> t.id !== newId && t.isCurrent);
+        if(others.length){
+          const batch = writeBatch(db);
+          others.forEach(t=> batch.update(doc(db,"terms", t.id), { isCurrent:false }));
+          await batch.commit();
+        }
+      }
+
+      toast(`${cfg.singular} ${editing.id ? "updated" : "added"}.`, "ok");
+      closeModal();
+    }catch(err){
+      console.error(err);
+      errorBox.textContent = err.message || "Something went wrong while saving.";
+      errorBox.style.display = "block";
+    }finally{
+      saveBtn.disabled = false;
+      saveBtn.textContent = originalLabel;
+    }
+  }
+
+  /* ============================================================
+     DELETE CONFIRM
+     ============================================================ */
+  const confirmBackdrop = document.getElementById("confirm-backdrop");
+  function confirmDelete(entityKey, id){
+    const cfg = ENTITIES[entityKey];
+    const row = state[entityKey].find(r=>r.id===id);
+    pendingDelete = { entityKey, id };
+    document.getElementById("confirm-title").textContent = `Delete this ${cfg.singular.toLowerCase()}?`;
+    document.getElementById("confirm-sub").textContent = `${row?.name ? `"${row.name}" ` : ""}will be permanently removed. This can't be undone.`;
+    confirmBackdrop.classList.remove("hidden");
+  }
+  document.getElementById("confirm-cancel").addEventListener("click", ()=>{
+    confirmBackdrop.classList.add("hidden");
+    pendingDelete = null;
+  });
+  document.getElementById("confirm-ok").addEventListener("click", async ()=>{
+    if(!pendingDelete) return;
+    const btn = document.getElementById("confirm-ok");
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span>`;
+    try{
+      await deleteDoc(doc(db, pendingDelete.entityKey, pendingDelete.id));
+      toast("Record deleted.", "ok");
+    }catch(err){
+      console.error(err);
+      toast(err.message || "Couldn't delete this record.", "err");
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "Delete";
+      confirmBackdrop.classList.add("hidden");
+      pendingDelete = null;
+    }
+  });
+
+  /* ============================================================
+     ICONS (inline SVG, small + reused)
+     ============================================================ */
+  function iconUsers(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-5.5"/></svg>`; }
+  function iconTeacher(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.2-4 4-6 7.5-6s6.3 2 7.5 6"/></svg>`; }
+  function iconHeart(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 8.6c0-2.3-1.9-4.1-4.2-4.1-1.4 0-2.7.7-3.4 1.9-.7-1.2-2-1.9-3.4-1.9-2.3 0-4.2 1.8-4.2 4.1 0 4.7 7.6 9.8 7.6 9.8s7.6-5.1 7.6-9.8Z"/></svg>`; }
+  function iconClass(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5.6c0-.9.7-1.6 1.6-1.6H18a2 2 0 0 1 2 2v14"/><path d="M4 19.5c0-1 .8-1.7 1.8-1.7H20"/></svg>`; }
+  function iconBook(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5a2 2 0 0 1 2-2h12.5v17H6a2 2 0 0 1-2-2v-13Z"/><path d="M18.5 3.5v17"/></svg>`; }
+  function iconCalendar(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/></svg>`; }
+  function iconEdit(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`; }
+  function iconTrash(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M19 6l-.8 13.1A2 2 0 0 1 16.2 21H7.8a2 2 0 0 1-2-1.9L5 6"/></svg>`; }
+  function iconKey(){ return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="15" r="4"/><path d="M11 12l7-7M15 5l3 3M18 3l3 3"/></svg>`; }
+}
+</script>
+</body>
+</html>

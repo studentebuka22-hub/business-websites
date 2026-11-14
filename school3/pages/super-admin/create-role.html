@@ -1,0 +1,190 @@
+<!-- ==========================================================
+MathCloud Tutorial Academy
+File: pages/super-admin/create-role.html
+Part 1
+========================================================== -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Create Role | MathCloud Tutorial Academy
+
+</title>
+
+<link rel="icon"
+href="../../assets/images/logo/favicon.png">
+
+<link rel="stylesheet"
+href="../../assets/css/reset.css">
+
+<link rel="stylesheet"
+href="../../assets/css/variables.css">
+
+<link rel="stylesheet"
+href="../../assets/css/components.css">
+
+<link rel="stylesheet"
+href="../../assets/css/dashboard.css">
+
+<link rel="stylesheet"
+href="../../assets/css/create-role.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<!-- Same Sidebar -->
+
+</aside>
+
+<main class="mainContent">
+
+<header class="topbar">
+
+<div>
+
+<h1>
+
+Create Role
+
+</h1>
+
+<p>
+
+Create a new user role and assign permissions
+
+</p>
+
+</div>
+
+</header>
+
+<section class="formCard">
+
+<form id="createRoleForm">
+
+<div class="formGroup">
+
+<label>
+
+Role Name
+
+</label>
+
+<input
+type="text"
+id="roleName"
+required
+placeholder="Enter role name">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Description
+
+</label>
+
+<textarea
+id="description"
+rows="4"
+placeholder="Role description"></textarea>
+
+</div>
+
+<h3>
+
+Permissions
+
+</h3>
+
+<div class="permissionGrid">
+
+<label><input type="checkbox" value="dashboard"> Dashboard</label>
+
+<label><input type="checkbox" value="users"> Users</label>
+
+<label><input type="checkbox" value="students"> Students</label>
+
+<label><input type="checkbox" value="teachers"> Teachers</label>
+
+<label><input type="checkbox" value="classes"> Classes</label>
+
+<label><input type="checkbox" value="subjects"> Subjects</label>
+
+<label><input type="checkbox" value="attendance"> Attendance</label>
+
+<label><input type="checkbox" value="results"> Results</label>
+
+<label><input type="checkbox" value="finance"> Finance</label>
+
+<label><input type="checkbox" value="library"> Library</label>
+
+<label><input type="checkbox" value="settings"> Settings</label>
+
+<label><input type="checkbox" value="reports"> Reports</label>
+
+</div>
+
+<div class="formActions">
+
+<button
+type="reset"
+class="secondaryButton">
+
+Reset
+
+</button>
+
+<button
+type="submit"
+class="primaryButton">
+
+Create Role
+
+</button>
+
+</div>
+
+</form>
+
+</section>
+
+</main>
+
+</div>
+
+<script type="module"
+src="../../assets/js/create-role.js"></script>
+
+<script type="module"
+src="../../assets/js/sidebar.js"></script>
+
+<script type="module"
+src="../../assets/js/theme.js"></script>
+
+<script type="module"
+src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>
