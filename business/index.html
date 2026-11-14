@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinity Connect Business Hub</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="app.js" defer></script>
+
+</head>
+
+<body>
+
+<!--================ NAVIGATION ================-->
+
+<header class="header">
+
+<div class="logo">
+
+<i class="fa-solid fa-globe"></i>
+
+<span>Infinity Connect</span>
+
+</div>
+
+<nav id="nav">
+
+<a href="#home">Home</a>
+
+<a href="#services">Services</a>
+
+<a href="#products">Products</a>
+
+<a href="#about">About</a>
+
+<a href="#gallery">Gallery</a>
+
+<a href="#testimonials">Testimonials</a>
+
+<a href="#contact">Contact</a>
+
+<a href="login.html" class="loginBtn">Login</a>
+
+</nav>
+
+<div id="menu">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+</header>
+
+<!--================ HERO ================-->
+
+<section class="hero" id="home">
+
+<div class="heroContent">
+
+<h4>WELCOME TO</h4>
+
+<h1>Infinity Connect Business Hub</h1>
+
+<p>
+
+One Website.
+
+All Your Social Media.
+
+All Your Customers.
+
+All Your Products.
+
+Everything Stored Securely In Firebase.
+
+</p>
+
+<div class="heroButtons">
+
+<a href="#services" class="btn">
+
+Explore Services
+
+</a>
+
+<a href="#contact" class="btn2">
+
+Contact Us
+
+</a>
+
+</div>
+
+</div>
+
+<div class="heroImage">
+
+<img src="images/business.png">
+
+</div>
+
+</section>
+
+<!--================ STATISTICS ================-->
+
+<section class="statistics">
+
+<div class="card">
+
+<h2 id="customerCount">0</h2>
+
+<p>Customers</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="serviceCount">0</h2>
+
+<p>Services</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="productCount">0</h2>
+
+<p>Products</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="messageCount">0</h2>
+
+<p>Messages</p>
+
+</div>
+
+</section>
+
+<!--================ SERVICES ================-->
+
+<section class="services" id="services">
+
+    <div class="title">
+        <h2>Our Premium Services</h2>
+        <p>
+            Discover trusted financial, business, and lifestyle services designed to help you achieve your goals quickly and professionally.
+        </p>
+    </div>
+
+    <div class="serviceGrid">
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600" alt="Credit Repair">
+            <h3>Credit Repair Services</h3>
+            <p>
+                Improve your credit profile with professional guidance. We help identify inaccurate records, improve credit standing, and provide practical solutions for a healthier financial future.
+            </p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600" alt="Grant Writing">
+            <h3>Grant Writing Services</h3>
+            <p>
+                Expert grant proposal writing for individuals, nonprofits, startups, and businesses. Increase your chances of receiving funding with professionally prepared applications.
+            </p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600" alt="Car Dealers">
+            <h3>Car Dealership</h3>
+            <p>
+                Browse quality new and fairly used vehicles at competitive prices. We connect buyers with reliable dealers and affordable financing opportunities.
+            </p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600" alt="House Rental">
+            <h3>House Rental</h3>
+            <p>
+                Find apartments, family homes, offices, and commercial spaces that fit your budget. Easy property search with verified listings.
+            </p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=600" alt="Credit Card">
+            <h3>Credit Card Loading</h3>
+            <p>
+                Secure assistance with eligible prepaid and virtual credit card funding solutions for online transactions, subscriptions, and business payments.
+            </p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=600" alt="Business Consulting">
+            <h3>Business Consulting</h3>
+            <p>
+                Grow your business with expert consulting, financial planning, marketing strategies, branding, and digital transformation solutions.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!--================ FEATURED PRODUCTS ================-->
+
+<section class="products" id="products">
+
+    <div class="title">
+        <h2>Featured Products & Services</h2>
+        <p>Explore our most requested solutions trusted by clients worldwide.</p>
+    </div>
+
+    <div class="serviceGrid">
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600" alt="">
+            <h3>Premium Credit Repair Package</h3>
+            <p>Professional credit improvement plans designed to help you build stronger financial credibility.</p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600" alt="">
+            <h3>Professional Grant Proposal</h3>
+            <p>Well-structured grant applications prepared to maximize your funding opportunities.</p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600" alt="">
+            <h3>Luxury & Economy Vehicles</h3>
+            <p>Affordable vehicles from trusted dealers with flexible purchasing options.</p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600" alt="">
+            <h3>Rental Apartments</h3>
+            <p>Modern apartments, duplexes, offices, and commercial properties available for rent.</p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=600" alt="">
+            <h3>Virtual Credit Card Funding</h3>
+            <p>Convenient payment solutions for online shopping, subscriptions, and international transactions.</p>
+        </div>
+
+        <div class="serviceCard">
+            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=600" alt="">
+            <h3>Business Growth Package</h3>
+            <p>Complete business support including consulting, branding, marketing, and digital strategy.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!--================ ABOUT ================-->
+
+<section class="about" id="about">
+
+<div class="aboutImage">
+
+<img src="images/about.png">
+
+</div>
+
+<div class="aboutContent">
+
+<h2>
+
+Why Choose Infinity Connect?
+
+</h2>
+
+<p>
+
+We build powerful digital platforms that connect businesses with customers through websites, social media integration, cloud storage, Firebase technology, and smart communication systems.
+
+Everything is synchronized securely in real time.
+
+</p>
+
+<ul>
+
+<li>✔ Responsive Design</li>
+
+<li>✔ Firebase Database</li>
+
+<li>✔ Secure Login</li>
+
+<li>✔ Fast Hosting</li>
+
+<li>✔ Modern UI</li>
+
+<li>✔ Social Media Integration</li>
+
+</ul>
+
+<a href="#contact" class="btn">
+
+Get Started
+
+</a>
+
+</div>
+
+</section>
+  <!--================ GALLERY ================-->
+
+<section class="gallery" id="gallery">
+
+<div class="title">
+
+<h2>Our Gallery</h2>
+
+<p>Recent Projects & Business Highlights</p>
+
+</div>
+
+<div class="galleryGrid">
+
+<div class="galleryCard">
+<img src="images/gallery1.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery2.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery3.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery4.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery5.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery6.jpg" alt="">
+</div>
+
+</div>
+
+</section>
+
+<!--================ TESTIMONIALS ================-->
+
+<section class="testimonials" id="testimonials">
+
+<div class="title">
+
+<h2>Customer Testimonials</h2>
+
+<p>Trusted by Individuals and Businesses</p>
+
+</div>
+
+<div class="testimonialSlider">
+
+<div class="testimonialCard">
+
+<img src="images/user1.png">
+
+<h3>Michael Johnson</h3>
+
+<h5>Business Owner</h5>
+
+<p>
+
+"The professionalism is outstanding.
+Our website transformed our business completely."
+
+</p>
+
+</div>
+
+<div class="testimonialCard">
+
+<img src="images/user2.png">
+
+<h3>Sarah Williams</h3>
+
+<h5>Entrepreneur</h5>
+
+<p>
+
+"Excellent customer support.
+Everything updates instantly using Firebase."
+
+</p>
+
+</div>
+
+<div class="testimonialCard">
+
+<img src="images/user3.png">
+
+<h3>Daniel Peters</h3>
+
+<h5>CEO</h5>
+
+<p>
+
+"The best web development company
+I have worked with."
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!--================ NEWSLETTER ================-->
+
+<section class="newsletter">
+
+<div class="newsletterBox">
+
+<h2>Subscribe To Our Newsletter</h2>
+
+<p>
+
+Receive updates about products,
+services and business opportunities.
+
+</p>
+
+<form id="newsletterForm">
+
+<input
+type="text"
+id="subscriberName"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+id="subscriberEmail"
+placeholder="Email Address"
+required>
+
+<button type="submit">
+
+Subscribe
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<!--================ CONTACT ================-->
+
+<section class="contact" id="contact">
+
+<div class="title">
+
+<h2>Contact Us</h2>
+
+</div>
+
+<div class="contactContainer">
+
+<div class="contactInfo">
+
+<h3>Office Information</h3>
+
+<p>
+
+<i class="fa-solid fa-location-dot"></i>
+
+Lagos, Nigeria
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-envelope"></i>
+
+support@infinityconnect.com
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-phone"></i>
+
++2348102341648
+
+</p>
+
+<div class="socialIcons">
+
+<a href="#" id="facebookLink">
+
+<i class="fab fa-facebook-f"></i>
+
+</a>
+
+<a href="#" id="instagramLink">
+
+<i class="fab fa-instagram"></i>
+
+</a>
+
+<a href="#" id="xLink">
+
+<i class="fab fa-x-twitter"></i>
+
+</a>
+
+<a href="#" id="linkedinLink">
+
+<i class="fab fa-linkedin"></i>
+
+</a>
+
+<a href="#" id="youtubeLink">
+
+<i class="fab fa-youtube"></i>
+
+</a>
+
+<a href="#" id="telegramLink">
+
+<i class="fab fa-telegram"></i>
+
+</a>
+
+<a href="#" id="tiktokLink">
+
+<i class="fab fa-tiktok"></i>
+
+</a>
+
+<a href="#" id="threadsLink">
+
+<i class="fa-brands fa-threads"></i>
+
+</a>
+
+</div>
+
+</div>
+
+<div class="contactForm">
+
+<form id="contactForm">
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+required>
+
+<input
+type="tel"
+id="phone"
+placeholder="Phone Number"
+required>
+
+<input
+type="text"
+id="whatsapp"
+placeholder="WhatsApp Number">
+
+<textarea
+id="message"
+rows="6"
+placeholder="Write Your Message..."
+required></textarea>
+
+<label class="consent">
+
+<input
+type="checkbox"
+id="agree">
+
+I agree that my contact information
+may be securely stored so the business
+can reach me even if a social media
+platform is unavailable.
+
+</label>
+
+<button type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+  <!--================ GALLERY ================-->
+
+<section class="gallery" id="gallery">
+
+<div class="title">
+
+<h2>Our Gallery</h2>
+
+<p>Recent Projects & Business Highlights</p>
+
+</div>
+
+<div class="galleryGrid">
+
+<div class="galleryCard">
+<img src="images/gallery1.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery2.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery3.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery4.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery5.jpg" alt="">
+</div>
+
+<div class="galleryCard">
+<img src="images/gallery6.jpg" alt="">
+</div>
+
+</div>
+
+</section>
+
+<!--================ TESTIMONIALS ================-->
+
+<section class="testimonials" id="testimonials">
+
+<div class="title">
+
+<h2>Customer Testimonials</h2>
+
+<p>Trusted by Individuals and Businesses</p>
+
+</div>
+
+<div class="testimonialSlider">
+
+<div class="testimonialCard">
+
+<img src="images/user1.png">
+
+<h3>Michael Johnson</h3>
+
+<h5>Business Owner</h5>
+
+<p>
+
+"The professionalism is outstanding.
+Our website transformed our business completely."
+
+</p>
+
+</div>
+
+<div class="testimonialCard">
+
+<img src="images/user2.png">
+
+<h3>Sarah Williams</h3>
+
+<h5>Entrepreneur</h5>
+
+<p>
+
+"Excellent customer support.
+Everything updates instantly using Firebase."
+
+</p>
+
+</div>
+
+<div class="testimonialCard">
+
+<img src="images/user3.png">
+
+<h3>Daniel Peters</h3>
+
+<h5>CEO</h5>
+
+<p>
+
+"The best web development company
+I have worked with."
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!--================ NEWSLETTER ================-->
+
+<section class="newsletter">
+
+<div class="newsletterBox">
+
+<h2>Subscribe To Our Newsletter</h2>
+
+<p>
+
+Receive updates about products,
+services and business opportunities.
+
+</p>
+
+<form id="newsletterForm">
+
+<input
+type="text"
+id="subscriberName"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+id="subscriberEmail"
+placeholder="Email Address"
+required>
+
+<button type="submit">
+
+Subscribe
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<!--================ CONTACT ================-->
+
+<section class="contact" id="contact">
+
+<div class="title">
+
+<h2>Contact Us</h2>
+
+</div>
+
+<div class="contactContainer">
+
+<div class="contactInfo">
+
+<h3>Office Information</h3>
+
+<p>
+
+<i class="fa-solid fa-location-dot"></i>
+
+Lagos, Nigeria
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-envelope"></i>
+
+support@infinityconnect.com
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-phone"></i>
+
++2348102341648
+
+</p>
+
+<div class="socialIcons">
+
+<a href="#" id="facebookLink">
+
+<i class="fab fa-facebook-f"></i>
+
+</a>
+
+<a href="#" id="instagramLink">
+
+<i class="fab fa-instagram"></i>
+
+</a>
+
+<a href="#" id="xLink">
+
+<i class="fab fa-x-twitter"></i>
+
+</a>
+
+<a href="#" id="linkedinLink">
+
+<i class="fab fa-linkedin"></i>
+
+</a>
+
+<a href="#" id="youtubeLink">
+
+<i class="fab fa-youtube"></i>
+
+</a>
+
+<a href="#" id="telegramLink">
+
+<i class="fab fa-telegram"></i>
+
+</a>
+
+<a href="#" id="tiktokLink">
+
+<i class="fab fa-tiktok"></i>
+
+</a>
+
+<a href="#" id="threadsLink">
+
+<i class="fa-brands fa-threads"></i>
+
+</a>
+
+</div>
+
+</div>
+
+<div class="contactForm">
+
+<form id="contactForm">
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+required>
+
+<input
+type="tel"
+id="phone"
+placeholder="Phone Number"
+required>
+
+<input
+type="text"
+id="whatsapp"
+placeholder="WhatsApp Number">
+
+<textarea
+id="message"
+rows="6"
+placeholder="Write Your Message..."
+required></textarea>
+
+<label class="consent">
+
+<input
+type="checkbox"
+id="agree">
+
+I agree that my contact information
+may be securely stored so the business
+can reach me even if a social media
+platform is unavailable.
+
+</label>
+
+<button type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>

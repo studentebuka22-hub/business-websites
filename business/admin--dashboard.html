@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script type="module"
+src="js/firebase.js"></script>
+
+<script type="module"
+src="js/auth.js"></script>
+
+<script type="module"
+src="js/admin.js"
+defer></script>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+
+<i class="fa-solid fa-user-shield"></i>
+
+<span>Infinity Connect Admin</span>
+
+</div>
+
+<nav>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="#products">Products</a>
+
+<a href="#services">Services</a>
+
+<a href="#messages">Messages</a>
+
+<a href="#social">Social Media</a>
+
+<button
+id="logoutBtn"
+class="loginBtn">
+
+Logout
+
+</button>
+
+</nav>
+
+</header>
+
+<section
+style="margin-top:120px;">
+
+<div class="title">
+
+<h2>
+
+Administrator Dashboard
+
+</h2>
+
+<p>
+
+Manage every part of your business from one place.
+
+</p>
+
+</div>
+
+<div class="statistics">
+
+<div class="card">
+
+<h2 id="totalCustomers">0</h2>
+
+<p>Customers</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="totalProducts">0</h2>
+
+<p>Products</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="totalServices">0</h2>
+
+<p>Services</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="totalMessages">0</h2>
+
+<p>Messages</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="products">
+
+<div class="contactContainer">
+
+<div class="contactForm">
+
+<h2>Add Product</h2>
+
+<form id="productForm">
+
+<input
+type="text"
+id="productName"
+placeholder="Product Name"
+required>
+
+<input
+type="number"
+id="productPrice"
+placeholder="Price"
+required>
+
+<input
+type="text"
+id="productCategory"
+placeholder="Category"
+required>
+
+<textarea
+id="productDescription"
+placeholder="Description"
+rows="5"
+required></textarea>
+
+<input
+type="file"
+id="productImage"
+accept="image/*"
+required>
+
+<button type="submit">
+
+Save Product
+
+</button>
+
+</form>
+
+</div>
+
+<div class="contactInfo">
+
+<h2>Products</h2>
+
+<div id="productList">
+
+Loading Products...
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="services">
+
+<div class="contactContainer">
+
+<div class="contactForm">
+
+<h2>Add Service</h2>
+
+<form id="serviceForm">
+
+<input
+type="text"
+id="serviceName"
+placeholder="Service Name"
+required>
+
+<textarea
+id="serviceDescription"
+rows="5"
+placeholder="Service Description"
+required></textarea>
+
+<button type="submit">
+
+Save Service
+
+</button>
+
+</form>
+
+</div>
+
+<div class="contactInfo">
+
+<h2>Services</h2>
+
+<div id="serviceList">
+
+Loading Services...
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+  <!--==========================
+CONTINUE admin.html
+===========================-->
+
+<section id="social">
+
+<div class="contactContainer">
+
+<div class="contactForm">
+
+<h2>Social Media Settings</h2>
+
+<form id="socialForm">
+
+<input
+type="url"
+id="facebook"
+placeholder="Facebook URL">
+
+<input
+type="url"
+id="instagram"
+placeholder="Instagram URL">
+
+<input
+type="url"
+id="tiktok"
+placeholder="TikTok URL">
+
+<input
+type="url"
+id="x"
+placeholder="X (Twitter) URL">
+
+<input
+type="url"
+id="linkedin"
+placeholder="LinkedIn URL">
+
+<input
+type="url"
+id="youtube"
+placeholder="YouTube URL">
+
+<input
+type="url"
+id="telegram"
+placeholder="Telegram URL">
+
+<input
+type="url"
+id="threads"
+placeholder="Threads URL">
+
+<button type="submit">
+
+Save Social Media
+
+</button>
+
+</form>
+
+</div>
+
+<div class="contactInfo">
+
+<h2>Business Information</h2>
+
+<form id="businessForm">
+
+<input
+type="text"
+id="businessName"
+placeholder="Business Name">
+
+<input
+type="email"
+id="businessEmail"
+placeholder="Business Email">
+
+<input
+type="tel"
+id="businessPhone"
+placeholder="Business Phone Number"
+value="+2348102341648">
+
+<input
+type="text"
+id="businessAddress"
+placeholder="Business Address">
+
+<textarea
+id="businessAbout"
+rows="6"
+placeholder="About Your Business"></textarea>
+
+<button type="submit">
+
+Update Business
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="messages">
+
+<div class="title">
+
+<h2>Customer Messages</h2>
+
+<p>Messages received from the website.</p>
+
+</div>
+
+<div
+class="contactInfo"
+style="max-width:1200px;margin:auto;">
+
+<div id="messageList">
+
+Loading Messages...
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+<div class="copyright">
+
+<p>
+
+© <span id="year"></span>
+Infinity Connect Business Hub - Admin Panel
+
+</p>
+
+</div>
+
+</footer>
+
+<script>
+
+document.getElementById("year").textContent =
+new Date().getFullYear();
+
+</script>
+
+</body>
+
+</html>

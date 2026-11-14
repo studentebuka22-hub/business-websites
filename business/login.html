@@ -1,0 +1,157 @@
+<!--==========================
+login.html
+===========================-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Customer Login</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script type="module"
+src="js/firebase.js"></script>
+
+<script type="module"
+src="js/auth.js"
+defer></script>
+
+</head>
+
+<body>
+
+<section
+style="min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f5f7fb;">
+
+<div
+style="background:#fff;
+padding:45px;
+border-radius:18px;
+width:420px;
+max-width:95%;
+box-shadow:0 15px 40px rgba(0,0,0,.08);">
+
+<div
+style="text-align:center;
+margin-bottom:35px;">
+
+<i
+class="fa-solid fa-user-lock"
+style="font-size:70px;
+color:#0057ff;"></i>
+
+<h2
+style="margin-top:20px;">
+
+Customer Login
+
+</h2>
+
+<p>
+
+Access your account securely.
+
+</p>
+
+</div>
+
+<form id="loginForm">
+
+<input
+type="email"
+id="loginEmail"
+placeholder="Email Address"
+required
+style="width:100%;
+padding:16px;
+margin-bottom:18px;
+border-radius:10px;
+border:1px solid #ddd;">
+
+<input
+type="password"
+id="loginPassword"
+placeholder="Password"
+required
+style="width:100%;
+padding:16px;
+margin-bottom:20px;
+border-radius:10px;
+border:1px solid #ddd;">
+
+<button
+type="submit"
+style="width:100%;
+padding:16px;
+background:#0057ff;
+color:#fff;
+border:none;
+font-size:17px;
+border-radius:10px;
+cursor:pointer;">
+
+Login
+
+</button>
+
+</form>
+
+<div
+style="text-align:center;
+margin-top:25px;">
+
+<a href="register.html">
+
+Create Account
+
+</a>
+
+|
+
+<a href="#"
+id="forgotPassword">
+
+Forgot Password?
+
+</a>
+
+</div>
+
+<div
+id="loginMessage"
+style="margin-top:20px;
+text-align:center;
+font-weight:600;"></div>
+
+</div>
+
+</section>
+
+</body>
+
+</html>

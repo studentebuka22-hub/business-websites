@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Create Account</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script type="module"
+src="js/firebase.js"></script>
+
+<script type="module"
+src="js/auth.js"
+defer></script>
+
+</head>
+
+<body>
+
+<section
+style="min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f5f7fb;
+padding:40px;">
+
+<div
+style="background:#fff;
+width:450px;
+max-width:100%;
+padding:40px;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,.08);">
+
+<div
+style="text-align:center;
+margin-bottom:30px;">
+
+<i
+class="fa-solid fa-user-plus"
+style="font-size:70px;
+color:#0057ff;"></i>
+
+<h2
+style="margin-top:20px;">
+
+Create Your Account
+
+</h2>
+
+<p>
+
+Join Infinity Connect Business Hub
+
+</p>
+
+</div>
+
+<form id="registerForm">
+
+<input
+type="text"
+id="fullname"
+placeholder="Full Name"
+required
+style="width:100%;
+padding:15px;
+margin-bottom:15px;
+border-radius:10px;
+border:1px solid #ddd;">
+
+<input
+type="tel"
+id="phone"
+placeholder="Phone Number"
+required
+style="width:100%;
+padding:15px;
+margin-bottom:15px;
+border-radius:10px;
+border:1px solid #ddd;">
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+required
+style="width:100%;
+padding:15px;
+margin-bottom:15px;
+border-radius:10px;
+border:1px solid #ddd;">
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+required
+style="width:100%;
+padding:15px;
+margin-bottom:20px;
+border-radius:10px;
+border:1px solid #ddd;">
+
+<button
+type="submit"
+style="width:100%;
+padding:16px;
+border:none;
+border-radius:10px;
+background:#0057ff;
+color:#fff;
+font-size:17px;
+cursor:pointer;">
+
+Create Account
+
+</button>
+
+</form>
+
+<div
+style="margin-top:25px;
+text-align:center;">
+
+Already have an account?
+
+<a href="login.html">
+
+Login
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+</body>
+
+</html>

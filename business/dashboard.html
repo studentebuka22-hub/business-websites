@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Customer Dashboard</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script type="module"
+src="js/firebase.js"></script>
+
+<script type="module"
+src="js/auth.js"
+defer></script>
+
+<script type="module"
+src="js/dashboard.js"
+defer></script>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+
+<i class="fa-solid fa-globe"></i>
+
+<span>Infinity Connect</span>
+
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="products.html">Products</a>
+
+<a href="services.html">Services</a>
+
+<a href="contact.html">Contact</a>
+
+<button
+id="logoutBtn"
+class="loginBtn">
+
+Logout
+
+</button>
+
+</nav>
+
+</header>
+
+<section
+style="margin-top:120px;">
+
+<div class="title">
+
+<h2>
+
+Customer Dashboard
+
+</h2>
+
+<p id="welcomeUser">
+
+Loading...
+
+</p>
+
+</div>
+
+<div
+class="statistics">
+
+<div class="card">
+
+<h2 id="myOrders">
+
+0
+
+</h2>
+
+<p>
+
+Orders
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="savedContacts">
+
+0
+
+</h2>
+
+<p>
+
+Saved Contacts
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="messagesSent">
+
+0
+
+</h2>
+
+<p>
+
+Messages
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="appointments">
+
+0
+
+</h2>
+
+<p>
+
+Appointments
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<div
+class="contactContainer">
+
+<div
+class="contactInfo">
+
+<img
+id="profilePhoto"
+src="images/user.png"
+style="width:140px;
+height:140px;
+border-radius:50%;
+margin:auto;
+display:block;">
+
+<h2
+id="profileName"
+style="text-align:center;
+margin-top:20px;">
+
+Loading...
+
+</h2>
+
+<p
+id="profileEmail"
+style="justify-content:center;">
+
+Loading...
+
+</p>
+
+<hr
+style="margin:25px 0;">
+
+<p>
+
+<i class="fa-solid fa-phone"></i>
+
+WhatsApp Support
+
+</p>
+
+<a
+
+href="https://wa.me/2348102341648"
+
+class="btn"
+
+target="_blank">
+
+Chat Support
+
+</a>
+
+</div>
+
+<div
+class="contactForm">
+
+<h2>
+
+Update Profile
+
+</h2>
+
+<form
+id="updateProfileForm">
+
+<input
+type="text"
+id="updateName"
+placeholder="Full Name">
+
+<input
+type="tel"
+id="updatePhone"
+placeholder="Phone Number">
+
+<input
+type="file"
+id="profileImage">
+
+<button
+type="submit">
+
+Save Changes
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+</body>
+
+</html>

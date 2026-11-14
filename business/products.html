@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Our Products | Infinity Connect</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script type="module"
+src="js/firebase.js"></script>
+
+<script type="module"
+src="js/products.js"
+defer></script>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+
+<i class="fa-solid fa-store"></i>
+
+<span>Infinity Connect</span>
+
+</div>
+
+<nav id="nav">
+
+<a href="index.html">Home</a>
+
+<a href="services.html">Services</a>
+
+<a href="products.html">Products</a>
+
+<a href="contact.html">Contact</a>
+
+<a href="login.html" class="loginBtn">
+
+Login
+
+</a>
+
+</nav>
+
+<div id="menu">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+</header>
+
+<section
+class="hero"
+style="min-height:50vh;">
+
+<div class="heroContent">
+
+<h1>
+
+Our Products
+
+</h1>
+
+<p>
+
+Browse our latest products.
+Everything displayed below is loaded
+live from Firebase Realtime Database.
+
+</p>
+
+</div>
+
+<div class="heroImage">
+
+<img src="images/products.png">
+
+</div>
+
+</section>
+
+<section>
+
+<div class="title">
+
+<h2>
+
+Product Catalogue
+
+</h2>
+
+<p>
+
+Search and discover our available products.
+
+</p>
+
+</div>
+
+<div
+style="max-width:500px;
+margin:auto;
+margin-bottom:40px;">
+
+<input
+type="text"
+id="searchProduct"
+placeholder="Search Products..."
+style="width:100%;
+padding:18px;
+border-radius:10px;
+border:1px solid #ddd;">
+
+</div>
+
+<div
+id="productGrid"
+class="serviceGrid">
+
+<!-- Firebase Products -->
+
+</div>
+
+</section>
+
+<a
+
+href="https://wa.me/2348102341648"
+
+class="whatsappFloat"
+
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+<footer class="footer">
+
+<div class="copyright">
+
+<p>
+
+© <span id="year"></span>
+
+Infinity Connect Business Hub
+
+</p>
+
+</div>
+
+</footer>
+
+<script>
+
+document.getElementById("year").innerHTML=
+
+new Date().getFullYear();
+
+const menu=document.getElementById("menu");
+
+const nav=document.getElementById("nav");
+
+menu.onclick=()=>{
+
+nav.classList.toggle("show");
+
+};
+
+</script>
+
+</body>
+
+</html>
