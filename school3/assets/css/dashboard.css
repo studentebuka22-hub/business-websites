@@ -1,0 +1,995 @@
+/* ==========================================================
+MathCloud Tutorial Academy
+File: assets/css/dashboard.css
+Part 1
+========================================================== */
+
+:root{
+
+--primary:#0D6EFD;
+--secondary:#6610F2;
+--success:#198754;
+--warning:#FFC107;
+--danger:#DC3545;
+
+--white:#FFFFFF;
+--background:#F4F7FC;
+--text:#1F2937;
+--border:#E5E7EB;
+
+--sidebar:270px;
+
+--shadow:0 15px 35px rgba(0,0,0,.08);
+
+--radius:18px;
+
+--transition:.35s ease;
+
+}
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:"Segoe UI",sans-serif;
+
+}
+
+body{
+
+background:var(--background);
+
+color:var(--text);
+
+overflow-x:hidden;
+
+}
+
+/* ========================================= */
+
+#preloader{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#fff;
+
+z-index:999999;
+
+transition:.5s;
+
+}
+
+.loader{
+
+text-align:center;
+
+}
+
+.loader img{
+
+width:100px;
+
+margin-bottom:20px;
+
+animation:float 2s infinite;
+
+}
+
+.spinner{
+
+width:55px;
+
+height:55px;
+
+border-radius:50%;
+
+margin:auto;
+
+border:5px solid #ECECEC;
+
+border-top:5px solid var(--primary);
+
+animation:spin 1s linear infinite;
+
+margin-bottom:20px;
+
+}
+
+.loader h2{
+
+font-size:24px;
+
+color:var(--primary);
+
+}
+
+/* ========================================= */
+
+.dashboard{
+
+display:flex;
+
+min-height:100vh;
+
+}
+
+/* ========================================= */
+
+.sidebar{
+
+width:var(--sidebar);
+
+background:#0F172A;
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+bottom:0;
+
+padding:25px 18px;
+
+overflow-y:auto;
+
+}
+
+.sidebarLogo{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+padding-bottom:30px;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+margin-bottom:25px;
+
+}
+
+.sidebarLogo img{
+
+width:60px;
+
+background:#fff;
+
+padding:8px;
+
+border-radius:50%;
+
+}
+
+.sidebarLogo h2{
+
+color:#fff;
+
+font-size:22px;
+
+font-weight:700;
+
+}
+
+.sidebarMenu{
+
+list-style:none;
+
+}
+
+.sidebarMenu li{
+
+margin-bottom:8px;
+
+}
+
+.sidebarMenu li a{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+padding:15px 18px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+color:#CBD5E1;
+
+transition:var(--transition);
+
+font-size:15px;
+
+font-weight:600;
+
+}
+
+.sidebarMenu li a:hover,
+
+.sidebarMenu li.active a{
+
+background:var(--primary);
+
+color:#fff;
+
+}
+
+.sidebarMenu i{
+
+width:24px;
+
+text-align:center;
+
+font-size:18px;
+
+}
+
+/* ========================================= */
+
+.mainContent{
+
+margin-left:var(--sidebar);
+
+width:calc(100% - var(--sidebar));
+
+padding:30px;
+
+}
+/* ==========================================================
+assets/css/dashboard.css
+Part 2
+========================================================== */
+
+/* =========================================
+TOP BAR
+========================================= */
+
+.topbar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:35px;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.topbar h1{
+
+font-size:30px;
+
+font-weight:700;
+
+color:var(--text);
+
+margin-bottom:6px;
+
+}
+
+.topbar p{
+
+color:#64748B;
+
+font-size:15px;
+
+}
+
+.topRight{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+#themeToggle{
+
+width:48px;
+
+height:48px;
+
+border:none;
+
+border-radius:50%;
+
+cursor:pointer;
+
+background:#FFFFFF;
+
+box-shadow:var(--shadow);
+
+font-size:18px;
+
+transition:var(--transition);
+
+}
+
+#themeToggle:hover{
+
+transform:rotate(180deg);
+
+background:var(--primary);
+
+color:#FFFFFF;
+
+}
+
+.profile{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+background:#FFFFFF;
+
+padding:10px 18px;
+
+border-radius:16px;
+
+box-shadow:var(--shadow);
+
+}
+
+.profile img{
+
+width:55px;
+
+height:55px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+}
+
+.profile h4{
+
+font-size:16px;
+
+margin-bottom:4px;
+
+}
+
+.profile small{
+
+color:#16A34A;
+
+font-weight:600;
+
+}
+
+/* =========================================
+STATISTICS CARDS
+========================================= */
+
+.dashboardCards{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:25px;
+
+margin-bottom:35px;
+
+}
+
+.dashboardCard{
+
+background:#FFFFFF;
+
+padding:25px;
+
+border-radius:20px;
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+box-shadow:var(--shadow);
+
+transition:var(--transition);
+
+}
+
+.dashboardCard:hover{
+
+transform:translateY(-8px);
+
+}
+
+.cardIcon{
+
+width:70px;
+
+height:70px;
+
+border-radius:18px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+color:#FFFFFF;
+
+}
+
+.blue{
+
+background:#2563EB;
+
+}
+
+.green{
+
+background:#16A34A;
+
+}
+
+.orange{
+
+background:#F97316;
+
+}
+
+.purple{
+
+background:#7C3AED;
+
+}
+
+.cardContent h2{
+
+font-size:34px;
+
+font-weight:700;
+
+margin-bottom:8px;
+
+}
+
+.cardContent p{
+
+color:#64748B;
+
+font-size:15px;
+
+font-weight:600;
+
+}
+/* ==========================================================
+assets/css/dashboard.css
+Part 3
+========================================================== */
+
+/* =========================================
+CONTENT GRID
+========================================= */
+
+.dashboardGrid{
+
+display:grid;
+
+grid-template-columns:2fr 1fr;
+
+gap:25px;
+
+margin-bottom:35px;
+
+}
+
+.chartCard,
+.activityCard{
+
+background:#FFFFFF;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:var(--shadow);
+
+}
+
+.sectionHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.sectionHeader h3{
+
+font-size:20px;
+
+font-weight:700;
+
+color:var(--text);
+
+}
+
+.chartCard canvas{
+
+width:100% !important;
+
+height:360px !important;
+
+}
+
+/* =========================================
+RECENT ACTIVITIES
+========================================= */
+
+.activityCard ul{
+
+list-style:none;
+
+display:flex;
+
+flex-direction:column;
+
+gap:16px;
+
+}
+
+.activityCard li{
+
+display:flex;
+
+align-items:flex-start;
+
+gap:12px;
+
+padding:14px;
+
+border-radius:12px;
+
+background:#F8FAFC;
+
+transition:var(--transition);
+
+}
+
+.activityCard li:hover{
+
+background:#EEF4FF;
+
+transform:translateX(6px);
+
+}
+
+.activityCard li i{
+
+font-size:18px;
+
+color:var(--primary);
+
+margin-top:2px;
+
+}
+
+/* =========================================
+QUICK ACTIONS
+========================================= */
+
+.quickActions{
+
+background:#FFFFFF;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:var(--shadow);
+
+margin-bottom:35px;
+
+}
+
+.actionGrid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:20px;
+
+}
+
+.actionCard{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:15px;
+
+padding:30px 20px;
+
+text-decoration:none;
+
+background:#F8FAFC;
+
+border:1px solid var(--border);
+
+border-radius:18px;
+
+transition:var(--transition);
+
+color:var(--text);
+
+}
+
+.actionCard:hover{
+
+background:var(--primary);
+
+color:#FFFFFF;
+
+transform:translateY(-8px);
+
+}
+
+.actionCard i{
+
+font-size:34px;
+
+}
+
+.actionCard span{
+
+font-size:15px;
+
+font-weight:600;
+
+}
+
+/* =========================================
+FOOTER
+========================================= */
+
+.dashboardFooter{
+
+margin-top:20px;
+
+padding:20px;
+
+background:#FFFFFF;
+
+border-radius:18px;
+
+text-align:center;
+
+box-shadow:var(--shadow);
+
+}
+
+.dashboardFooter p{
+
+font-size:14px;
+
+color:#64748B;
+
+}
+/* ==========================================================
+assets/css/dashboard.css
+Part 4 (Final)
+========================================================== */
+
+/* =========================================
+TABLETS
+========================================= */
+
+@media (max-width:1200px){
+
+.dashboardCards{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.dashboardGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.sidebar{
+
+width:230px;
+
+}
+
+.mainContent{
+
+margin-left:230px;
+
+width:calc(100% - 230px);
+
+}
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media (max-width:768px){
+
+.dashboard{
+
+display:block;
+
+}
+
+.sidebar{
+
+position:relative;
+
+width:100%;
+
+height:auto;
+
+padding:20px;
+
+}
+
+.sidebarLogo{
+
+justify-content:center;
+
+}
+
+.sidebarMenu{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:10px;
+
+}
+
+.sidebarMenu li{
+
+margin:0;
+
+}
+
+.sidebarMenu li a{
+
+justify-content:center;
+
+padding:15px 10px;
+
+}
+
+.sidebarMenu li a span{
+
+font-size:13px;
+
+}
+
+.mainContent{
+
+margin-left:0;
+
+width:100%;
+
+padding:20px;
+
+}
+
+.topbar{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.topRight{
+
+width:100%;
+
+justify-content:space-between;
+
+}
+
+.dashboardCards{
+
+grid-template-columns:1fr;
+
+}
+
+.actionGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.chartCard canvas{
+
+height:280px !important;
+
+}
+
+}
+
+/* =========================================
+SMALL PHONES
+========================================= */
+
+@media (max-width:480px){
+
+.mainContent{
+
+padding:15px;
+
+}
+
+.sidebarLogo img{
+
+width:50px;
+
+}
+
+.sidebarLogo h2{
+
+font-size:18px;
+
+}
+
+.topbar h1{
+
+font-size:24px;
+
+}
+
+.profile{
+
+padding:8px 12px;
+
+}
+
+.profile img{
+
+width:45px;
+
+height:45px;
+
+}
+
+.dashboardCard{
+
+padding:18px;
+
+}
+
+.cardIcon{
+
+width:60px;
+
+height:60px;
+
+font-size:24px;
+
+}
+
+.cardContent h2{
+
+font-size:26px;
+
+}
+
+.chartCard,
+
+.activityCard,
+
+.quickActions{
+
+padding:18px;
+
+}
+
+.dashboardFooter{
+
+padding:16px;
+
+}
+
+}
+
+/* =========================================
+ANIMATIONS
+========================================= */
+
+@keyframes spin{
+
+0%{
+
+transform:rotate(0deg);
+
+}
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+@keyframes float{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-10px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+/* =========================================
+END OF dashboard.css
+========================================= */

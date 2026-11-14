@@ -1,0 +1,148 @@
+/* ==========================================================
+MathCloud Tutorial Academy
+File: assets/css/system-settings.css
+Production Ready
+========================================================== */
+
+.formCard{
+
+background:#FFFFFF;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+margin-top:25px;
+
+max-width:900px;
+
+}
+
+.formGroup{
+
+display:flex;
+
+flex-direction:column;
+
+margin-bottom:25px;
+
+}
+
+.formGroup label{
+
+font-size:15px;
+
+font-weight:600;
+
+color:#334155;
+
+margin-bottom:10px;
+
+}
+
+.formGroup input,
+
+.formGroup select,
+
+.formGroup textarea{
+
+width:100%;
+
+padding:15px;
+
+font-size:15px;
+
+border:1px solid #D1D5DB;
+
+border-radius:12px;
+
+background:#FFFFFF;
+
+outline:none;
+
+transition:.3s;
+
+resize:vertical;
+
+}
+
+.formGroup input:focus,
+
+.formGroup select:focus,
+
+.formGroup textarea:focus{
+
+border-color:#0D6EFD;
+
+box-shadow:0 0 0 4px rgba(13,110,253,.10);
+
+}
+
+.formActions{
+
+display:flex;
+
+justify-content:flex-end;
+
+margin-top:30px;
+
+}
+
+.primaryButton{
+
+padding:14px 30px;
+
+border:none;
+
+border-radius:12px;
+
+background:#0D6EFD;
+
+color:#FFFFFF;
+
+font-size:15px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.primaryButton:hover{
+
+background:#0B5ED7;
+
+transform:translateY(-2px);
+
+}
+
+@media(max-width:768px){
+
+.formCard{
+
+padding:20px;
+
+}
+
+.formActions{
+
+justify-content:stretch;
+
+}
+
+.primaryButton{
+
+width:100%;
+
+}
+
+}
+
+/* ==========================================================
+END OF FILE
+========================================================== */
+

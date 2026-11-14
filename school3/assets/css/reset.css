@@ -1,0 +1,178 @@
+/* ========================================= */
+/* assets/css/reset.css */
+/* ========================================= */
+
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+    font-size:16px;
+    -webkit-text-size-adjust:100%;
+}
+
+body{
+    font-family:var(--font);
+    background:var(--background);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+    min-height:100vh;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+img,
+picture{
+    display:block;
+    max-width:100%;
+    height:auto;
+    user-select:none;
+}
+
+svg{
+    display:block;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+    transition:var(--transition);
+}
+
+button{
+    border:none;
+    outline:none;
+    background:none;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    border:none;
+    outline:none;
+    background:transparent;
+    font:inherit;
+    color:inherit;
+}
+
+textarea{
+    resize:vertical;
+}
+
+ul,
+ol{
+    list-style:none;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    text-align:left;
+    vertical-align:middle;
+}
+
+iframe{
+    border:0;
+    width:100%;
+}
+
+hr{
+    border:none;
+    height:1px;
+    background:var(--border);
+}
+
+::selection{
+    background:var(--primary);
+    color:#fff;
+}
+
+::-webkit-scrollbar{
+    width:10px;
+    height:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:var(--surface-2);
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--primary);
+    border-radius:50px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--primary-dark);
+}
+
+.container{
+    width:min(100% - 2rem,var(--container));
+    margin-inline:auto;
+}
+
+.hidden{
+    display:none !important;
+}
+
+.flex{
+    display:flex;
+}
+
+.grid{
+    display:grid;
+}
+
+.center{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.w-100{
+    width:100%;
+}
+
+.h-100{
+    height:100%;
+}
+
+.rounded{
+    border-radius:var(--radius-md);
+}
+
+.shadow{
+    box-shadow:var(--shadow-md);
+}
+
+.fade{
+    transition:var(--transition);
+}
+
+.disabled{
+    opacity:.6;
+    pointer-events:none;
+}
+
+:focus-visible{
+    outline:3px solid rgba(13,110,253,.35);
+    outline-offset:2px;
+}
+

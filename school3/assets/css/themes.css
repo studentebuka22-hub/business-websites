@@ -1,0 +1,158 @@
+/* ========================================= */
+/* assets/css/themes.css */
+/* ========================================= */
+
+/* ---------- Light Theme ---------- */
+
+:root{
+
+    color-scheme:light;
+
+}
+
+/* ---------- Dark Theme ---------- */
+
+html[data-theme="dark"]{
+
+    color-scheme:dark;
+
+}
+
+html[data-theme="dark"] body{
+
+    background:var(--background);
+
+    color:var(--text);
+
+}
+
+/* ---------- Header ---------- */
+
+html[data-theme="dark"] header{
+
+    background:rgba(15,23,42,.94);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+html[data-theme="dark"] .navMenu{
+
+    background:var(--surface);
+
+}
+
+/* ---------- Cards ---------- */
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .statCard,
+html[data-theme="dark"] .facilityCard,
+html[data-theme="dark"] .academicCard,
+html[data-theme="dark"] .newsCard,
+html[data-theme="dark"] .testimonialCard,
+html[data-theme="dark"] .eventCard,
+html[data-theme="dark"] .contactCard,
+html[data-theme="dark"] .tableContainer,
+html[data-theme="dark"] .modalContent{
+
+    background:var(--surface);
+
+    border-color:var(--border);
+
+}
+
+/* ---------- Inputs ---------- */
+
+html[data-theme="dark"] .formInput{
+
+    background:var(--surface-2);
+
+    border-color:var(--border);
+
+    color:var(--text);
+
+}
+
+html[data-theme="dark"] .formInput::placeholder{
+
+    color:var(--text-light);
+
+}
+
+/* ---------- Tables ---------- */
+
+html[data-theme="dark"] .table tbody tr:hover{
+
+    background:rgba(255,255,255,.04);
+
+}
+
+/* ---------- Footer ---------- */
+
+html[data-theme="dark"] footer{
+
+    background:#020617;
+
+}
+
+/* ---------- Loader ---------- */
+
+html[data-theme="dark"] #pageLoader{
+
+    background:var(--background);
+
+}
+
+/* ---------- Selection ---------- */
+
+html[data-theme="dark"] ::selection{
+
+    background:#2563EB;
+
+    color:#fff;
+
+}
+
+/* ---------- Scrollbar ---------- */
+
+html[data-theme="dark"] ::-webkit-scrollbar-track{
+
+    background:#1E293B;
+
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb{
+
+    background:#3B82F6;
+
+}
+
+/* ---------- Transition ---------- */
+
+body,
+header,
+section,
+footer,
+.card,
+.statCard,
+.facilityCard,
+.academicCard,
+.newsCard,
+.eventCard,
+.testimonialCard,
+.contactCard,
+.formInput,
+.tableContainer,
+.modalContent,
+.primaryBtn,
+.secondaryBtn{
+
+    transition:
+    background .35s ease,
+    color .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease,
+    transform .35s ease;
+
+}
+

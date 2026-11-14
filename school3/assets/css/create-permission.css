@@ -1,0 +1,170 @@
+/* ==========================================================
+MathCloud Tutorial Academy
+File: assets/css/create-permission.css
+Production Ready
+========================================================== */
+
+.formCard{
+
+background:#FFFFFF;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+margin-top:25px;
+
+}
+
+.formGroup{
+
+display:flex;
+
+flex-direction:column;
+
+margin-bottom:25px;
+
+}
+
+.formGroup label{
+
+font-size:15px;
+
+font-weight:600;
+
+margin-bottom:10px;
+
+color:#334155;
+
+}
+
+.formGroup input,
+
+.formGroup select,
+
+.formGroup textarea{
+
+width:100%;
+
+padding:15px;
+
+border:1px solid #D1D5DB;
+
+border-radius:12px;
+
+font-size:15px;
+
+outline:none;
+
+background:#FFFFFF;
+
+transition:.3s;
+
+resize:vertical;
+
+}
+
+.formGroup input:focus,
+
+.formGroup select:focus,
+
+.formGroup textarea:focus{
+
+border-color:#0D6EFD;
+
+box-shadow:0 0 0 4px rgba(13,110,253,.10);
+
+}
+
+.formActions{
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:15px;
+
+margin-top:30px;
+
+flex-wrap:wrap;
+
+}
+
+.primaryButton,
+
+.secondaryButton{
+
+padding:14px 28px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:15px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.primaryButton{
+
+background:#0D6EFD;
+
+color:#FFFFFF;
+
+}
+
+.primaryButton:hover{
+
+background:#0B5ED7;
+
+}
+
+.secondaryButton{
+
+background:#E5E7EB;
+
+color:#1F2937;
+
+}
+
+.secondaryButton:hover{
+
+background:#D1D5DB;
+
+}
+
+@media(max-width:768px){
+
+.formCard{
+
+padding:20px;
+
+}
+
+.formActions{
+
+flex-direction:column;
+
+}
+
+.primaryButton,
+
+.secondaryButton{
+
+width:100%;
+
+}
+
+}
+
+/* ==========================================================
+END OF FILE
+========================================================== */
+

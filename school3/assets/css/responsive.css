@@ -1,0 +1,296 @@
+/* ========================================= */
+/* assets/css/responsive.css */
+/* ========================================= */
+
+/* ---------- Large Screens ---------- */
+
+@media (max-width:1200px){
+
+    .statistics{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .newsGrid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .testimonialGrid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .academicCards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+/* ---------- Tablets ---------- */
+
+@media (max-width:992px){
+
+    .heroContent h1{
+
+        font-size:3rem;
+
+    }
+
+    .principalSection{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+    .principalImage{
+
+        order:-1;
+
+    }
+
+    .footerGrid{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+    .socialIcons{
+
+        justify-content:center;
+
+    }
+
+    .navMenu{
+
+        position:fixed;
+
+        top:var(--navbar-height);
+
+        right:-100%;
+
+        width:320px;
+
+        height:calc(100vh - var(--navbar-height));
+
+        background:var(--surface);
+
+        flex-direction:column;
+
+        justify-content:flex-start;
+
+        gap:30px;
+
+        padding:40px;
+
+        transition:.35s;
+
+        box-shadow:var(--shadow-lg);
+
+    }
+
+    .navMenu.active{
+
+        right:0;
+
+    }
+
+    .mobileMenu{
+
+        display:block;
+
+    }
+
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width:768px){
+
+    section{
+
+        padding:70px 0;
+
+    }
+
+    .hero{
+
+        min-height:90vh;
+
+    }
+
+    .heroContent h1{
+
+        font-size:2.2rem;
+
+    }
+
+    .heroContent p{
+
+        font-size:1rem;
+
+    }
+
+    .heroButtons{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+    .statistics{
+
+        grid-template-columns:1fr;
+
+        margin-top:30px;
+
+    }
+
+    .facilityGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .galleryGrid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .newsGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .academicCards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .testimonialGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .contactGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .eventCard{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .ctaContent h2{
+
+        font-size:2rem;
+
+    }
+
+}
+
+/* ---------- Small Phones ---------- */
+
+@media (max-width:480px){
+
+    .navbar{
+
+        padding:0 15px;
+
+    }
+
+    .logoArea img{
+
+        width:50px;
+
+        height:50px;
+
+    }
+
+    .logoArea h2{
+
+        font-size:1rem;
+
+    }
+
+    .logoArea small{
+
+        display:none;
+
+    }
+
+    .heroContent{
+
+        padding:15px;
+
+    }
+
+    .heroContent h1{
+
+        font-size:1.8rem;
+
+    }
+
+    .sectionTitle h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .principalContent h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .galleryGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .whatsappFloat{
+
+        width:55px;
+
+        height:55px;
+
+        font-size:1.5rem;
+
+        right:18px;
+
+        bottom:18px;
+
+    }
+
+    .toast{
+
+        right:10px;
+
+        left:10px;
+
+        min-width:auto;
+
+    }
+
+}
+

@@ -1,0 +1,190 @@
+/* ==========================================================
+MathCloud Tutorial Academy
+File: assets/css/view-user.css
+Part 1
+========================================================== */
+
+.profileCard{
+
+background:#FFFFFF;
+
+border-radius:20px;
+
+padding:30px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+margin-top:25px;
+
+}
+
+.profileHeader{
+
+display:flex;
+
+align-items:center;
+
+gap:25px;
+
+padding-bottom:25px;
+
+margin-bottom:30px;
+
+border-bottom:1px solid #E5E7EB;
+
+flex-wrap:wrap;
+
+}
+
+.profileHeader img{
+
+width:140px;
+
+height:140px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:5px solid #E5E7EB;
+
+background:#F8FAFC;
+
+}
+
+.profileHeader h2{
+
+font-size:30px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+color:#1F2937;
+
+}
+
+.profileHeader p{
+
+font-size:16px;
+
+color:#64748B;
+
+margin-bottom:12px;
+
+}
+
+#userStatus{
+
+display:inline-block;
+
+padding:8px 18px;
+
+border-radius:30px;
+
+background:#DCFCE7;
+
+color:#15803D;
+
+font-weight:600;
+
+font-size:14px;
+
+}
+
+.profileGrid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:25px;
+
+margin-bottom:35px;
+
+}
+
+.profileGrid div{
+
+background:#F8FAFC;
+
+padding:20px;
+
+border-radius:15px;
+
+border:1px solid #E5E7EB;
+
+}
+
+.profileGrid label{
+
+display:block;
+
+font-size:14px;
+
+font-weight:600;
+
+color:#64748B;
+
+margin-bottom:8px;
+
+}
+
+.profileGrid p{
+
+font-size:16px;
+
+font-weight:600;
+
+color:#1F2937;
+
+word-break:break-word;
+
+}
+
+.profileActions{
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+@media (max-width:768px){
+
+.profileHeader{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.profileGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.profileActions{
+
+flex-direction:column;
+
+}
+
+.profileActions button{
+
+width:100%;
+
+justify-content:center;
+
+}
+
+}
+
+
+

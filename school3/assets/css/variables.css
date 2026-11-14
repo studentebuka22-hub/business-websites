@@ -1,0 +1,201 @@
+
+/* ========================================= */
+/* assets/css/variables.css */
+/* ========================================= */
+
+:root{
+
+    /* Brand Colors */
+
+    --primary:#0D6EFD;
+    --primary-dark:#0A58CA;
+    --secondary:#20C997;
+
+    --success:#198754;
+    --warning:#FFC107;
+    --danger:#DC3545;
+    --info:#0DCAF0;
+
+    /* Background */
+
+    --background:#F5F7FB;
+    --surface:#FFFFFF;
+    --surface-2:#F8F9FA;
+
+    /* Text */
+
+    --text:#1F2937;
+    --text-light:#6B7280;
+    --text-white:#FFFFFF;
+
+    /* Border */
+
+    --border:#E5E7EB;
+
+    /* Shadows */
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,.08);
+
+    --shadow-md:0 8px 20px rgba(0,0,0,.10);
+
+    --shadow-lg:0 15px 35px rgba(0,0,0,.15);
+
+    /* Radius */
+
+    --radius-sm:8px;
+
+    --radius-md:14px;
+
+    --radius-lg:22px;
+
+    --radius-xl:35px;
+
+    /* Animation */
+
+    --transition:.3s ease;
+
+    /* Layout */
+
+    --navbar-height:80px;
+
+    --container:1300px;
+
+    --sidebar-width:280px;
+
+    /* Font */
+
+    --font:'Poppins',sans-serif;
+
+}
+
+/* Dark Theme */
+
+[data-theme="dark"]{
+
+    --background:#0F172A;
+
+    --surface:#1E293B;
+
+    --surface-2:#334155;
+
+    --text:#F8FAFC;
+
+    --text-light:#CBD5E1;
+
+    --border:#475569;
+
+}
+
+/* Gradient */
+
+:root{
+
+    --gradient-primary:
+    linear-gradient(
+        135deg,
+        #0D6EFD,
+        #4F46E5
+    );
+
+    --gradient-success:
+    linear-gradient(
+        135deg,
+        #20C997,
+        #198754
+    );
+
+    --gradient-warning:
+    linear-gradient(
+        135deg,
+        #FFC107,
+        #FF9800
+    );
+
+    --gradient-danger:
+    linear-gradient(
+        135deg,
+        #EF4444,
+        #DC3545
+    );
+
+}
+
+/* Z-Index */
+
+:root{
+
+    --z-loader:99999;
+
+    --z-modal:9999;
+
+    --z-sidebar:900;
+
+    --z-navbar:800;
+
+    --z-dropdown:700;
+
+    --z-tooltip:600;
+
+}
+
+/* Typography */
+
+:root{
+
+    --fs-xs:.75rem;
+
+    --fs-sm:.875rem;
+
+    --fs-md:1rem;
+
+    --fs-lg:1.2rem;
+
+    --fs-xl:1.6rem;
+
+    --fs-2xl:2.3rem;
+
+    --fs-3xl:3.5rem;
+
+}
+
+/* Spacing */
+
+:root{
+
+    --space-1:.25rem;
+
+    --space-2:.5rem;
+
+    --space-3:.75rem;
+
+    --space-4:1rem;
+
+    --space-5:1.5rem;
+
+    --space-6:2rem;
+
+    --space-7:3rem;
+
+    --space-8:4rem;
+
+}
+
+/* Cards */
+
+:root{
+
+    --card-padding:24px;
+
+    --card-radius:18px;
+
+}
+
+/* Buttons */
+
+:root{
+
+    --btn-height:50px;
+
+    --btn-radius:12px;
+
+}
