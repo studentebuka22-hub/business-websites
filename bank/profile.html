@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/animation.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+color:#222;
+}
+
+.topBar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+background:#0d6efd;
+color:#fff;
+}
+
+.topBar .btn{
+background:#fff;
+color:#0d6efd;
+padding:10px 18px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.profileContainer{
+width:92%;
+max-width:600px;
+margin:25px auto 100px;
+}
+
+.profileCard{
+background:#fff;
+border-radius:25px;
+padding:30px;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.avatarLarge{
+width:120px;
+height:120px;
+margin:auto;
+border-radius:50%;
+overflow:hidden;
+background:linear-gradient(135deg,#0d6efd,#63b3ff);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:55px;
+color:#fff;
+cursor:pointer;
+}
+
+.avatarLarge img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:none;
+}
+
+.profileCard h2{
+margin-top:18px;
+font-size:26px;
+}
+
+.profileCard p{
+margin-top:8px;
+color:#666;
+}
+
+.menu{
+margin-top:25px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#fff;
+padding:18px;
+border-radius:18px;
+margin-bottom:15px;
+box-shadow:0 8px 20px rgba(0,0,0,.06);
+cursor:pointer;
+transition:.3s;
+}
+
+.item:hover{
+transform:translateY(-2px);
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.left span{
+font-size:28px;
+}
+
+.left strong{
+font-size:16px;
+}
+
+.left small{
+color:#777;
+}
+
+.logoutBtn{
+margin-top:25px;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:#0d6efd;
+color:#fff;
+font-size:16px;
+cursor:pointer;
+}
+
+.version{
+margin-top:25px;
+text-align:center;
+font-size:14px;
+color:#888;
+}
+
+#securityMenu{
+display:none;
+margin-bottom:15px;
+}
+
+#securityMenu .btn{
+margin-bottom:10px;
+}
+
+#profileModal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:99999;
+}
+
+.modalCard{
+width:100%;
+max-width:450px;
+background:#fff;
+border-radius:25px;
+overflow:hidden;
+animation:popup .25s;
+}
+
+.modalHeader{
+background:#0d6efd;
+padding:20px;
+color:#fff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.modalHeader button{
+background:none;
+border:none;
+font-size:30px;
+color:#fff;
+cursor:pointer;
+}
+
+.modalBody{
+padding:25px;
+line-height:2.2;
+}
+
+.modalBody div{
+border-bottom:1px solid #eee;
+padding:8px 0;
+}
+
+@keyframes popup{
+
+from{
+transform:scale(.85);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
+}
+/* =========================
+   DARK MODE
+========================= */
+
+body{
+
+transition:.3s;
+
+}
+
+.dark-mode{
+
+background:#111827;
+
+color:#fff;
+
+}
+
+.dark-mode .profileCard,
+
+.dark-mode .item,
+
+.dark-mode .modalCard{
+
+background:#1f2937;
+
+color:#fff;
+
+}
+
+.dark-mode p,
+
+.dark-mode small{
+
+color:#d1d5db;
+
+}
+
+.dark-mode .modalBody div{
+
+border-bottom:1px solid #374151;
+
+}
+
+.dark-mode .topBar{
+
+background:#000;
+
+}
+
+.dark-mode .btn{
+
+background:#2563eb;
+
+}
+
+.dark-mode a{
+
+color:#fff;
+
+}
+   .aboutModal{
+
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+padding:20px;
+
+}
+
+.aboutCard{
+
+background:#fff;
+width:100%;
+max-width:420px;
+border-radius:24px;
+padding:30px;
+text-align:center;
+animation:pop .3s ease;
+
+}
+
+.aboutLogo{
+
+width:90px;
+height:90px;
+margin:auto;
+border-radius:50%;
+background:#0d6efd;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:42px;
+margin-bottom:18px;
+
+}
+
+.version{
+
+color:#0d6efd;
+font-weight:bold;
+margin-bottom:18px;
+
+}
+
+.desc{
+
+line-height:1.8;
+color:#555;
+margin-bottom:20px;
+
+}
+
+.features{
+
+text-align:left;
+background:#f8f9fa;
+padding:15px;
+border-radius:12px;
+line-height:2;
+
+}
+
+.aboutCard button{
+
+margin-top:25px;
+width:100%;
+height:50px;
+border:none;
+border-radius:12px;
+background:#0d6efd;
+color:#fff;
+font-size:16px;
+cursor:pointer;
+
+}
+
+@keyframes pop{
+
+from{
+
+transform:scale(.8);
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+opacity:1;
+
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="topBar">
+
+<div>
+
+<h2>Profile</h2>
+
+<p>Demo Banking</p>
+
+</div>
+
+<a href="dashboard.html" class="btn" style="width:auto;">Back</a>
+
+</header>
+
+<div class="profileContainer">
+
+<div class="profileCard">
+
+<div class="avatarLarge" id="avatarContainer">
+
+<img id="profilePhoto" src="">
+
+<span id="avatarIcon">👤</span>
+
+<input
+type="file"
+id="photoInput"
+accept="image/*"
+style="display:none;">
+
+</div>
+
+<h2 id="profileName">Loading...</h2>
+
+<p id="profileEmail">Loading...</p>
+
+<p>
+Account Number:
+<strong id="profileAccountNumber">Loading...</strong>
+</p>
+
+</div>
+
+<div class="menu">
+
+<div class="item" onclick="openProfileModal()">
+
+<div class="left">
+
+<span>👤</span>
+
+<div>
+
+<strong>Personal Information</strong><br>
+
+<small>View Complete Account Details</small>
+
+</div>
+
+</div>
+
+<span>›</span>
+
+</div>
+
+<div class="item" onclick="toggleSecurity()">
+
+<div class="left">
+
+<span>🔒</span>
+
+<div>
+
+<strong>Security</strong><br>
+
+<small>Password & PIN</small>
+
+</div>
+
+</div>
+
+<span>▼</span>
+
+</div>
+
+<div id="securityMenu">
+
+<button class="btn" onclick="changePassword()">
+
+Change Password
+
+</button>
+
+<button
+class="btn"
+style="background:#16a34a;"
+onclick="location.href='change-pin.html'">
+
+Change PIN
+
+</button>
+
+</div>
+
+<div class="item">
+
+<div class="left">
+
+<span>✅</span>
+
+<div>
+
+<strong>KYC Status</strong><br>
+
+<small>Verified</small>
+
+</div>
+
+</div>
+
+<span style="color:green;font-weight:bold;">✔</span>
+
+</div>
+
+<div class="item" onclick="toggleTheme()">
+
+    <div class="left">
+
+        <span id="themeIcon">🌙</span>
+
+        <div>
+
+            <strong>Appearance</strong><br>
+
+            <small id="themeText">Dark Mode</small>
+
+        </div>
+
+    </div>
+
+    <span>›</span>
+
+</div>
+
+<div class="item" onclick="location.href='support.html'">
+
+<div class="left">
+
+<span>💬</span>
+
+<div>
+
+<strong>Live Support</strong><br>
+
+<small>Chat with Customer Care</small>
+
+</div>
+
+</div>
+
+<span>›</span>
+
+</div>
+
+<div class="item" onclick="openAbout()">
+
+    <div class="left">
+
+        <span>ℹ️</span>
+
+        <div>
+
+            <strong>About</strong><br>
+
+            <small>Version & App Information</small>
+
+        </div>
+
+    </div>
+
+    <span>›</span>
+
+</div>
+
+<div class="logoutBtn">
+
+<button class="btn" onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+<div class="version">
+
+Version 1.0.0
+
+</div>
+
+</div>
+
+</div>
+
+<div id="profileModal">
+
+<div class="modalCard">
+
+<div class="modalHeader">
+
+<h2>Personal Information</h2>
+
+<button onclick="closeProfileModal()">&times;</button>
+
+</div>
+
+<div class="modalBody">
+
+<div><strong>Full Name:</strong> <span id="infoName">Loading...</span></div>
+
+<div><strong>Email:</strong> <span id="infoEmail">Loading...</span></div>
+
+<div><strong>Phone:</strong> <span id="infoPhone">Loading...</span></div>
+
+<div><strong>Account Number:</strong> <span id="infoAccount">Loading...</span></div>
+
+<div><strong>Card Number:</strong> <span id="infoCard">Loading...</span></div>
+
+<div><strong>Expiry:</strong> <span id="infoExpiry">Loading...</span></div>
+
+<div><strong>Status:</strong> <span id="infoStatus">Loading...</span></div>
+
+<div><strong>Balance:</strong> <span id="infoBalance">Loading...</span></div>
+
+<div><strong>Date Created:</strong> <span id="infoCreated">Loading...</span></div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="js/auth.js"></script>
+  <script type="module">
+
+import {
+    auth,
+    db,
+    ref,
+    get
+} from "./js/firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* ===========================
+   SECURITY MENU
+=========================== */
+
+window.toggleSecurity = function(){
+
+    const menu = document.getElementById("securityMenu");
+
+    menu.style.display =
+        menu.style.display === "block"
+        ? "none"
+        : "block";
+
+};
+
+/* ===========================
+   PROFILE PHOTO
+=========================== */
+
+const avatarContainer =
+document.getElementById("avatarContainer");
+
+const photoInput =
+document.getElementById("photoInput");
+
+const profilePhoto =
+document.getElementById("profilePhoto");
+
+const avatarIcon =
+document.getElementById("avatarIcon");
+
+const savedPhoto =
+localStorage.getItem("profilePhoto");
+
+if(savedPhoto){
+
+    profilePhoto.src = savedPhoto;
+
+    profilePhoto.style.display = "block";
+
+    avatarIcon.style.display = "none";
+
+}
+
+avatarContainer.onclick = function(){
+
+    photoInput.click();
+
+};
+
+photoInput.onchange = function(e){
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    if(file.size > 2 * 1024 * 1024){
+
+        alert("Image must be less than 2MB.");
+
+        return;
+
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+
+        const image = event.target.result;
+
+        localStorage.setItem(
+            "profilePhoto",
+            image
+        );
+
+        profilePhoto.src = image;
+
+        profilePhoto.style.display = "block";
+
+        avatarIcon.style.display = "none";
+
+    };
+
+    reader.readAsDataURL(file);
+
+};
+
+/* ===========================
+   LOAD PROFILE
+=========================== */
+
+async function loadProfile(uid){
+
+    const snapshot = await get(
+        ref(db,"users/"+uid)
+    );
+
+    if(!snapshot.exists()) return;
+
+    const user = snapshot.val();
+
+    document.getElementById("profileName").textContent =
+        user.fullname || user.name || "Demo User";
+
+    document.getElementById("profileEmail").textContent =
+        user.email || "";
+
+    document.getElementById("profileAccountNumber").textContent =
+        user.accountNumber || "";
+
+}
+
+/* ===========================
+   PROFILE MODAL
+=========================== */
+
+window.openProfileModal = async function(){
+
+    document.getElementById("profileModal").style.display="flex";
+
+    const user = auth.currentUser;
+
+    if(!user) return;
+
+    const snapshot = await get(
+        ref(db,"users/"+user.uid)
+    );
+
+    if(!snapshot.exists()) return;
+
+    const data = snapshot.val();
+
+    document.getElementById("infoName").textContent =
+        data.fullname || data.name || "-";
+
+    document.getElementById("infoEmail").textContent =
+        data.email || "-";
+
+    document.getElementById("infoPhone").textContent =
+        data.phone || "-";
+
+    document.getElementById("infoAccount").textContent =
+        data.accountNumber || "-";
+
+    document.getElementById("infoCard").textContent =
+        formatCard(data.cardNumber || "");
+
+    document.getElementById("infoExpiry").textContent =
+        data.expiry || "-";
+
+    document.getElementById("infoStatus").textContent =
+        data.status || "ACTIVE";
+
+    document.getElementById("infoBalance").textContent =
+        "₦" +
+        Number(data.balance || 0).toLocaleString("en-NG",{
+            minimumFractionDigits:2
+        });
+
+    document.getElementById("infoCreated").textContent =
+        data.createdAt
+        ? new Date(data.createdAt).toLocaleString()
+        : "-";
+
+};
+
+window.closeProfileModal = function(){
+
+    document.getElementById("profileModal").style.display="none";
+
+};
+
+/* ===========================
+   CARD FORMAT
+=========================== */
+
+function formatCard(number){
+
+    number = String(number).replace(/\s/g,"");
+
+    return number.replace(/(.{4})/g,"$1 ").trim();
+
+}
+
+/* ===========================
+   AUTH
+=========================== */
+
+onAuthStateChanged(auth,function(user){
+
+    if(!user){
+
+        window.location.href="login.html";
+
+        return;
+
+    }
+
+    loadProfile(user.uid);
+
+});
+    
+
+</script>
+<script>
+
+/* =========================
+   DARK/LIGHT MODE
+========================= */
+
+function applyTheme(theme){
+
+    if(theme==="dark"){
+
+        document.body.classList.add("dark-mode");
+
+        document.getElementById("themeIcon").textContent="☀️";
+
+        document.getElementById("themeText").textContent="Light Mode";
+
+    }else{
+
+        document.body.classList.remove("dark-mode");
+
+        document.getElementById("themeIcon").textContent="🌙";
+
+        document.getElementById("themeText").textContent="Dark Mode";
+
+    }
+
+}
+
+window.toggleTheme=function(){
+
+    let theme=localStorage.getItem("theme")||"light";
+
+    theme=theme==="light"?"dark":"light";
+
+    localStorage.setItem("theme",theme);
+
+    applyTheme(theme);
+
+};
+
+applyTheme(localStorage.getItem("theme")||"light");
+function openAbout(){
+
+    document.getElementById("aboutModal").style.display="flex";
+
+}
+
+function closeAbout(){
+
+    document.getElementById("aboutModal").style.display="none";
+
+}
+</script>
+   <div id="aboutModal" class="aboutModal">
+
+    <div class="aboutCard">
+
+        <div class="aboutLogo">
+            🏦
+        </div>
+
+        <h2>Demo Bank</h2>
+
+        <p class="version">
+            Version 1.0.0
+        </p>
+
+        <p class="desc">
+
+            Welcome to <strong>Demo Bank</strong>, a banking demonstration application created for educational and portfolio purposes.
+
+            This application demonstrates secure authentication, account management, transfers, transaction history, customer profiles, and real-time customer support using Firebase.
+
+            It is intended for learning, demonstrations, UI/UX showcases, and software development practice. No real financial transactions are processed.
+
+        </p>
+
+        <div class="features">
+
+            <div>✅ Secure Login</div>
+            <div>✅ Firebase Database</div>
+            <div>✅ Live Customer Support</div>
+            <div>✅ Modern Banking Dashboard</div>
+            <div>✅ Responsive Mobile Design</div>
+
+        </div>
+
+        <p style="margin-top:20px;font-size:13px;color:#777;">
+
+            Designed and Developed by<br>
+
+            <strong>MathCloud-Tech</strong>
+
+        </p>
+
+        <button onclick="closeAbout()">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+</body>
+
+</html>

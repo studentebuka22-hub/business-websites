@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#0d47a1,#1976d2,#42a5f5);
+
+min-height:100vh;
+
+padding:25px;
+
+}
+
+.header{
+
+text-align:center;
+
+color:white;
+
+margin-bottom:30px;
+
+}
+
+.header h1{
+
+font-size:32px;
+
+margin-bottom:8px;
+
+}
+
+.header p{
+
+opacity:.9;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:22px;
+
+max-width:1200px;
+
+margin:auto;
+
+}
+
+.card{
+
+background:white;
+
+border-radius:20px;
+
+padding:28px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.3s;
+
+box-shadow:0 15px 30px rgba(0,0,0,.18);
+
+border:3px solid transparent;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px) scale(1.03);
+
+box-shadow:0 25px 40px rgba(0,0,0,.25);
+
+border-color:#2196f3;
+
+}
+
+.icon{
+
+font-size:55px;
+
+margin-bottom:18px;
+
+}
+
+.card h2{
+
+font-size:20px;
+
+margin-bottom:10px;
+
+color:#0d47a1;
+
+}
+
+.card p{
+
+font-size:14px;
+
+color:#666;
+
+line-height:1.6;
+
+}
+
+.footer{
+
+margin-top:35px;
+
+text-align:center;
+
+color:white;
+
+opacity:.9;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>🏦 Admin Control Center</h1>
+
+<p>Select an administrative function</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card"
+onclick="location.href='admin-balance.html'">
+
+<div class="icon">💰</div>
+
+<h2>Change Account Balance</h2>
+
+<p>Credit or debit any customer's account.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='admin-delete-user.html'">
+
+<div class="icon">🗑️</div>
+
+<h2>Delete User</h2>
+
+<p>Remove a customer account from the database.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='admin-support.html'">
+
+<div class="icon">💬</div>
+
+<h2>Support Chat</h2>
+
+<p>Reply to customer support messages.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='freeze-account.html'">
+
+<div class="icon">🔒</div>
+
+<h2>Freeze Account</h2>
+
+<p>Temporarily disable customer transactions.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='transactions.html'">
+
+<div class="icon">📑</div>
+
+<h2>Transactions</h2>
+
+<p>View and manage customer transaction history.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='notifications.html'">
+
+<div class="icon">📢</div>
+
+<h2>Send Notifications</h2>
+
+<p>Broadcast announcements to all customers.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='kyc.html'">
+
+<div class="icon">🪪</div>
+
+<h2>KYC Verification</h2>
+
+<p>Review and approve customer verification.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='settings.html'">
+
+<div class="icon">⚙️</div>
+
+<h2>System Settings</h2>
+
+<p>Configure application preferences.</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='reports.html'">
+
+<div class="icon">📊</div>
+
+<h2>Reports</h2>
+
+<p>Generate banking and customer reports.</p>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+Demo Banking Admin Dashboard<br>
+
+Version 1.0
+
+</div>
+
+</body>
+</html>

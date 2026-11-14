@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Change PIN</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+
+<style>
+
+body{
+background:#f5f7fb;
+}
+
+.container{
+width:92%;
+max-width:450px;
+margin:25px auto;
+}
+
+.card{
+
+background:#fff;
+
+padding:25px;
+
+border-radius:22px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.card h2{
+
+margin-bottom:10px;
+
+}
+
+.card p{
+
+color:#666;
+
+margin-bottom:25px;
+
+}
+
+label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:600;
+
+}
+
+input{
+
+width:100%;
+
+padding:15px;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+margin-bottom:18px;
+
+font-size:17px;
+
+outline:none;
+
+}
+
+input:focus{
+
+border-color:#0d6efd;
+
+}
+
+button{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:14px;
+
+background:#0d6efd;
+
+color:#fff;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#0b5ed7;
+
+}
+
+.success{
+
+background:#198754;
+
+}
+  .hidden{
+display:none;
+}
+
+.popup-overlay{
+
+position:fixed;
+inset:0;
+
+background:rgba(0,0,0,.45);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:99999;
+
+}
+
+.popup-box{
+
+width:92%;
+
+max-width:380px;
+
+background:#fff;
+
+border-radius:20px;
+
+overflow:hidden;
+
+animation:popup .25s ease;
+
+}
+
+.popup-header{
+
+background:#0d6efd;
+
+color:#fff;
+
+padding:18px 20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.popup-header button{
+
+background:none;
+
+border:none;
+
+color:#fff;
+
+font-size:28px;
+
+cursor:pointer;
+
+width:auto;
+
+padding:0;
+
+}
+
+@keyframes popup{
+
+from{
+
+transform:scale(.85);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="topBar">
+
+<div>
+
+<h2>Change PIN</h2>
+
+<p>Secure your account</p>
+
+</div>
+
+<a href="profile.html"
+class="btn"
+style="width:auto;padding:10px 18px;text-decoration:none;">
+
+Back
+
+</a>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Update Transaction PIN</h2>
+
+<p>Enter your current PIN before choosing a new one.</p>
+
+<form id="changePinForm">
+
+<label>Current PIN</label>
+
+<input
+type="password"
+id="oldPin"
+maxlength="4"
+inputmode="numeric"
+required>
+
+<label>New PIN</label>
+
+<input
+type="password"
+id="newPin"
+maxlength="4"
+inputmode="numeric"
+required>
+
+<label>Confirm New PIN</label>
+
+<input
+type="password"
+id="confirmPin"
+maxlength="4"
+inputmode="numeric"
+required>
+
+<button type="submit">
+
+Update PIN
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import {
+auth,
+db,
+ref,
+get,
+update
+} from "./js/firebase.js";
+
+/* ==========================
+AUTH CHECK
+========================== */
+
+auth.onAuthStateChanged(function(user){
+
+    if(!user){
+
+        location.href="login.html";
+
+    }
+
+});
+
+/* ==========================
+MODERN MODAL
+========================== */
+
+function showPinModal(title,message,redirect=false){
+
+    const modal=document.getElementById("pinModal");
+
+    document.getElementById("pinTitle").textContent=title;
+
+    document.getElementById("pinMessage").innerHTML=message;
+
+    modal.classList.remove("hidden");
+
+    document.getElementById("pinOk").onclick=function(){
+
+        modal.classList.add("hidden");
+
+        if(redirect){
+
+            location.href="profile.html";
+
+        }
+
+    };
+
+}
+
+window.closePinModal=function(){
+
+    document
+    .getElementById("pinModal")
+    .classList.add("hidden");
+
+};
+
+/* ==========================
+CHANGE PIN
+========================== */
+
+document
+.getElementById("changePinForm")
+.addEventListener("submit",async function(e){
+
+    e.preventDefault();
+
+    const user=auth.currentUser;
+
+    if(!user){
+
+        showPinModal(
+            "Session Expired",
+            "Please login again."
+        );
+
+        return;
+
+    }
+
+    const oldPin=
+    document.getElementById("oldPin").value.trim();
+
+    const newPin=
+    document.getElementById("newPin").value.trim();
+
+    const confirmPin=
+    document.getElementById("confirmPin").value.trim();
+
+    if(!/^\d{4}$/.test(newPin)){
+
+        showPinModal(
+            "Invalid PIN",
+            "New PIN must contain exactly 4 digits."
+        );
+
+        return;
+
+    }
+
+    if(newPin!==confirmPin){
+
+        showPinModal(
+            "PIN Mismatch",
+            "New PIN and Confirm PIN do not match."
+        );
+
+        return;
+
+    }
+
+    try{
+
+        const snapshot=
+        await get(
+            ref(db,"users/"+user.uid)
+        );
+
+        if(!snapshot.exists()){
+
+            showPinModal(
+                "Account Not Found",
+                "Unable to locate your account."
+            );
+
+            return;
+
+        }
+
+        const data=snapshot.val();
+
+        if(data.pin!==oldPin){
+
+            showPinModal(
+                "Incorrect PIN",
+                "The current PIN you entered is incorrect."
+            );
+
+            return;
+
+        }
+
+        await update(
+
+            ref(db,"users/"+user.uid),
+
+            {
+
+                pin:newPin
+
+            }
+
+        );
+
+        document.getElementById("oldPin").value="";
+        document.getElementById("newPin").value="";
+        document.getElementById("confirmPin").value="";
+
+        showPinModal(
+
+            "PIN Updated",
+
+            "Your transaction PIN has been changed successfully.",
+
+            true
+
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+        showPinModal(
+
+            "Update Failed",
+
+            error.message
+
+        );
+
+    }
+
+});
+
+
+</script>
+<div id="pinModal" class="hidden">
+
+<div class="popup-overlay">
+
+<div class="popup-box">
+
+<div class="popup-header">
+
+<h2 id="pinTitle">Notification</h2>
+
+<button onclick="closePinModal()">&times;</button>
+
+</div>
+
+<div id="pinMessage" style="padding:25px;line-height:1.8;"></div>
+
+<div style="padding:0 25px 25px;">
+
+<button
+id="pinOk"
+style="
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#0d6efd;
+color:#fff;
+font-size:16px;
+font-weight:bold;">
+OK
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Admin Balance Manager</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6fb;
+}
+
+header{
+background:#0d6efd;
+color:#fff;
+padding:18px;
+font-size:22px;
+font-weight:bold;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.container{
+width:95%;
+max-width:1200px;
+margin:20px auto;
+}
+
+.searchBox{
+margin-bottom:20px;
+}
+
+.searchBox input{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:16px;
+outline:none;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:#fff;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+thead{
+background:#0d6efd;
+color:#fff;
+}
+
+th{
+padding:15px;
+text-align:left;
+font-size:15px;
+}
+
+td{
+padding:14px;
+border-bottom:1px solid #eee;
+font-size:14px;
+}
+
+tbody tr:hover{
+background:#f8fbff;
+}
+
+.balance{
+font-weight:bold;
+color:#0d6efd;
+}
+
+button{
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.editBtn{
+background:#0d6efd;
+color:white;
+}
+
+.editBtn:hover{
+background:#084298;
+}
+
+.modal{
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.45);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.modal-content{
+background:white;
+width:95%;
+max-width:420px;
+padding:25px;
+border-radius:12px;
+}
+
+.modal-content h2{
+margin-bottom:20px;
+text-align:center;
+}
+
+.modal-content label{
+display:block;
+margin-top:12px;
+font-weight:bold;
+}
+
+.modal-content input{
+width:100%;
+padding:12px;
+margin-top:6px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+}
+
+.actions{
+display:flex;
+gap:10px;
+margin-top:25px;
+}
+
+.actions button{
+flex:1;
+}
+
+.saveBtn{
+background:#198754;
+color:white;
+}
+
+.cancelBtn{
+background:#dc3545;
+color:white;
+}
+
+#loading{
+text-align:center;
+padding:40px;
+font-size:18px;
+color:#666;
+}
+
+@media(max-width:700px){
+
+table,
+thead,
+tbody,
+th,
+td,
+tr{
+display:block;
+}
+
+thead{
+display:none;
+}
+
+tr{
+margin-bottom:15px;
+background:white;
+border-radius:10px;
+padding:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+td{
+border:none;
+padding:8px 0;
+}
+
+td::before{
+display:block;
+font-size:12px;
+font-weight:bold;
+color:#888;
+margin-bottom:2px;
+}
+
+td:nth-child(1)::before{
+content:"Name";
+}
+
+td:nth-child(2)::before{
+content:"Email";
+}
+
+td:nth-child(3)::before{
+content:"Account";
+}
+
+td:nth-child(4)::before{
+content:"Balance";
+}
+
+td:nth-child(5)::before{
+content:"Action";
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+Admin Balance Manager
+
+</header>
+
+<div class="container">
+
+<div class="searchBox">
+
+<input
+type="text"
+id="search"
+placeholder="Search by name, email or account number...">
+
+</div>
+
+<div id="loading">
+
+Loading customer accounts...
+
+</div>
+
+<table id="userTable" style="display:none;">
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Account Number</th>
+
+<th>Balance</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="userBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="modal" id="editModal">
+
+<div class="modal-content">
+
+<h2>Edit Balance</h2>
+
+<label>Customer Name</label>
+
+<input
+id="customerName"
+readonly>
+
+<label>Account Number</label>
+
+<input
+id="accountNumber"
+readonly>
+
+<label>Current Balance</label>
+
+<input
+id="currentBalance"
+readonly>
+
+<label>New Balance</label>
+
+<input
+type="number"
+id="newBalance">
+
+<div class="actions">
+
+<button
+class="saveBtn"
+id="saveBtn">
+
+Update Balance
+
+</button>
+
+<button
+class="cancelBtn"
+id="cancelBtn">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module">
+
+import{
+
+auth,
+db,
+ref,
+get,
+update,
+onValue
+
+}from"./js/firebase.js";
+
+let users=[];
+
+let selectedUID="";
+
+function money(value){
+
+return "$"+Number(value).toLocaleString("en-US",{
+
+minimumFractionDigits:2,
+maximumFractionDigits:2
+
+});
+
+}
+  auth.onAuthStateChanged(function(admin){
+
+    if(!admin){
+
+        window.location.href="login.html";
+        return;
+
+    }
+
+    loadUsers();
+
+});
+
+function loadUsers(){
+
+    onValue(
+
+        ref(db,"users"),
+
+        function(snapshot){
+
+            const body =
+            document.getElementById("userBody");
+
+            const table =
+            document.getElementById("userTable");
+
+            const loading =
+            document.getElementById("loading");
+
+            body.innerHTML="";
+
+            users=[];
+
+            if(!snapshot.exists()){
+
+                loading.innerHTML=
+                "No users found.";
+
+                return;
+
+            }
+
+            loading.style.display="none";
+            table.style.display="table";
+
+            snapshot.forEach(function(child){
+
+                const user = child.val();
+
+                user.uid = child.key;
+
+                users.push(user);
+
+            });
+
+            renderUsers(users);
+
+        }
+
+    );
+
+}
+
+function renderUsers(list){
+
+    const body =
+    document.getElementById("userBody");
+
+    body.innerHTML="";
+
+    list.forEach(function(user){
+
+        body.innerHTML += `
+
+        <tr>
+
+            <td>
+
+                ${user.fullname || user.name || ""}
+
+            </td>
+
+            <td>
+
+                ${user.email || ""}
+
+            </td>
+
+            <td>
+
+                ${user.accountNumber || ""}
+
+            </td>
+
+            <td class="balance">
+
+                ${money(user.balance || 0)}
+
+            </td>
+
+            <td>
+
+                <button
+                class="editBtn"
+                onclick="editBalance('${user.uid}')">
+
+                Edit
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+document
+.getElementById("search")
+.addEventListener("keyup",function(){
+
+    const keyword =
+    this.value.toLowerCase();
+
+    const filtered =
+    users.filter(function(user){
+
+        return (
+
+            (user.fullname || "")
+            .toLowerCase()
+            .includes(keyword)
+
+            ||
+
+            (user.name || "")
+            .toLowerCase()
+            .includes(keyword)
+
+            ||
+
+            (user.email || "")
+            .toLowerCase()
+            .includes(keyword)
+
+            ||
+
+            String(
+                user.accountNumber || ""
+            )
+            .includes(keyword)
+
+        );
+
+    });
+
+    renderUsers(filtered);
+
+});
+
+window.editBalance=function(uid){
+
+    selectedUID=uid;
+
+    const user=
+    users.find(function(u){
+
+        return u.uid===uid;
+
+    });
+
+    if(!user) return;
+
+    document.getElementById("customerName").value=
+    user.fullname || user.name || "";
+
+    document.getElementById("accountNumber").value=
+    user.accountNumber || "";
+
+    document.getElementById("currentBalance").value=
+    money(user.balance || 0);
+
+    document.getElementById("newBalance").value=
+    user.balance || 0;
+
+    document.getElementById("editModal").style.display="flex";
+
+};
+
+document
+.getElementById("cancelBtn")
+.onclick=function(){
+
+    document.getElementById("editModal").style.display="none";
+
+};
+  document
+.getElementById("saveBtn")
+.onclick = async function(){
+
+    if(selectedUID==="") return;
+
+    const newBalance = Number(
+        document.getElementById("newBalance").value
+    );
+
+    if(isNaN(newBalance) || newBalance < 0){
+
+        alert("Please enter a valid balance.");
+        return;
+
+    }
+
+    try{
+
+        await update(
+
+            ref(db,"users/" + selectedUID),
+
+            {
+
+                balance:newBalance
+
+            }
+
+        );
+
+        const user = users.find(function(u){
+
+            return u.uid === selectedUID;
+
+        });
+
+        if(user){
+
+            user.balance = newBalance;
+
+        }
+
+        renderUsers(users);
+
+        document.getElementById("editModal").style.display="none";
+
+        alert("Account balance updated successfully.");
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "Failed to update balance.\n\n" +
+            error.message
+        );
+
+    }
+
+};
+
+window.onclick=function(event){
+
+    const modal =
+    document.getElementById("editModal");
+
+    if(event.target===modal){
+
+        modal.style.display="none";
+
+    }
+
+};
+
+</script>
+
+</body>
+</html>

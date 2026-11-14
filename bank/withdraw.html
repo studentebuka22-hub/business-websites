@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Withdraw Funds</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/animation.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,Arial,Helvetica,sans-serif;
+}
+
+body{
+background:linear-gradient(180deg,#f4f9f7,#edf7f2,#ffffff);
+padding-bottom:120px;
+color:#1f2937;
+}
+
+.topBar{
+background:linear-gradient(135deg,#0f9d58,#16c172,#38d996);
+color:#fff;
+padding:22px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 12px 35px rgba(16,185,129,.25);
+}
+
+.backBtn{
+background:#fff;
+color:#10b981;
+padding:11px 22px;
+border-radius:40px;
+text-decoration:none;
+font-weight:700;
+transition:.3s;
+}
+
+.backBtn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.balanceCard{
+
+width:92%;
+margin:22px auto;
+padding:28px;
+border-radius:24px;
+
+background:
+linear-gradient(135deg,#065f46,#059669,#34d399);
+
+color:#fff;
+
+box-shadow:
+0 18px 45px rgba(5,150,105,.30);
+
+position:relative;
+overflow:hidden;
+
+}
+
+.balanceCard::before{
+
+content:"";
+
+position:absolute;
+
+width:180px;
+height:180px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.08);
+
+right:-50px;
+top:-50px;
+
+}
+
+.balanceCard::after{
+
+content:"";
+
+position:absolute;
+
+width:120px;
+height:120px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.06);
+
+left:-40px;
+bottom:-40px;
+
+}
+
+.balanceCard h4{
+
+font-size:15px;
+opacity:.9;
+margin-bottom:10px;
+
+}
+
+.balanceCard h1{
+
+font-size:40px;
+font-weight:800;
+letter-spacing:.5px;
+
+}
+
+.withdrawCard{
+
+width:92%;
+margin:auto;
+
+background:#fff;
+
+border-radius:24px;
+
+padding:24px;
+
+box-shadow:
+
+0 15px 45px rgba(0,0,0,.08);
+
+}
+
+.title{
+
+font-size:24px;
+font-weight:800;
+margin-bottom:22px;
+color:#0f172a;
+
+}
+
+label{
+
+display:block;
+margin-top:18px;
+margin-bottom:8px;
+font-weight:700;
+color:#374151;
+
+}
+
+select,
+input{
+
+width:100%;
+padding:17px;
+border-radius:15px;
+border:2px solid #d1fae5;
+background:#f8fffc;
+font-size:17px;
+transition:.3s;
+outline:none;
+
+}
+
+select:focus,
+input:focus{
+
+border-color:#10b981;
+background:#fff;
+box-shadow:0 0 0 5px rgba(16,185,129,.12);
+
+}
+
+.dynamicFields{
+
+margin-top:20px;
+
+}
+
+.field{
+
+margin-bottom:16px;
+
+}
+
+.summary{
+
+margin-top:28px;
+background:#f8fffc;
+border:2px solid #dcfce7;
+border-radius:18px;
+padding:20px;
+
+}
+
+.summary h3{
+
+margin-bottom:18px;
+color:#065f46;
+
+}
+
+.summary div{
+
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid #e5e7eb;
+
+}
+
+.summary div:last-child{
+
+border-bottom:none;
+
+}
+
+.summary b{
+
+color:#059669;
+
+}
+
+.withdrawBtn{
+
+margin-top:28px;
+width:100%;
+padding:18px;
+border:none;
+border-radius:16px;
+
+background:
+linear-gradient(135deg,#10b981,#34d399);
+
+color:#fff;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+
+transition:.35s;
+
+box-shadow:
+
+0 12px 30px rgba(16,185,129,.30);
+
+}
+
+.withdrawBtn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+
+0 18px 35px rgba(16,185,129,.35);
+
+}
+
+.notice{
+
+margin-top:22px;
+
+background:#f0fdf4;
+
+border-left:5px solid #10b981;
+
+padding:18px;
+
+border-radius:15px;
+
+font-size:15px;
+
+line-height:1.9;
+
+color:#374151;
+
+}
+
+.modal{
+
+position:fixed;
+inset:0;
+
+background:rgba(15,23,42,.45);
+
+backdrop-filter:blur(6px);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:99999;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
+.modal-box{
+
+width:92%;
+max-width:430px;
+
+background:#fff;
+
+padding:30px;
+
+border-radius:24px;
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.18);
+
+text-align:center;
+
+animation:popup .35s ease;
+
+}
+
+.modal-box h2{
+
+margin-bottom:18px;
+color:#065f46;
+
+}
+
+.modal-box p{
+
+line-height:1.9;
+margin-bottom:22px;
+
+}
+
+@keyframes popup{
+
+from{
+
+opacity:0;
+transform:scale(.9);
+
+}
+
+to{
+
+opacity:1;
+transform:scale(1);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="topBar">
+
+<div>
+
+<h2>Withdraw Funds</h2>
+
+<p>Transfer money to another platform</p>
+
+</div>
+
+<a href="dashboard.html" class="backBtn">
+
+Back
+
+</a>
+
+</header>
+
+<div class="balanceCard">
+
+<h4>Available Balance</h4>
+
+<h1 id="balance">
+    <span class="loadingBalance">Loading...</span>
+</h1>
+
+<style>
+
+.loadingBalance{
+
+display:inline-block;
+
+color:#94a3b8;
+
+font-size:inherit;
+
+font-weight:700;
+
+font-style:italic;
+
+animation:loadingPulse 1.2s ease-in-out infinite;
+
+}
+
+@keyframes loadingPulse{
+
+0%{
+
+opacity:.35;
+
+}
+
+50%{
+
+opacity:1;
+
+}
+
+100%{
+
+opacity:.35;
+
+}
+
+}
+
+</style>
+
+</div>
+
+<div class="withdrawCard">
+
+<h2 class="title">
+
+Withdraw To
+
+</h2>
+
+<label>
+
+Destination
+
+</label>
+
+<select id="withdrawType">
+
+<option value="bank">🏦 Local Bank</option>
+
+<option value="cashapp">💵 Cash App</option>
+
+<option value="venmo">🟢 Venmo</option>
+
+<option value="apple">🍎 Apple Cash</option>
+
+<option value="wire">🌍 Wire Transfer</option>
+
+<option value="bitcoin">₿ Bitcoin Wallet</option>
+
+<option value="card">💳 Debit Card</option>
+
+</select>
+
+<div id="dynamicFields" class="dynamicFields">
+
+</div>
+  <label>
+
+Withdrawal Amount
+
+</label>
+
+<input
+type="number"
+id="withdrawAmount"
+placeholder="Enter withdrawal amount">
+
+<div class="summary">
+
+<h3>
+
+Withdrawal Summary
+
+</h3>
+
+<div>
+
+<span>Destination</span>
+
+<b id="summaryType">
+
+Local Bank
+
+</b>
+
+</div>
+
+<div>
+
+<span>Amount</span>
+
+<b id="summaryAmount">
+
+$0.00
+
+</b>
+
+</div>
+
+<div>
+
+<span>Fee</span>
+
+<b>
+
+FREE
+
+</b>
+
+</div>
+
+<div>
+
+<span>Status</span>
+
+<b>
+
+Pending Confirmation
+
+</b>
+
+</div>
+
+</div>
+
+<div class="notice">
+
+<b>Security Notice</b>
+
+<br><br>
+
+Your withdrawal destination will be verified before processing.
+
+This is a secure banking environment protected with bank-level encryption.
+
+</div>
+
+<button
+class="withdrawBtn"
+onclick="reviewWithdrawal()">
+
+Continue
+
+</button>
+
+</div>
+
+<div id="messageModal" class="modal hidden">
+
+<div class="modal-box">
+
+<h2 id="modalTitle">
+
+Review Withdrawal
+
+</h2>
+
+<p id="modalMessage">
+
+</p>
+
+<button
+class="withdrawBtn"
+onclick="confirmWithdrawal()">
+
+Confirm Withdrawal
+
+</button>
+
+</div>
+
+</div>
+
+<script type="module" src="js/wallet.js"></script>
+
+<script>
+
+const fields=document.getElementById("dynamicFields");
+
+function loadFields(type){
+
+switch(type){
+
+case "bank":
+
+fields.innerHTML=`
+
+<div class="field">
+
+<label>Bank Name</label>
+
+<input id="bankName" placeholder="e.g Chase Bank">
+
+</div>
+
+<div class="field">
+
+<label>Account Name</label>
+
+<input id="accountName" placeholder="Account Holder">
+
+</div>
+
+<div class="field">
+
+<label>Account Number</label>
+
+<input id="accountNumber" placeholder="0123456789">
+
+</div>
+
+`;
+
+break;
+
+case "cashapp":
+
+fields.innerHTML=`
+
+<div class="field">
+
+<label>Cash App Tag</label>
+
+<input id="cashTag" placeholder="$username">
+
+</div>
+
+`;
+
+break;
+
+case "venmo":
+
+fields.innerHTML=`
+
+<div class="field">
+
+<label>Venmo Username</label>
+
+<input id="venmoUser" placeholder="@username">
+
+</div>
+
+`;
+
+break;
+
+case "apple":
+
+fields.innerHTML=`
+
+<div class="field">
+
+<label>Apple ID Email</label>
+
+<input id="appleEmail" placeholder="name@email.com">
+
+</div>
+
+`;
+
+break;
+
+case "wire":
+
+fields.innerHTML=`
+
+<div class="field">
+
+<label>Beneficiary Name</label>
+
+<input id="beneficiary">
+
+</div>
+
+<div class="field">
+
+<label>Bank Name</label>
+
+<input id="wireBank">
+
+</div>
+
+<div class="field">
+
+<label>IBAN</label>
+
+<input id="iban">
+
+</div>
+
+<div class="field">
+
+<label>SWIFT Code</label>
+
+<input id="swift">
+
+</div>
+
+`;
+
+break;
+
+case "bitcoin":
+
+fields.innerHTML=`
+
+<div class="field">
+
+<label>Bitcoin Wallet Address</label>
+
+<input id="btcAddress">
+
+</div>
+
+<div class="field">
+
+<label>Network</label>
+
+<select id="btcNetwork">
+
+<option>Bitcoin</option>
+
+<option>Lightning</option>
+
+</select>
+
+</div>
+
+`;
+
+break;
+
+case "card":
+
+fields.innerHTML=`
+
+<div class="field">
+
+<label>Card Number</label>
+
+<input id="cardNumber" placeholder="**** **** **** ****">
+
+</div>
+
+`;
+
+break;
+
+}
+
+}
+
+loadFields("bank");
+  document.getElementById("withdrawType").addEventListener("change",function(){
+
+const names={
+
+bank:"🏦 Local Bank",
+cashapp:"💵 Cash App",
+venmo:"🟢 Venmo",
+apple:"🍎 Apple Cash",
+wire:"🌍 Wire Transfer",
+bitcoin:"₿ Bitcoin Wallet",
+card:"💳 Debit Card"
+
+};
+
+document.getElementById("summaryType").innerHTML=names[this.value];
+
+loadFields(this.value);
+
+});
+
+document.getElementById("withdrawAmount").addEventListener("input",function(){
+
+const amount=Number(this.value||0);
+
+document.getElementById("summaryAmount").innerHTML=
+
+"$"+amount.toLocaleString("en-US",{
+
+minimumFractionDigits:2,
+maximumFractionDigits:2
+
+});
+
+if(document.getElementById("btcNetwork")){
+
+const btc=(amount/100000).toFixed(8);
+
+const old=document.getElementById("btcValue");
+
+if(old) old.remove();
+
+const div=document.createElement("div");
+
+div.id="btcValue";
+
+div.style.marginTop="12px";
+
+div.style.fontWeight="bold";
+
+div.innerHTML="≈ "+btc+" BTC";
+
+fields.appendChild(div);
+
+}
+
+});
+
+function reviewWithdrawal(){
+
+const amount=document.getElementById("withdrawAmount").value;
+
+if(amount===""||Number(amount)<=0){
+
+alert("Enter a withdrawal amount.");
+
+return;
+
+}
+
+const destination=document.getElementById("summaryType").textContent;
+
+document.getElementById("modalTitle").innerHTML="Review Withdrawal";
+
+document.getElementById("modalMessage").innerHTML=`
+
+<div style="text-align:left;line-height:2;">
+
+<b>Destination</b><br>
+
+${destination}
+
+<br><br>
+
+<b>Amount</b><br>
+
+$${Number(amount).toLocaleString("en-US",{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+})}
+
+<br><br>
+
+<b>Fee</b><br>
+
+FREE
+
+<br><br>
+
+<b>Status</b><br>
+
+Ready for Confirmation
+
+</div>
+
+`;
+
+document.getElementById("messageModal").classList.remove("hidden");
+
+}
+
+function confirmWithdrawal(){
+
+const amount=document.getElementById("withdrawAmount").value;
+
+if(amount==="" || Number(amount)<=0){
+
+alert("Enter a withdrawal amount.");
+
+return;
+
+}
+
+const modal=document.getElementById("messageModal");
+const title=document.getElementById("modalTitle");
+const message=document.getElementById("modalMessage");
+const btn=modal.querySelector(".withdrawBtn");
+const typeSelect=document.getElementById("withdrawType");
+
+title.innerHTML="Demo Banking Notice";
+
+message.innerHTML=`
+
+<div style="text-align:left;line-height:1.9;">
+
+<b>Destination</b><br>
+
+${document.getElementById("summaryType").textContent}
+
+<br><br>
+
+<b>Amount</b><br>
+
+$${Number(amount).toLocaleString("en-US",{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+})}
+
+<br><br>
+
+This is a <b>Demo Banking Account</b>.
+
+Your withdrawal request will now be processed exactly as it would in a live banking environment.
+
+However, no money will actually be delivered to the selected destination because this is only a demonstration system.
+
+Click <b>Proceed</b> to continue with the simulated withdrawal.
+
+</div>
+
+`;
+
+btn.textContent="Proceed";
+btn.disabled=false;
+
+btn.onclick=function(){
+
+btn.disabled=true;
+btn.textContent="Done";
+
+btn.onclick=function(){
+
+modal.classList.add("hidden");
+
+document.getElementById("withdrawAmount").value="";
+document.getElementById("summaryAmount").textContent="$0.00";
+
+typeSelect.value="bank";
+typeSelect.dispatchEvent(new Event("change"));
+
+btn.textContent="Confirm Withdrawal";
+btn.disabled=false;
+btn.onclick=confirmWithdrawal;
+
+};
+
+modal.classList.add("hidden");
+
+withdraw(amount);
+
+btn.disabled=false;
+
+};
+
+}
+</script>
+
+</body>
+
+</html>

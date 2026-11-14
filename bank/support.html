@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Live Support</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+flex-direction:column;
+background:#eef3f8;
+overflow:hidden;
+}
+
+header{
+
+height:70px;
+
+background:#0d6efd;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 18px;
+
+color:#fff;
+
+box-shadow:0 3px 12px rgba(0,0,0,.15);
+
+}
+
+.headerLeft{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.back{
+
+width:42px;
+
+height:42px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:rgba(255,255,255,.18);
+
+cursor:pointer;
+
+font-size:22px;
+
+}
+
+.avatar{
+
+width:48px;
+
+height:48px;
+
+border-radius:50%;
+
+background:#fff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:22px;
+
+color:#0d6efd;
+
+font-weight:bold;
+
+}
+
+.info h2{
+
+font-size:18px;
+
+}
+
+.info p{
+
+font-size:13px;
+
+opacity:.9;
+
+}
+
+.menu{
+
+font-size:28px;
+
+cursor:pointer;
+
+}
+
+.chatBox{
+
+flex:1;
+
+overflow-y:auto;
+
+padding:18px;
+
+background:#edf2f7;
+
+}
+
+.empty{
+
+height:100%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+color:#666;
+
+}
+
+.empty div{
+
+font-size:70px;
+
+margin-bottom:15px;
+
+}
+
+.message{
+
+display:flex;
+
+margin-bottom:14px;
+
+}
+
+.user{
+
+justify-content:flex-end;
+
+}
+
+.admin{
+
+justify-content:flex-start;
+
+}
+
+.bubble{
+
+max-width:78%;
+
+padding:12px 15px;
+
+border-radius:18px;
+
+font-size:15px;
+
+line-height:1.5;
+
+word-break:break-word;
+
+}
+
+.user .bubble{
+
+background:#0d6efd;
+
+color:#fff;
+
+border-bottom-right-radius:5px;
+
+}
+
+.admin .bubble{
+
+background:#fff;
+
+border-bottom-left-radius:5px;
+
+box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+}
+
+.time{
+
+display:block;
+
+font-size:11px;
+
+margin-top:6px;
+
+opacity:.7;
+
+text-align:right;
+
+}
+
+.typing{
+
+display:none;
+
+padding:8px 18px;
+
+font-size:13px;
+
+color:#666;
+
+background:#fff;
+
+}
+
+.footer{
+
+background:#fff;
+
+padding:10px;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+border-top:1px solid #ddd;
+
+}
+
+#message{
+
+flex:1;
+
+height:48px;
+
+border:none;
+
+background:#f3f4f6;
+
+border-radius:25px;
+
+padding:0 18px;
+
+outline:none;
+
+font-size:15px;
+
+}
+
+#send{
+
+width:55px;
+
+height:55px;
+
+border:none;
+
+border-radius:50%;
+
+background:#0d6efd;
+
+color:#fff;
+
+font-size:22px;
+
+cursor:pointer;
+
+}
+
+::-webkit-scrollbar{
+
+width:6px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#bbb;
+
+border-radius:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="headerLeft">
+
+<div
+class="back"
+onclick="history.back()">
+
+←
+
+</div>
+
+<div class="avatar">
+
+🎧
+
+</div>
+
+<div class="info">
+
+<h2>
+
+Customer Support
+
+</h2>
+
+<p id="status">
+
+Connecting...
+
+</p>
+
+</div>
+
+</div>
+
+<div class="menu">
+
+⋮
+
+</div>
+
+</header>
+
+<div
+class="typing"
+id="typing">
+
+Support is typing...
+
+</div>
+
+<div
+class="chatBox"
+id="chatBox">
+
+<div
+class="empty"
+id="empty">
+
+<div>
+
+💬
+
+</div>
+
+<h2>
+
+Welcome
+
+</h2>
+
+<p>
+
+Send a message to customer support.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+<input
+type="text"
+id="message"
+placeholder="Type message...">
+
+<button
+id="send">
+
+➤
+
+</button>
+
+</div>
+
+<script type="module">
+    import {
+    auth,
+    db,
+    ref,
+    push,
+    set,
+    get,
+    update,
+    onValue,
+    query,
+    orderByChild,
+    onDisconnect
+} from "./js/firebase.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* ===================================
+   VARIABLES
+=================================== */
+
+let currentUser = null;
+let messagesRef = null;
+
+const chatBox = document.getElementById("chatBox");
+const empty = document.getElementById("empty");
+const message = document.getElementById("message");
+const send = document.getElementById("send");
+const typing = document.getElementById("typing");
+const status = document.getElementById("status");
+
+/* ===================================
+   NOTIFICATION SYSTEM
+=================================== */
+
+let lastAdminMessageTime = 0;
+
+if ("Notification" in window &&
+    Notification.permission === "default") {
+
+    Notification.requestPermission();
+
+}
+
+const AudioContextClass =
+window.AudioContext ||
+window.webkitAudioContext;
+
+let audioContext = null;
+
+function playNotificationSound(){
+
+    try{
+
+        if(!audioContext){
+
+            audioContext =
+            new AudioContextClass();
+
+        }
+
+        if(audioContext.state==="suspended"){
+
+            audioContext.resume();
+
+        }
+
+        const oscillator =
+        audioContext.createOscillator();
+
+        const gain =
+        audioContext.createGain();
+
+        oscillator.type="sine";
+
+        oscillator.frequency.setValueAtTime(
+            880,
+            audioContext.currentTime
+        );
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.25,
+            audioContext.currentTime+0.02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            audioContext.currentTime+0.35
+        );
+
+        oscillator.connect(gain);
+
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime+0.35
+        );
+
+    }catch(e){
+
+        console.log(e);
+
+    }
+
+}
+
+function notifyAdminMessage(text){
+
+    playNotificationSound();
+
+    if(
+
+        "Notification" in window &&
+
+        Notification.permission==="granted"
+
+    ){
+
+        new Notification(
+
+            "Customer Support",
+
+            {
+
+                body:text,
+
+                tag:"support-chat"
+
+            }
+
+        );
+
+    }
+
+}
+    /* ===================================
+   PAGE VISIBILITY
+=================================== */
+
+let pageVisible = !document.hidden;
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    function(){
+
+        pageVisible = !document.hidden;
+
+    }
+
+);
+/* ===================================
+   LOGIN
+=================================== */
+
+onAuthStateChanged(auth, async(user)=>{
+
+    if(!user){
+
+        location.href="login.html";
+        return;
+
+    }
+
+    currentUser = user;
+
+    status.textContent = "Online";
+
+    messagesRef = ref(
+        db,
+        "supportChats/"+user.uid+"/messages"
+    );
+
+    const userSnap = await get(
+    ref(db,"users/"+user.uid)
+);
+
+const profile = userSnap.exists()
+    ? userSnap.val()
+    : {};
+
+await set(
+
+    ref(
+        db,
+        "supportChats/"+user.uid+"/customer"
+    ),
+
+    {
+
+        uid:user.uid,
+
+        name:profile.fullname || profile.name || "",
+
+        email:user.email,
+
+        online:true,
+
+        lastSeen:Date.now()
+
+    }
+
+);
+    const disconnect =
+    onDisconnect(
+
+        ref(
+            db,
+            "supportChats/"+user.uid+"/customer"
+        )
+
+    );
+
+    disconnect.update({
+
+        online:false,
+
+        lastSeen:Date.now()
+
+    });
+
+    loadMessages();
+
+});
+
+/* ===================================
+   SEND
+=================================== */
+
+send.onclick = sendMessage;
+
+message.addEventListener(
+
+    "keypress",
+
+    function(e){
+
+        if(e.key==="Enter"){
+
+            e.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+
+);
+
+async function sendMessage(){
+
+    if(!currentUser) return;
+
+    const text =
+    message.value.trim();
+
+    if(text==="") return;
+
+    const msg={
+
+        sender:"user",
+
+        text:text,
+
+        time:Date.now(),
+
+        read:false
+
+    };
+
+    const newMsg =
+    push(messagesRef);
+
+    await set(
+
+        newMsg,
+
+        msg
+
+    );
+
+    await update(
+
+        ref(
+            db,
+            "supportChats/"+currentUser.uid
+        ),
+
+        {
+
+            lastMessage:text,
+
+            updatedAt:Date.now()
+
+        }
+
+    );
+
+    message.value="";
+
+}
+
+/* ===================================
+   LOAD MESSAGES
+=================================== */
+
+function loadMessages(){
+
+    onValue(
+
+        query(
+            messagesRef,
+            orderByChild("time")
+        ),
+
+        function(snapshot){
+
+            chatBox.innerHTML="";
+
+            if(!snapshot.exists()){
+
+                chatBox.appendChild(empty);
+
+                return;
+
+            }
+
+            snapshot.forEach(function(child){
+
+                const data=
+                child.val();
+
+                createBubble(data);
+
+            });
+
+            chatBox.scrollTop=
+            chatBox.scrollHeight;
+
+        }
+
+    );
+
+}
+
+/* ===================================
+   BUBBLES
+=================================== */
+
+function createBubble(data){
+
+    const row=
+    document.createElement("div");
+
+    row.className=
+    "message "+data.sender;
+
+    const bubble=
+    document.createElement("div");
+
+    bubble.className="bubble";
+
+    bubble.innerHTML=`
+
+        ${data.text}
+
+        <span class="time">
+
+        ${new Date(data.time)
+        .toLocaleTimeString([],{
+
+            hour:"2-digit",
+
+            minute:"2-digit"
+
+        })}
+
+        </span>
+
+    `;
+
+        row.appendChild(bubble);
+
+    chatBox.appendChild(row);
+
+    /* ===============================
+       NEW ADMIN MESSAGE NOTIFICATION
+    =============================== */
+
+    if(data.sender==="admin"){
+
+        if(lastAdminMessageTime===0){
+
+            // Existing messages when the page first loads
+            // should not trigger notifications.
+            lastAdminMessageTime=data.time;
+
+        }else if(data.time>lastAdminMessageTime){
+
+            lastAdminMessageTime=data.time;
+
+            notifyAdminMessage(data.text);
+
+        }
+
+    }
+
+}
+    /* ===================================
+   CUSTOMER TYPING STATUS
+=================================== */
+
+let typingTimer;
+
+message.addEventListener("input", async function(){
+
+    if(!currentUser) return;
+
+    await update(
+
+        ref(
+            db,
+            "supportChats/" +
+            currentUser.uid
+        ),
+
+        {
+
+            userTyping:true
+
+        }
+
+    );
+
+    clearTimeout(typingTimer);
+
+    typingTimer = setTimeout(async()=>{
+
+        await update(
+
+            ref(
+                db,
+                "supportChats/" +
+                currentUser.uid
+            ),
+
+            {
+
+                userTyping:false
+
+            }
+
+        );
+
+    },1000);
+
+});
+
+/* ===================================
+   ADMIN TYPING INDICATOR
+=================================== */
+
+onValue(
+
+    ref(
+        db,
+        "supportChats/" +
+        currentUser.uid +
+        "/adminTyping"
+    ),
+
+    function(snapshot){
+
+        if(snapshot.val()){
+
+            typing.style.display="block";
+
+        }else{
+
+            typing.style.display="none";
+
+        }
+
+    }
+
+);
+
+/* ===================================
+   MARK ADMIN MESSAGES AS READ
+=================================== */
+
+onValue(
+
+    messagesRef,
+
+    function(snapshot){
+
+        if(!snapshot.exists()) return;
+
+        snapshot.forEach(async(child)=>{
+
+            const data = child.val();
+
+            if(
+                data.sender==="admin" &&
+                !data.read
+            ){
+
+                await update(
+
+                    ref(
+                        db,
+                        "supportChats/" +
+                        currentUser.uid +
+                        "/messages/" +
+                        child.key
+                    ),
+
+                    {
+
+                        read:true
+
+                    }
+
+                );
+
+            }
+
+        });
+
+    }
+
+);
+
+/* ===================================
+   AUTO SCROLL
+=================================== */
+
+const observer = new MutationObserver(function(){
+
+    chatBox.scrollTop =
+    chatBox.scrollHeight;
+
+});
+
+observer.observe(
+
+    chatBox,
+
+    {
+
+        childList:true
+
+    }
+
+);
+
+/* ===================================
+   USER OFFLINE
+=================================== */
+
+window.addEventListener(
+
+    "beforeunload",
+
+    async function(){
+
+        if(!currentUser) return;
+
+        await update(
+
+            ref(
+                db,
+                "supportChats/" +
+                currentUser.uid +
+                "/customer"
+            ),
+
+            {
+
+                online:false,
+
+                lastSeen:Date.now()
+
+            }
+
+        );
+
+    }
+
+);
+
+/* ===================================
+   HEARTBEAT
+=================================== */
+
+setInterval(async()=>{
+
+    if(!currentUser) return;
+
+    await update(
+
+        ref(
+            db,
+            "supportChats/" +
+            currentUser.uid +
+            "/customer"
+        ),
+
+        {
+
+            online:true,
+
+            lastSeen:Date.now()
+
+        }
+
+    );
+
+},30000);
+
+</script>
+
+</body>
+
+</html>

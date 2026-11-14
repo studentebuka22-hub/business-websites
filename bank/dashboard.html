@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Demo Bank</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/animation.css">
+
+</head>
+
+<body>
+
+<header class="topBar">
+
+<div>
+
+<h3>Welcome Back</h3>
+
+<p id="welcomeUser">Loading...</p>
+
+</div>
+
+<div class="avatar">
+👤
+</div>
+
+</header>
+
+<section class="balanceCard fade-in">
+
+<div class="cardTop">
+
+<span>Total Balance</span>
+
+
+
+</div>
+
+<h1 id="balance">
+    <span class="loadingBalance">Loading...</span>
+</h1>
+
+<style>
+
+.loadingBalance{
+
+display:inline-block;
+
+color:#94a3b8;
+
+font-size:inherit;
+
+font-weight:700;
+
+font-style:italic;
+
+animation:loadingPulse 1.2s ease-in-out infinite;
+
+}
+
+@keyframes loadingPulse{
+
+0%{
+
+opacity:.35;
+
+}
+
+50%{
+
+opacity:1;
+
+}
+
+100%{
+
+opacity:.35;
+
+}
+
+}
+
+</style>
+
+<div class="cardInfo">
+
+<div>
+
+<small>Card Holder</small>
+
+<h3 id="cardHolder">Loading...</h3>
+
+</div>
+
+<div>
+
+<small>Card Number</small>
+
+<h3 id="dashboardCardNumber">
+    Loading...
+</h3>
+
+<script type="module">
+import {
+    auth,
+    db,
+    ref,
+    get
+} from "./js/firebase.js";
+
+auth.onAuthStateChanged(async (user) => {
+
+    if (!user) return;
+
+    try {
+
+        const snapshot = await get(
+            ref(db, "users/" + user.uid)
+        );
+
+        if (!snapshot.exists()) return;
+
+        const data = snapshot.val();
+
+        let cardNumber = String(
+            data.cardNumber || "0000000000000000"
+        ).replace(/\s/g, "");
+
+        cardNumber = cardNumber
+            .replace(/(.{4})/g, "$1 ")
+            .trim();
+
+        document.getElementById("dashboardCardNumber").textContent = cardNumber;
+
+    } catch (err) {
+
+        console.error(err);
+
+        document.getElementById("dashboardCardNumber").textContent =
+            "**** **** **** ****";
+
+    }
+
+});
+</script>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="quickActions">
+
+<a href="deposit.html" class="actionCard">
+
+<div class="icon">💰</div>
+
+<span>Deposit</span>
+
+</a>
+
+<a href="withdraw.html" class="actionCard">
+
+<div class="icon">🏧</div>
+
+<span>Withdraw</span>
+
+</a>
+
+<a href="send.html" class="actionCard">
+
+<div class="icon">📤</div>
+
+<span>Transfer</span>
+
+</a>
+
+<a href="cards.html" class="actionCard">
+
+<div class="icon">💳</div>
+
+<span>Cards</span>
+
+</a>
+
+</section>
+
+<section class="transactions">
+
+<div class="sectionTitle">
+
+<h2>Recent Transactions</h2>
+
+<a href="history.html">View All</a>
+
+</div>
+
+<div id="transactionList">
+
+<div class="empty">
+
+No Transactions Yet
+
+</div>
+
+</div>
+
+</section>
+
+<nav class="bottomNav">
+
+<a href="dashboard.html">
+
+🏠
+
+<p>Home</p>
+
+</a>
+
+<a href="stats.html">
+
+📈
+
+<p>Stats</p>
+
+</a>
+
+<a href="send.html" class="centerButton">
+
+➕
+
+</a>
+
+<a href="cards.html">
+
+💳
+
+<p>Cards</p>
+
+</a>
+
+<a href="profile.html">
+
+👤
+
+<p>Profile</p>
+
+</a>
+
+</nav>
+
+</div>
+
+</div>
+
+<script type="module" src="js/wallet.js"></script>
+
+</body>
+
+</html>
